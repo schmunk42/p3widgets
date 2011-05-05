@@ -22,10 +22,25 @@
  * @package pii.cells
  * @since 2.0
  */
+
+Yii::import('p3widgets.models.*');
+
 class P3WidgetContainer extends CWidget {
     function  run() {
 		parent::run();
-		echo "I am a widget conatiner";
+
+		$criteria = new CDbCriteria();
+		$criteria->condition = 'controllerId = "'.$this->controller->id.'" AND actionName = "'.$this->controller->action->id.'"';
+		$models = Widget::model()->findAll($criteria);
+
+		foreach($models AS $model) {
+			$widget = new $model->path;
+			foreach(CJSON::decode($model->properties) AS $property => $value) {
+				$widget->$property = $value;
+			}
+			$widget->run();
+		}
+
 	}
 }
 ?>
