@@ -17,7 +17,11 @@
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'properties'); ?>
-		<?php echo $form->textArea($model,'properties',array('rows'=>6, 'cols'=>50)); ?>
+		<?php #echo $form->textArea($model,'properties',array('rows'=>6, 'cols'=>50)); ?>
+		<?php $this->widget('p3widgets.extensions.jsonEditorView.JuiJSONEditorInput', array(
+   'model'=>$model, // ActiveRecord, or any CModel child class
+   'attribute'=>'properties' // Model attribute holding initial JSON data string
+)); ?>
 		<?php echo $form->error($model,'properties'); ?>
 	</div>
 

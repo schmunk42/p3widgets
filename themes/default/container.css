@@ -43,26 +43,27 @@ DIV.widget-container DIV.admin-panel {
 }
 
 DIV.widget-container {
-    border: 1px solid #ccc;
-    margin: -1px;
+    Xborder: 1px solid #ccc;
+    Xmargin: -1px;
     min-height: 32px;
 }
 DIV.widget {
-    border: 1px dashed #eee;
-    margin: -1px;
+    Xborder: 1px dashed #eee;
+    Xmargin: -1px;
 }
 
 DIV.widget-container.admin {
-    min-height: 32px;
+    min-height: 20px;
 }
 DIV.widget-container.admin DIV.widget {
-    min-height: 32px;
+    min-height: 10px;
 }
 
 
 DIV.widget-container.over {
     border: 2px solid #ccc;
-    margin: -2px;
+    margin: -4px;
+    padding: 2px;
 }
 DIV.widget.over {
     border: 1px solid #eee;
