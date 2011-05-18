@@ -49,14 +49,18 @@ class P3WidgetContainer extends CWidget {
 		foreach ($models AS $model) {
 			$content = $this->prepareWidget($model->path, CJSON::decode($model->properties));
 
-			if (true || Yii::app()->user->checkAccess('admin')) {
+			if (Yii::app()->user->checkAccess('admin')) {
 				$widgets .= $this->render('widget', array('content' => $content, 'model' => $model), true);
 			} else {
 				$widgets .= $content;
 			}
 		}
 
-		$this->render('container', array('widgets' => $widgets), false);
+		if (Yii::app()->user->checkAccess('admin')) {
+			$this->render('container', array('widgets' => $widgets), false);
+		} else {
+			echo $widgets;
+		}
 	}
 
 	private function prepareWidget($alias, $properties) {
@@ -68,6 +72,7 @@ class P3WidgetContainer extends CWidget {
 					$widget->$property = $value;
 				} catch (Exception $e) {
 					Yii::log($e->getMessage(), CLogger::LEVEL_ERROR);
+					return "<div class='flash-notice'>Widget has no property {$property}</div>";
 				}
 			}
 			ob_start();
