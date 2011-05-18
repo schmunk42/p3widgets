@@ -4,8 +4,8 @@
 	<?php echo CHtml::link(CHtml::encode($data->id), array('view', 'id'=>$data->id)); ?>
 	<br />
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('path')); ?>:</b>
-	<?php echo CHtml::encode($data->path); ?>
+	<b><?php echo CHtml::encode($data->getAttributeLabel('alias')); ?>:</b>
+	<?php echo CHtml::encode($data->alias); ?>
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('properties')); ?>:</b>
@@ -16,8 +16,8 @@
 	<?php echo CHtml::encode($data->rank); ?>
 	<br />
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('cellId')); ?>:</b>
-	<?php echo CHtml::encode($data->cellId); ?>
+	<b><?php echo CHtml::encode($data->getAttributeLabel('containerId')); ?>:</b>
+	<?php echo CHtml::encode($data->containerId); ?>
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('moduleId')); ?>:</b>

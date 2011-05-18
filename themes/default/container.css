@@ -43,8 +43,8 @@ DIV.widget-container DIV.admin-panel {
 }
 
 DIV.widget-container {
-    Xborder: 1px solid #ccc;
-    Xmargin: -1px;
+    border: 1px solid #ccc;
+    margin: -1px;
     min-height: 32px;
 }
 DIV.widget {

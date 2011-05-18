@@ -44,17 +44,15 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
 	'filter'=>$model,
 	'columns'=>array(
 		'id',
-		'path',
-		'properties',
+		'alias',
+#		'properties',
 		'rank',
-		'cellId',
-		'moduleId',
-		/*
+		'containerId',
+#		'moduleId',
 		'controllerId',
 		'actionName',
 		'requestParam',
-		'sessionParam',
-		*/
+#		'sessionParam',
 		array(
 			'class'=>'CButtonColumn',
 		),

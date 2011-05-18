@@ -11,8 +11,8 @@
 	</div>
 
 	<div class="row">
-		<?php echo $form->label($model,'path'); ?>
-		<?php echo $form->textField($model,'path',array('size'=>60,'maxlength'=>255)); ?>
+		<?php echo $form->label($model,'alias'); ?>
+		<?php echo $form->textField($model,'alias',array('size'=>60,'maxlength'=>255)); ?>
 	</div>
 
 	<div class="row">
@@ -26,8 +26,8 @@
 	</div>
 
 	<div class="row">
-		<?php echo $form->label($model,'cellId'); ?>
-		<?php echo $form->textField($model,'cellId',array('size'=>60,'maxlength'=>64)); ?>
+		<?php echo $form->label($model,'containerId'); ?>
+		<?php echo $form->textField($model,'containerId',array('size'=>60,'maxlength'=>64)); ?>
 	</div>
 
 	<div class="row">

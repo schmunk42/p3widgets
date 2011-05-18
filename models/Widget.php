@@ -5,10 +5,10 @@
  *
  * The followings are the available columns in table 'p3_widgets':
  * @property integer $id
- * @property string $path
+ * @property string $alias
  * @property string $properties
  * @property integer $rank
- * @property string $cellId
+ * @property string $containerId
  * @property string $moduleId
  * @property string $controllerId
  * @property string $actionName
@@ -42,15 +42,15 @@ class Widget extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('path', 'required'),
+			array('alias', 'required'),
 			array('rank', 'numerical', 'integerOnly'=>true),
-			array('path', 'length', 'max'=>255),
-			array('cellId', 'length', 'max'=>64),
+			array('alias', 'length', 'max'=>255),
+			array('containerId', 'length', 'max'=>64),
 			array('moduleId, controllerId, actionName, requestParam, sessionParam', 'length', 'max'=>128),
 			array('properties', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, path, properties, rank, cellId, moduleId, controllerId, actionName, requestParam, sessionParam', 'safe', 'on'=>'search'),
+			array('id, alias, properties, rank, containerId, moduleId, controllerId, actionName, requestParam, sessionParam', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -72,10 +72,10 @@ class Widget extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'path' => 'Path',
+			'alias' => 'alias',
 			'properties' => 'Properties',
 			'rank' => 'Rank',
-			'cellId' => 'Cell',
+			'containerId' => 'Container',
 			'moduleId' => 'Module',
 			'controllerId' => 'Controller',
 			'actionName' => 'Action Name',
@@ -96,10 +96,10 @@ class Widget extends CActiveRecord
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('id',$this->id);
-		$criteria->compare('path',$this->path,true);
+		$criteria->compare('alias',$this->alias,true);
 		$criteria->compare('properties',$this->properties,true);
 		$criteria->compare('rank',$this->rank);
-		$criteria->compare('cellId',$this->cellId,true);
+		$criteria->compare('containerId',$this->containerId,true);
 		$criteria->compare('moduleId',$this->moduleId,true);
 		$criteria->compare('controllerId',$this->controllerId,true);
 		$criteria->compare('actionName',$this->actionName,true);
