@@ -36,9 +36,9 @@
 	</div>
 
 	<div class="row">
-		<?php echo $form->labelEx($model,'contiainerId'); ?>
-		<?php echo $form->textField($model,'contiainerId',array('size'=>60,'maxlength'=>64)); ?>
-		<?php echo $form->error($model,'contiainerId'); ?>
+		<?php echo $form->labelEx($model,'containerId'); ?>
+		<?php echo $form->textField($model,'containerId',array('size'=>60,'maxlength'=>64)); ?>
+		<?php echo $form->error($model,'containerId'); ?>
 	</div>
 
 	<div class="row">
