@@ -32,9 +32,9 @@
 	</div>
 
 	<div class="row">
-		<?php echo $form->labelEx($model,'cellId'); ?>
-		<?php echo $form->textField($model,'cellId',array('size'=>60,'maxlength'=>64)); ?>
-		<?php echo $form->error($model,'cellId'); ?>
+		<?php echo $form->labelEx($model,'contiainerId'); ?>
+		<?php echo $form->textField($model,'contiainerId',array('size'=>60,'maxlength'=>64)); ?>
+		<?php echo $form->error($model,'contiainerId'); ?>
 	</div>
 
 	<div class="row">

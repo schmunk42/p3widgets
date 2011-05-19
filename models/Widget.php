@@ -42,7 +42,7 @@ class Widget extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('path', 'required'),
+			array('alias', 'required'),
 			array('rank', 'numerical', 'integerOnly'=>true),
 			array('path', 'length', 'max'=>255),
 			array('cellId', 'length', 'max'=>64),
@@ -72,10 +72,10 @@ class Widget extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'path' => 'Path',
+			'alias' => 'Alias',
 			'properties' => 'Properties',
 			'rank' => 'Rank',
-			'cellId' => 'Cell',
+			'containerId' => 'Container',
 			'moduleId' => 'Module',
 			'controllerId' => 'Controller',
 			'actionName' => 'Action Name',
