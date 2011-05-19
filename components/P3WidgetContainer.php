@@ -33,11 +33,12 @@ class P3WidgetContainer extends CWidget {
 
 		$cssFile = Yii::app()->assetManager->publish(Yii::getPathOfAlias('p3widgets.themes.default') . DIRECTORY_SEPARATOR . 'container.css');
 		Yii::app()->clientScript->registerCssFile($cssFile);
-		$jsFile = Yii::app()->assetManager->publish(Yii::getPathOfAlias('p3widgets.themes.default') . DIRECTORY_SEPARATOR . 'container.js');
-		Yii::app()->clientScript->registerScriptFile($jsFile, CClientScript::POS_END);
+		
+		$jsFile = $this->renderInternal(Yii::getPathOfAlias('p3widgets.themes.default') . DIRECTORY_SEPARATOR . 'container.js', null, true);
+		Yii::app()->clientScript->registerScript('P3WidgetContainer',$jsFile, CClientScript::POS_END);
 
 		$criteria = new CDbCriteria();
-		$criteria->condition = 'controllerId = :controllerId AND actionName = :actionName AND cellId = :containerId';
+		$criteria->condition = 'controllerId = :controllerId AND actionName = :actionName AND containerId = :containerId';
 		$criteria->params = array(
 			':controllerId' => $this->controller->id,
 			'actionName' => $this->controller->action->id,
@@ -47,7 +48,7 @@ class P3WidgetContainer extends CWidget {
 
 		$widgets = "";
 		foreach ($models AS $model) {
-			$content = $this->prepareWidget($model->path, CJSON::decode($model->properties));
+			$content = $this->prepareWidget($model->alias, CJSON::decode($model->properties));
 
 			if (Yii::app()->user->checkAccess('admin')) {
 				$widgets .= $this->render('widget', array('content' => $content, 'model' => $model), true);
@@ -67,20 +68,20 @@ class P3WidgetContainer extends CWidget {
 		$class = Yii::import($alias);
 		if (@class_exists($class) == true) {
 			$widget = Yii::createComponent($alias);
+			ob_start();
 			foreach ($properties AS $property => $value) {
 				try {
 					$widget->$property = $value;
 				} catch (Exception $e) {
 					Yii::log($e->getMessage(), CLogger::LEVEL_ERROR);
-					return "<div class='flash-notice'>Widget has no property {$property}</div>";
+					echo "<div class='flash-notice'>Widget has no property '{$property}'</div>";
 				}
 			}
-			ob_start();
 			$widget->run();
 			$markup = ob_get_clean();
 			return $markup;
 		} else {
-			$msg = 'Widget ' . $alias . 'not found!';
+			$msg = 'Widget \'' . $alias . '\' not found!';
 			Yii::log($msg, CLogger::LEVEL_ERROR);
 			return "<div class='flash-error'>" . $msg . "</div>";
 		}

@@ -26,9 +26,10 @@ $(function() {
 	    msg = 'Moving widget #'+widgetId+' to '+containerId+' index '+widgetIndex;
 	    console.log(msg);
 
+	    url = '<?php echo Yii::app()->controller->createUrl("/p3widgets/widget/update", array("id"=>"_ID_")) ?>';
 	    $.post(
-		'/index.php?r=/p3widgets/widget/update&id='+widgetId,
-		{Widget:{cellId:containerId,rank:widgetIndex*10}},
+		url.replace('_ID_',widgetId),
+		{Widget:{containerId:containerId,rank:widgetIndex*10}},
 		function(data){
 		    //alert(data);
 		    if(data.search(/<h1>View Widget/i) != -1) {

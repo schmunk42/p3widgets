@@ -85,7 +85,7 @@ class JuiJSONEditorInput extends CJuiInputWidget
 		echo CHtml::button($this->initButtonLabel, array(
 			'onclick'=>"jQuery(\"#{$this->htmlOptions['id']}\").jsoneditor('init');"
 		));
-		echo CHtml::tag('div', $this->htmlOptions);
+		echo CHtml::tag('div', $this->htmlOptions, "");
 	}
 
 	public function registerClientScript()

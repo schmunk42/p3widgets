@@ -25,9 +25,9 @@
 					widgetId = ".$model->id.";
 					msg = 'Deleting widget #'+widgetId;
 					console.log(msg);
-
+                    url = ' ".Yii::app()->controller->createUrl("/p3widgets/widget/delete", array("id"=>"_ID_"))."';
 				    $.post(
-						'/index.php?r=/p3widgets/widget/delete&id='+widgetId,
+						url.replace(/_ID_/,widgetId),
 						{Widget:{id:widgetId}},
 						function(data){
 							if(data.search(/<h1>Manage Widgets/i) != -1) {

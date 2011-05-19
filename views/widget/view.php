@@ -20,10 +20,10 @@ $this->menu=array(
 	'data'=>$model,
 	'attributes'=>array(
 		'id',
-		'path',
+		'alias',
 		'properties',
 		'rank',
-		'cellId',
+		'containerId',
 		'moduleId',
 		'controllerId',
 		'actionName',
