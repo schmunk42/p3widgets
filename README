@@ -47,7 +47,7 @@ application configuration.
 3)
 Import database schema with yiic.
 Note: This command will create an own migration table for this module, it will
-not disturb your application migration table!
+not disturb your application migration table! Use your application yiic command.
 > ./yiic migrate \
     --migrationPath=application.modules.p3widgets.migrations \
     --migrationTable=tbl_migration_module_p3widgets
