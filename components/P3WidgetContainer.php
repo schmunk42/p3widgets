@@ -35,6 +35,15 @@ class P3WidgetContainer extends CWidget {
 	 */
 	public $varyByRequestParam = null;
 
+	/**
+	 * Parameter for User checkAccess() to enable frontend editing,
+	 * set to 'false' if you want to disable this feature
+	 *
+	 * @var string
+	 */
+	public $checkAccess = 'admin';
+	
+
 	function init() {
 		parent::init();
 		if (!$this->getId(false)) {
@@ -72,7 +81,7 @@ class P3WidgetContainer extends CWidget {
 		foreach ($models AS $model) {
 			$content = $this->prepareWidget($model->alias, CJSON::decode($model->properties), $model->content);
 
-			if (Yii::app()->user->checkAccess('admin')) {
+			if (($this->checkAccess === false) || Yii::app()->user->checkAccess($this->checkAccess)) {
 				$widgets .= $this->render(
 						'widget',
 						array(
@@ -86,7 +95,7 @@ class P3WidgetContainer extends CWidget {
 		}
 
 		// render container (+widgets)
-		if (Yii::app()->user->checkAccess('admin')) {
+		if (($this->checkAccess === false) || Yii::app()->user->checkAccess($this->checkAccess)) {
 			// prepare Widget model attributes for add button
 			$widgetAttributes = CMap::mergeArray($widgetAttributes, array(
 					'controllerId' => $this->controller->id,

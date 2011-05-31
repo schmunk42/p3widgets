@@ -26,6 +26,8 @@ class WidgetController extends Controller {
 		return array(
 			array('allow', // allow all users to perform 'index' and 'view' actions
 				'users' => array('admin'),
+			),
+			array('allow',
 				'roles' => array('Admin'),
 			),
 			array('deny', // deny all users
