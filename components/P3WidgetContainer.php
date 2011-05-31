@@ -25,6 +25,7 @@
 Yii::import('p3widgets.models.*');
 
 class P3WidgetContainer extends CWidget {
+	
 	const CONTAINER_CSS_PREFIX = 'container-';
 	const WIDGET_CSS_PREFIX = 'widget-';
 
