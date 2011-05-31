@@ -11,7 +11,8 @@
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'alias'); ?>
-		<?php echo $form->textField($model,'alias',array('size'=>60,'maxlength'=>255)); ?>
+		<?php #echo $form->textField($model,'alias',array('size'=>60,'maxlength'=>255)); ?>
+		<?php echo $form->dropDownList($model,'alias', $this->module->params['widgets']); ?>
 		<?php echo $form->error($model,'alias'); ?>
 		<p class="hint">
 		    Alias of the widget
@@ -27,6 +28,13 @@
 )); ?><div class="notice">Do not use double quotes (") for keys and/or values!</div>
 		<?php echo $form->error($model,'properties'); ?>
 
+	</div>
+
+	<div class="row">
+		<?php echo $form->labelEx($model,'content'); ?>
+		<?php #echo $form->textArea($model,'content',array('rows'=>6, 'cols'=>50)); ?>
+		<?php $this->widget('p3widgets.extensions.ckeditor.CKEditor', array('model'=>$model,'attribute'=>'content')) ?>
+		<?php echo $form->error($model,'content'); ?>
 	</div>
 
 	<div class="row">

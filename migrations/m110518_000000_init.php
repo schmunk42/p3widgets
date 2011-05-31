@@ -8,6 +8,7 @@ class m110518_000000_init extends CDbMigration {
 			"id" => "pk",
 			"alias" => "varchar(128) NOT NULL",
 			"properties" => "text",
+			"content" => "text",
 			"rank" => "integer(11) NOT NULL default 0",
 			"containerId" => "varchar(128) NOT NULL",
 			"moduleId" => "varchar(128)",

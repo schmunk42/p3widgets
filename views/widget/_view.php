@@ -12,6 +12,10 @@
 	<?php echo CHtml::encode($data->properties); ?>
 	<br />
 
+	<b><?php echo CHtml::encode($data->getAttributeLabel('content')); ?>:</b>
+	<?php echo CHtml::encode($data->content); ?>
+	<br />
+
 	<b><?php echo CHtml::encode($data->getAttributeLabel('rank')); ?>:</b>
 	<?php echo CHtml::encode($data->rank); ?>
 	<br />

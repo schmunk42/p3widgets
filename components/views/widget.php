@@ -17,35 +17,14 @@
 		));
 		echo '</div>';
 		$this->widget('zii.widgets.jui.CJuiButton', array(
+			'id' => 'delete-'.$model->id,
 			'buttonType' => 'link',
+			'htmlOptions' => array('class' => 'delete'),
 			'name' => 'btnClick3' . uniqid(),
 			'options' => array('icons' => 'js:{primary:"ui-icon-close"}'),
-			'onclick' => "js:function(){
-				if (confirm('Are you sure?')) {
-					widgetId = ".$model->id.";
-					msg = 'Deleting widget #'+widgetId;
-					console.log(msg);
-                    url = ' ".Yii::app()->controller->createUrl("/p3widgets/widget/delete", array("id"=>"_ID_"))."';
-				    $.post(
-						url.replace(/_ID_/,widgetId),
-						{Widget:{id:widgetId}},
-						function(data){
-							if(data.search(/<h1>Manage Widgets/i) != -1) {
-								alert(msg+' - OK');
-								$('#widget-".$model->id."').hide();
-							} else {
-								alert(msg+' - Error');
-							}
-						}
-					);
-					return true;
-				} else {
-					return false;
-				}
-				}",
+			// onclick' => see container.js,
 		));
 		?>
-		<!--<h1>Widget</h1>-->
 	</div>
 	<div class="content-panel">
 		<?php echo $content; ?>

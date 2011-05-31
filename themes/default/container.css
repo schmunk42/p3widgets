@@ -28,7 +28,6 @@ DIV.widget-container DIV.header {
     right: 0px;
     text-align: right;
     height: 44px;
-    Xwidth: 400px;
     padding: 8px;
 }
 
@@ -37,8 +36,6 @@ DIV.widget-container DIV.admin-panel {
     display: none;
     position: absolute;
     top: -30px;
-    Xheight: 20px;
-    Xwidth: 400px;
     padding: 6px 6px 2px;
 }
 
@@ -48,8 +45,8 @@ DIV.widget-container {
     min-height: 32px;
 }
 DIV.widget {
-    Xborder: 1px dashed #eee;
-    Xmargin: -1px;
+    /*border: 1px dashed #eee;
+    margin: -1px;*/
 }
 
 DIV.widget-container.admin {
@@ -88,7 +85,8 @@ DIV.widget-container DIV.admin-panel H1 {
     font-size: 12px;
 }
 
-DIV.widget-container DIV.handle {
+DIV.widget-container DIV.handle,
+DIV.widget-container DIV.delete {
     display: inline-block;
 }
 
@@ -108,5 +106,12 @@ DIV.widget-container DIV.admin-panel .ui-icon {
     left: 0;
 }
 
-.ui-sortable-placeholder { border: 1px dotted black; visibility: visible !important; height: 50px !important; }
-.ui-sortable-placeholder * { visibility: hidden; }
+.ui-sortable-placeholder
+{ 
+    border: 1px dotted black;
+    visibility: visible !important;
+    height: 50px !important;
+}
+.ui-sortable-placeholder * { 
+    visibility: hidden;
+}

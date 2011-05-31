@@ -22,6 +22,7 @@ $this->menu=array(
 		'id',
 		'alias',
 		'properties',
+		'content',
 		'rank',
 		'containerId',
 		'moduleId',

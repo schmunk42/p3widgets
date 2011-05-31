@@ -42,15 +42,15 @@ class Widget extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('alias', 'required'),
+			array('alias, containerId, rank', 'required'),
 			array('rank', 'numerical', 'integerOnly'=>true),
 			array('alias', 'length', 'max'=>255),
 			array('containerId', 'length', 'max'=>64),
 			array('moduleId, controllerId, actionName, requestParam, sessionParam', 'length', 'max'=>128),
-			array('properties', 'safe'),
+			array('properties, content', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, alias, properties, rank, containerId, moduleId, controllerId, actionName, requestParam, sessionParam', 'safe', 'on'=>'search'),
+			array('id, alias, properties, content, rank, containerId, moduleId, controllerId, actionName, requestParam, sessionParam', 'safe', 'on'=>'search'),
 		);
 	}
 
