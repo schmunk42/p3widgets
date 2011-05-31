@@ -2,6 +2,9 @@
 
 class P3WidgetsModule extends CWebModule
 {
+
+	public $adminRole = 'admin';
+
 	public function init()
 	{
 		// this method is called when the module is being created

@@ -4,7 +4,7 @@
 		<?php
 		$this->widget('zii.widgets.jui.CJuiButton', array(
 			'buttonType' => 'link',
-			'url' => array('/p3widgets/widget/create', 'Widget' => array('controllerId]' => $this->controller->id, 'actionName' => $this->controller->action->id, 'containerId' => $this->id)),
+			'url' => array('/p3widgets/widget/create', 'Widget' => $widgetAttributes),
 			'name' => 'btnClick' . uniqid(),
 			'options' => array('icons' => 'js:{primary:"ui-icon-plus"}'),
 			#'onclick' => 'js:function(){alert("clicked"); this.blur(); return false;}',

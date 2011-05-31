@@ -25,8 +25,18 @@
 Yii::import('p3widgets.models.*');
 
 class P3WidgetContainer extends CWidget {
+
 	const CONTAINER_CSS_PREFIX = 'container-';
 	const WIDGET_CSS_PREFIX = 'widget-';
+
+	public $varyByRequestParam = null;
+
+	function  init() {
+		parent::init();
+		if (!$this->getId(false)) {
+			throw new CException('Widget container must have an id.');
+		}
+	}
 
 	function run() {
 		parent::run();
@@ -38,12 +48,27 @@ class P3WidgetContainer extends CWidget {
 		Yii::app()->clientScript->registerScript('P3WidgetContainer',$jsFile, CClientScript::POS_END);
 
 		$criteria = new CDbCriteria();
-		$criteria->condition = 'controllerId = :controllerId AND actionName = :actionName AND containerId = :containerId';
 		$criteria->params = array(
 			':controllerId' => $this->controller->id,
+			':actionName' => $this->controller->action->id,
+			':containerId' => $this->id,
+		);
+		$widgetAttributes = array(
+			'controllerId' => $this->controller->id,
 			'actionName' => $this->controller->action->id,
 			'containerId' => $this->id,
 		);
+
+		$criteria->condition = 'controllerId = :controllerId AND actionName = :actionName AND containerId = :containerId';
+		if($this->varyByRequestParam !== null) {
+			$criteria->condition .= ' AND requestParam = :requestParam';
+			if (isset($_GET[$this->varyByRequestParam])) {
+				$widgetAttributes['requestParam']= $criteria->params[':requestParam'] = $_GET[$this->varyByRequestParam];
+			} else {
+				$criteria->params[':requestParam'] = null;
+			}
+		}
+
 		$models = Widget::model()->findAll($criteria);
 
 		$widgets = "";
@@ -58,23 +83,27 @@ class P3WidgetContainer extends CWidget {
 		}
 
 		if (Yii::app()->user->checkAccess('admin')) {
-			$this->render('container', array('widgets' => $widgets), false);
+			$this->render('container', array('widgets' => $widgets, 'widgetAttributes' => $widgetAttributes), false);
 		} else {
 			echo $widgets;
 		}
 	}
 
 	private function prepareWidget($alias, $properties) {
-		$class = Yii::import($alias);
+		try {
+			$class = Yii::import($alias);
+		} catch (Exception $e) {
+			return "<div class='error'>{$e->getMessage()}'</div>";
+		}
 		if (@class_exists($class) == true) {
-			$widget = Yii::createComponent($alias);
+			$widget = Yii::createComponent($class);
 			ob_start();
 			foreach ($properties AS $property => $value) {
 				try {
 					$widget->$property = $value;
 				} catch (Exception $e) {
 					Yii::log($e->getMessage(), CLogger::LEVEL_ERROR);
-					echo "<div class='flash-notice'>Widget has no property '{$property}'</div>";
+					echo "<div class='notice'>Widget has no property '{$property}'</div>";
 				}
 			}
 			$widget->run();
