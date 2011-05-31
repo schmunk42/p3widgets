@@ -35,7 +35,8 @@ DIV.widget-container DIV.admin-panel {
     background: #eee;
     display: none;
     position: absolute;
-    top: -30px;
+    top: -49px;
+    height: 40px;
     padding: 6px 6px 2px;
 }
 

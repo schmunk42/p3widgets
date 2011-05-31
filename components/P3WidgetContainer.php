@@ -25,7 +25,6 @@
 Yii::import('p3widgets.models.*');
 
 class P3WidgetContainer extends CWidget {
-	
 	const CONTAINER_CSS_PREFIX = 'container-';
 	const WIDGET_CSS_PREFIX = 'widget-';
 
@@ -50,6 +49,7 @@ class P3WidgetContainer extends CWidget {
 		parent::run();
 
 		// query widgets from database
+		$widgetAttributes = array();
 		$criteria = new CDbCriteria();
 		$criteria->params = array(
 			':controllerId' => $this->controller->id,
@@ -73,7 +73,13 @@ class P3WidgetContainer extends CWidget {
 			$content = $this->prepareWidget($model->alias, CJSON::decode($model->properties), $model->content);
 
 			if (Yii::app()->user->checkAccess('admin')) {
-				$widgets .= $this->render('widget', array('content' => $content, 'model' => $model), true);
+				$widgets .= $this->render(
+						'widget',
+						array(
+							'headline' => ((strrchr($model->alias, '.')) ? substr(strrchr($model->alias, '.'), 1) : $model->alias) . ' #' . $model->id,
+							'content' => $content,
+							'model' => $model),
+						true);
 			} else {
 				$widgets .= $content;
 			}
@@ -81,18 +87,26 @@ class P3WidgetContainer extends CWidget {
 
 		// render container (+widgets)
 		if (Yii::app()->user->checkAccess('admin')) {
-			$widgetAttributes = array(
-				'controllerId' => $this->controller->id,
-				'actionName' => $this->controller->action->id,
-				'containerId' => $this->id,
-			);
+			// prepare Widget model attributes for add button
+			$widgetAttributes = CMap::mergeArray($widgetAttributes, array(
+					'controllerId' => $this->controller->id,
+					'actionName' => $this->controller->action->id,
+					'containerId' => $this->id,
+				));
 
 			// include admin CSS and JS
 			$cssFile = Yii::app()->assetManager->publish(Yii::getPathOfAlias('p3widgets.themes.default') . DIRECTORY_SEPARATOR . 'container.css');
 			Yii::app()->clientScript->registerCssFile($cssFile);
 			$jsFile = $this->renderInternal(Yii::getPathOfAlias('p3widgets.themes.default') . DIRECTORY_SEPARATOR . 'container.js', null, true);
 			Yii::app()->clientScript->registerScript('P3WidgetContainer', $jsFile, CClientScript::POS_END);
-			$this->render('container', array('widgets' => $widgets, 'widgetAttributes' => $widgetAttributes), false);
+
+			$this->render(
+				'container',
+				array(
+					'widgets' => $widgets,
+					'widgetAttributes' => $widgetAttributes,
+				),
+				false);
 		} else {
 			echo $widgets;
 		}

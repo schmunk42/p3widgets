@@ -1,0 +1,4 @@
+Manual Installation
+-------------------
+
+./yiic migrate --migrationPath=application.modules.p3widgets.migrations --migrationTable=tbl_migration_module_p3widgets
