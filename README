@@ -1,4 +1,124 @@
-Manual Installation
--------------------
+Phundament 3 - Widgets
+======================
 
-./yiic migrate --migrationPath=application.modules.p3widgets.migrations --migrationTable=tbl_migration_module_p3widgets
+Module for dynamic widget creation and management.
+
+P3WidgetsModule provides basic Content Management System (CMS) functionality
+through a widget container for frontend-editing and a backend for managing
+widget properties and content.
+
+A widget container tags its contents (widgets) by its id, the current controller
+and action and optionally also by a request parameter.
+
+When you edit a widget you can specify its type (see config value
+modules[p3widgets].params[widgets]), its attributes by editing them with a
+built-in JSON editor and its content by editing it with a built-in ckeditor.
+
+Database schem setup is done easily with yiic migrate.
+
+
+
+
+Version
+-------
+0.1 - this is an alpha release -
+
+
+
+Requirements
+------------
+Yii 1.1.7
+Database (tested with SQLite and MySQL)
+
+
+
+Installation
+------------
+
+1) 
+Extract into 'protected/modules'.
+
+
+2) 
+Add contents from 'p3widgets/config/main.php' to the corresponding part in your
+application configuration.
+
+
+3)
+Import database schema with yiic.
+Note: This command will create an own migration table for this module, it will
+not disturb your application migration table!
+> ./yiic migrate \
+    --migrationPath=application.modules.p3widgets.migrations \
+    --migrationTable=tbl_migration_module_p3widgets
+
+
+4)
+Add a P3WidgetContainer to a view.
+<?php
+    $this->widget(
+        'p3widgets.components.P3WidgetContainer',
+        array(
+            'id'=>'main',
+            #'checkAccess'=>false //disables checkAccess feature
+            )
+    );
+?>
+Note: You should only disable the 'checkAccess' feature for debugging or testing.
+Make sure containers on the same page have different values for 'id'.
+
+
+
+Usage
+-----
+When logged in as 'admin' you should see a grey box around the containers and
+widgets with admin controls when you hover them.
+You can drag and drop widgets between containers.
+To move widgets across pages, edit their values for controller, action or
+requestParam.
+
+
+
+Examples
+--------
+CWidget
+
+<h1>Hello World!</h1>
+
+
+ext.yiiext.widgets.carousel.ECarouselWidget
+
+<li><img src="http://static.flickr.com/66/199481236_dc98b5abb3_s.jpg" width="75" height="75" alt="" /></li>
+<li><img src="http://static.flickr.com/75/199481072_b4a0d09597_s.jpg" width="75" height="75" alt="" /></li>
+<li><img src="http://static.flickr.com/57/199481087_33ae73a8de_s.jpg" width="75" height="75" alt="" /></li>
+<li><img src="http://static.flickr.com/77/199481108_4359e6b971_s.jpg" width="75" height="75" alt="" /></li>
+
+
+ext.yiiext.widgets.fancybox.EFancyBoxWidget
+
+<a id="example1" href="http://farm5.static.flickr.com/4058/4252054277_f0fa91e026.jpg"><img alt="example1" src="http://farm5.static.flickr.com/4058/4252054277_f0fa91e026_m.jpg" /></a>
+<a id="example2" href="http://farm3.static.flickr.com/2489/4234944202_0fe7930011.jpg"><img alt="example2" src="http://farm3.static.flickr.com/2489/4234944202_0fe7930011_m.jpg" /></a>
+<a id="example3" href="http://farm3.static.flickr.com/2647/3867677191_04d8d52b1a.jpg"><img alt="example3" src="http://farm3.static.flickr.com/2647/3867677191_04d8d52b1a_m.jpg" /></a>
+
+Widgets taken from http://code.google.com/p/yiiext/
+Examples from jQuery demo pages.
+
+
+
+Known Issues
+------------
+- Widget ordering
+
+
+
+Git Repo, etc...
+----------------
+https://github.com/schmunk42/phundament/
+
+
+
+Developer
+---------
+Tobias Munk
+schmunk@usrbin.de
+phundament.com

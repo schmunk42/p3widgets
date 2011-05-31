@@ -13,7 +13,15 @@
  *
  * Detailed info
  * <pre>
- * $var = code_example();
+ * <?php
+ *     $this->widget(
+ *         'p3widgets.components.P3WidgetContainer',
+ *         array(
+ *             'id'=>'main',
+ *             #'checkAccess'=>false //disables checkAccess feature
+ *             )
+ *     );
+ * ?>
  * </pre>
  * {@link DefaultController}
  *
@@ -135,9 +143,11 @@ class P3WidgetContainer extends CWidget {
 		} catch (Exception $e) {
 			return "<div class='error'>{$e->getMessage()}'</div>";
 		}
+		// disabled error handling, otherwise this may break your application
 		if (@class_exists($class) == true) {
 			$widget = Yii::createComponent($class);
 			ob_start();
+			// apply properties
 			foreach ($properties AS $property => $value) {
 				try {
 					$widget->$property = $value;
