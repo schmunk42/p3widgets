@@ -50,7 +50,7 @@ class P3WidgetContainer extends CWidget {
 	 * @var string
 	 */
 	public $checkAccess = 'admin';
-	
+
 
 	function init() {
 		parent::init();
@@ -145,21 +145,16 @@ class P3WidgetContainer extends CWidget {
 		}
 		// disabled error handling, otherwise this may break your application
 		if (@class_exists($class) == true) {
-			$widget = Yii::createComponent($class);
-			ob_start();
-			// apply properties
-			foreach ($properties AS $property => $value) {
-				try {
-					$widget->$property = $value;
-				} catch (Exception $e) {
-					Yii::log($e->getMessage(), CLogger::LEVEL_ERROR);
-					echo "<div class='notice'>Widget has no property '{$property}'</div>";
-				}
+			try {
+				ob_start();
+				$this->controller->beginWidget($class, $properties);
+				echo $content;
+				$this->controller->endWidget();
+				$markup = ob_get_clean();
+			} catch (Exception $e) {
+				Yii::log($e->getMessage(), CLogger::LEVEL_ERROR);
+				$markup = "<div class='notice'>" . $e->getMessage() . "</div>";
 			}
-			$widget->beginWidget($class);
-			echo $content;
-			$widget->endWidget();
-			$markup = ob_get_clean();
 			return $markup;
 		} else {
 			$msg = 'Widget \'' . $alias . '\' not found!';
