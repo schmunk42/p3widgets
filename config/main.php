@@ -7,9 +7,10 @@ return array(
 			'params' => array(
 				'widgets' => array(
 					'CWidget' => 'Basic Widget',
-					/*'ext.yiiext.widgets.carousel.ECarouselWidget'	=> 'Carousel',
+					'zii.widgets.CMenu' => 'Menu Widget',
+					'ext.yiiext.widgets.carousel.ECarouselWidget'	=> 'Carousel',
 					'ext.yiiext.widgets.fancybox.EFancyBoxWidget'	=> 'Fancy Box',
-					'ext.yiiext.widgets.cycle.ECycleWidget'			=> 'Cycle',*/
+					'ext.yiiext.widgets.cycle.ECycleWidget'			=> 'Cycle',
 				)
 			)
 		)
