@@ -87,7 +87,9 @@ class P3WidgetContainer extends CWidget {
 		// render widgets
 		$widgets = "";
 		foreach ($models AS $model) {
-			$content = $this->prepareWidget($model->alias, CJSON::decode($model->properties), $model->content);
+			
+			$properties = (is_array(CJSON::decode($model->properties)))?CJSON::decode($model->properties):array();
+			$content = $this->prepareWidget($model->alias, $properties, $model->content);
 
 			if (($this->checkAccess === false) || Yii::app()->user->checkAccess($this->checkAccess)) {
 				$widgets .= $this->render(
