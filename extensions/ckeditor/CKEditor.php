@@ -267,6 +267,17 @@ class CKEditor extends CInputWidget{
         if (is_array($this->options)) {
             $options = array_merge($options, $this->options);
         }
+		
+		// post parse special options
+		$createUrls = array('filebrowserBrowseCreateUrl','filebrowserImageBrowseCreateUrl','filebrowserFlashBrowseCreateUrl');
+		foreach($createUrls AS $name) {
+			if (isset($options[$name]) && $options[$name]) {
+				$route = $options[$name][0];
+				unset($options[$name][0]);
+				$options[str_replace('CreateUrl', 'Url', $name)] = $this->controller->createUrl($route, $options[$name]);
+			}					
+		}
+		
 
         return CJavaScript::encode($options);
    }
