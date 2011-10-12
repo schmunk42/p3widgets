@@ -56,7 +56,7 @@ $('.delete').click(
     function(){
 	widgetId = $(this).attr('id').replace(/delete-/,'');
 	if (confirm('Do want really want to delete widget #'+widgetId+'?')) {
-	    msg = 'Deleting widget #'+widgetId;
+	    msg = 'Widget #'+widgetId;
 	    console.log(msg);
 	    url = '<?php echo Yii::app()->controller->createUrl("/p3widgets/widget/delete", array("id"=>"_ID_")) ?>';
 	    $.post(
@@ -68,10 +68,10 @@ $('.delete').click(
 		},
 		function(data){
 		    if(data.search(/<h1>Manage Widgets/i) != -1) {
-			alert(msg+' - OK');
+			alert(msg+' deleted');
 			$('#widget-'+widgetId).hide();
 		    } else {
-			alert(msg+' - Error');
+			alert(msg+' could not be deleted!');
 		    }
 		}
 		);

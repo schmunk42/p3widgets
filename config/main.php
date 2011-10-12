@@ -8,9 +8,9 @@ return array(
 				'widgets' => array(
 					'CWidget' => 'Basic Widget',
 					'zii.widgets.CMenu' => 'Menu Widget',
-					'ext.yiiext.widgets.carousel.ECarouselWidget'	=> 'Carousel',
-					'ext.yiiext.widgets.fancybox.EFancyBoxWidget'	=> 'Fancy Box',
+					'ext.yiiext.widgets.fancybox.EFancyboxWidget'	=> 'Fancy Box',
 					'ext.yiiext.widgets.cycle.ECycleWidget'			=> 'Cycle',
+					#'ext.yiiext.widgets.carousel.ECarouselWidget'	=> 'Carousel',
 				)
 			)
 		)
