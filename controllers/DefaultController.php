@@ -18,14 +18,12 @@ class DefaultController extends Controller {
 	 */
 	public function accessRules() {
 		return array(
-			array('allow', // allow all users to perform 'index' and 'view' actions
-				'users' => array('admin'),
+			array('allow', 
+				'actions'=>array('admin','delete','index','view','create','update'),
+				'expression' => 'Yii::app()->user->checkAccess("P3widgets.Default.*")',
 			),
-			array('allow',
-				'roles' => array('Admin'),
-			),
-			array('deny', // deny all users
-				'users' => array('*'),
+			array('deny',  
+				'users'=>array('*'),
 			),
 		);
 	}

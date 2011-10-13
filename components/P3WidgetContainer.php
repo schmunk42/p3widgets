@@ -49,7 +49,7 @@ class P3WidgetContainer extends CWidget {
 	 *
 	 * @var string
 	 */
-	public $checkAccess = 'admin';
+	public $checkAccess = 'P3widgets.Widget.*';
 
 
 	function init() {
