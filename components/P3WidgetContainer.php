@@ -145,19 +145,24 @@ class P3WidgetContainer extends CWidget {
 		} catch (Exception $e) {
 			return "<div class='error'>{$e->getMessage()}'</div>";
 		}
-		// disabled error handling, otherwise this may break your application
+
 		if (@class_exists($class) == true) {
 			try {
-				ob_start();
+				// instantiate widget with properties
 				$this->controller->beginWidget($class, $properties);
-				echo $content;
-				$this->controller->endWidget();
-				$markup = ob_get_clean();
 			} catch (Exception $e) {
 				Yii::log($e->getMessage(), CLogger::LEVEL_ERROR);
-				$markup = "<div class='notice'>" . $e->getMessage() . "</div>";
+				$markup = "<div class='flash-warning'>" . $e->getMessage() . "</div>";
+				if (Yii::app()->user->checkAccess('P3widgets.Widget.*')) {
+					return $markup;
+				} else {
+					return null;
+				}
 			}
-			return $markup;
+			ob_start();
+			echo $content;
+			$this->controller->endWidget();
+			return ob_get_clean();
 		} else {
 			$msg = 'Widget \'' . $alias . '\' not found!';
 			Yii::log($msg, CLogger::LEVEL_ERROR);
