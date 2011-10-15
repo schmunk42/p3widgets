@@ -51,7 +51,6 @@ class P3WidgetContainer extends CWidget {
 	 */
 	public $checkAccess = 'P3widgets.Widget.*';
 
-
 	function init() {
 		parent::init();
 		if (!$this->getId(false)) {
@@ -87,18 +86,17 @@ class P3WidgetContainer extends CWidget {
 		// render widgets
 		$widgets = "";
 		foreach ($models AS $model) {
-			
-			$properties = (is_array(CJSON::decode($model->properties)))?CJSON::decode($model->properties):array();
+
+			$properties = (is_array(CJSON::decode($model->properties))) ? CJSON::decode($model->properties) : array();
 			$content = $this->prepareWidget($model->alias, $properties, $model->content);
 
 			if (($this->checkAccess === false) || Yii::app()->user->checkAccess($this->checkAccess)) {
+				// admin mode
 				$widgets .= $this->render(
-						'widget',
-						array(
-							'headline' => ((strrchr($model->alias, '.')) ? substr(strrchr($model->alias, '.'), 1) : $model->alias) . ' #' . $model->id,
-							'content' => $content,
-							'model' => $model),
-						true);
+					'widget', array(
+					'headline' => ((strrchr($model->alias, '.')) ? substr(strrchr($model->alias, '.'), 1) : $model->alias) . ' #' . $model->id,
+					'content' => $content,
+					'model' => $model), true);
 			} else {
 				$widgets .= $content;
 			}
@@ -120,12 +118,10 @@ class P3WidgetContainer extends CWidget {
 			Yii::app()->clientScript->registerScript('P3WidgetContainer', $jsFile, CClientScript::POS_END);
 
 			$this->render(
-				'container',
-				array(
-					'widgets' => $widgets,
-					'widgetAttributes' => $widgetAttributes,
-				),
-				false);
+				'container', array(
+				'widgets' => $widgets,
+				'widgetAttributes' => $widgetAttributes,
+				), false);
 		} else {
 			echo $widgets;
 		}
@@ -149,8 +145,11 @@ class P3WidgetContainer extends CWidget {
 		if (@class_exists($class) == true) {
 			try {
 				// instantiate widget with properties
+				ob_start();
 				$this->controller->beginWidget($class, $properties);
+				$beginWidget = ob_get_clean();
 			} catch (Exception $e) {
+				ob_end_clean();
 				Yii::log($e->getMessage(), CLogger::LEVEL_ERROR);
 				$markup = "<div class='flash-warning'>" . $e->getMessage() . "</div>";
 				if (Yii::app()->user->checkAccess('P3widgets.Widget.*')) {
@@ -162,7 +161,7 @@ class P3WidgetContainer extends CWidget {
 			ob_start();
 			echo $content;
 			$this->controller->endWidget();
-			return ob_get_clean();
+			return $beginWidget . ob_get_clean();
 		} else {
 			$msg = 'Widget \'' . $alias . '\' not found!';
 			Yii::log($msg, CLogger::LEVEL_ERROR);
