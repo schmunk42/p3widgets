@@ -25,7 +25,7 @@ class WidgetController extends Controller {
 	public function accessRules() {
 		return array(
 			array('allow', 
-				'actions'=>array('admin','delete','index','view','create','update'),
+				'actions'=>array('admin','delete','index','view','create','update','classVars'),
 				'expression' => 'Yii::app()->user->checkAccess("P3widgets.Widget.*")',
 			),
 			array('deny',  
@@ -153,4 +153,13 @@ class WidgetController extends Controller {
 		}
 	}
 
+		
+	public function actionClassVars($alias){
+		$class = Yii::createComponent($alias);
+		foreach (get_class_vars(get_class($class)) AS $key => $value) {
+			if ($value !== null)
+				$return[$key] = $value;
+		}
+		echo CJSON::encode($return);
+	}
 }

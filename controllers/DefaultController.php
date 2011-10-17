@@ -32,4 +32,5 @@ class DefaultController extends Controller {
 		$this->render('index');
 	}
 
+
 }

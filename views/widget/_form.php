@@ -12,12 +12,32 @@
 	<div class="row">
 		<?php echo $form->labelEx($model,'alias'); ?>
 		<?php #echo $form->textField($model,'alias',array('size'=>60,'maxlength'=>255)); ?>
-		<?php echo $form->dropDownList($model,'alias', $this->module->params['widgets']); ?>
+		<?php echo $form->dropDownList($model,'alias', $this->module->params['widgets'], array('onchange'=>'updateProperties()')); ?>
 		<?php echo $form->error($model,'alias'); ?>
 		<p class="hint">
 		    Alias of the widget
 		</p>
 	</div>
+	
+	<script type="text/javascript">
+		function updateProperties() {
+			$("#Widget_properties").jsoneditor('input');
+			url = "<?php echo $this->createUrl('/p3widgets/widget/classVars', array('alias'=>'__ALIAS__')) ?>";
+			url = url.replace("__ALIAS__",$("#Widget_alias").val());
+			$.ajax(
+				url,
+				{
+					success: function(json){
+						//alert(json);
+						$("#Widget_properties textarea").val(json);
+						$("#Widget_properties").jsoneditor('init');
+					}
+				}
+			
+			);
+			
+		}
+	</script>
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'properties'); ?>
