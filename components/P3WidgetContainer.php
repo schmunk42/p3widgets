@@ -81,6 +81,9 @@ class P3WidgetContainer extends CWidget {
 				$criteria->params[':requestParam'] = null;
 			}
 		}
+		
+		$criteria->order = "rank ASC";
+		
 		$models = Widget::model()->findAll($criteria);
 
 		// render widgets
