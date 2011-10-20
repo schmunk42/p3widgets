@@ -14,7 +14,19 @@ $('.widget').mouseout(function(){
 });
 
 // Apply sortable function to containers, handle widget movement
+// Thanks & Credits to peili (http://www.yiiframework.com/extension/p3widgets/#c5563)
 $(function() {
+    $( ".widget-container" ).sortable({
+    connectWith: ".widget-container",
+    placeholder: 'ui-state-highlight',
+    handle: '.handle',
+        update: function() {
+                var order = $(this).sortable("serialize");
+                $.post('<?php echo Yii::app()->controller->createUrl("/p3widgets/widget/updateOrder") ?>', order);
+        }
+    }).disableSelection();
+});
+/*$(function() {
     $( ".widget-container" ).sortable({
 	connectWith: ".widget-container",
 	placeholder: 'ui-state-highlight',
@@ -49,7 +61,7 @@ $(function() {
 		);
 	}
     }).disableSelection();
-});
+});*/
 
 // Handler for widget deletion
 $('.delete').click(

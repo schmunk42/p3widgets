@@ -25,7 +25,7 @@ class WidgetController extends Controller {
 	public function accessRules() {
 		return array(
 			array('allow', 
-				'actions'=>array('admin','delete','index','view','create','update','classVars'),
+				'actions'=>array('admin','delete','index','view','create','update','classVars','updateOrder'),
 				'expression' => 'Yii::app()->user->checkAccess("P3widgets.Widget.*")',
 			),
 			array('deny',  
@@ -162,4 +162,21 @@ class WidgetController extends Controller {
 		}
 		echo CJSON::encode($return);
 	}
+	
+	/**
+	 * tbd
+	 * 
+	 * Thanks & Credits to peili (http://www.yiiframework.com/extension/p3widgets/#c5563)
+	 */
+	public function actionUpdateOrder() {
+        $updateRecordsArray = $_POST['widget'];
+		$listingCounter = 10;
+        foreach ($updateRecordsArray as $id) {
+            $model = $this->loadModel($id);
+            $model->rank = $listingCounter;
+            $model->save(false);
+            $listingCounter = $listingCounter + 10;
+        }
+    }
+	
 }
