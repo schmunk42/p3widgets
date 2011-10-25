@@ -20,7 +20,7 @@ class DefaultController extends Controller {
 		return array(
 			array('allow', 
 				'actions'=>array('admin','delete','index','view','create','update'),
-				'expression' => 'Yii::app()->user->checkAccess("P3widgets.Default.*")',
+				'expression' => 'Yii::app()->user->checkAccess("P3widgets.Default.*")||YII_DEBUG',
 			),
 			array('deny',  
 				'users'=>array('*'),

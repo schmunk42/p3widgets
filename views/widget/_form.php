@@ -53,7 +53,16 @@
 	<div class="row">
 		<?php echo $form->labelEx($model,'content'); ?>
 		<?php #echo $form->textArea($model,'content',array('rows'=>6, 'cols'=>50)); ?>
-		<?php $this->widget('ext.p3extensions.widgets.ckeditor.CKEditor', array('model'=>$model,'attribute'=>'content','options'=>Yii::app()->params['ext.ckeditor.options'])) ?>
+		<?php 
+		$this->widget(
+			'ext.p3extensions.widgets.ckeditor.CKEditor', 
+			array(
+				'model'=>$model,
+				'attribute'=>'content',
+				'options'=>is_array(Yii::app()->params['ext.ckeditor.options'])?Yii::app()->params['ext.ckeditor.options']:array() 
+			)
+		)
+			?>
 		<?php echo $form->error($model,'content'); ?>
 	</div>
 

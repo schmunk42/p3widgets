@@ -45,7 +45,25 @@ Extract into 'protected/modules'.
 2) 
 Add contents from 'p3widgets/config/main.php' to the corresponding part in your
 application configuration.
+~~~
+return CMap::mergeArray(
+    require(dirname(__FILE__).'/../modules/p3widgets/config/main.php'),
+    ...
+~~~
 
+~~~
+	'modules' => array(
+		'p3widgets' => array(
+			'params' => array(
+				'widgets' => array(
+					'CFlexWidget' => 'Flex Widget',
+					'CMenu' => 'Menu',
+					'CPortlet' => 'Portlet',
+				)
+			)
+		)
+	),
+~~~
 
 3)
 Import database schema with yiic.
@@ -54,7 +72,7 @@ not disturb your application migration table! Use your application yiic command.
 ~~~
 > ./yiic migrate \
     --migrationPath=application.modules.p3widgets.migrations \
-    --migrationTable=tbl_migration_module_p3widgets
+    --migrationTable=migration_module_p3widgets
 ~~~
 
 
@@ -66,7 +84,7 @@ Add a P3WidgetContainer to a view.
         'p3widgets.components.P3WidgetContainer',
         array(
             'id'=>'main',
-            #'checkAccess'=>false //disables checkAccess feature
+            'checkAccess'=>false // disable checkAccess feature for debugging, default 'P3widgets.Widget.*'
             )
     );
 ~~~
@@ -132,7 +150,15 @@ Examples from jQuery demo pages.
 ![Frontend](http://demo.phundament.com/pub/p3widgets/p3widgets-0.1-02.png "Frontend")
 
 ##Developer
-
+~~~
+git clone --recursive git://github.com/schmunk42/p3widgets.git \
+  protected/modules/p3widgets
+git clone --recursive git://github.com/schmunk42/p3extensions.git \
+  protected/extensions/p3extensions
+git clone --recursive https://github.com/schmunk42/gii-template-collection \
+  protected/extensions/gtc
+~~~
+##Contact
 Tobias Munk
 schmunk@usrbin.de
 phundament.com
