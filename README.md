@@ -31,7 +31,7 @@ Addon: [In-depth thread about general module management and a Yii-based CMS](htt
 
 ##Requirements
 
- * Yii 1.1.7
+ * Yii 1.1.8
  * Database (tested with SQLite and MySQL)
 
 
@@ -94,7 +94,7 @@ Available widgets from Yii, zii and yiiext:
 
 
 5)
-Add a P3WidgetContainer to a view.
+Open /p3widgets/default/test or add a P3WidgetContainer to a view.
 
 ~~~
 [php]
@@ -133,14 +133,14 @@ Widget class and content
 ~~~
 
 
-###ECarouselWidget
+###ECycleWidget
 
 ~~~
 [html]
-<li><img src="http://static.flickr.com/66/199481236_dc98b5abb3_s.jpg" width="75" height="75" alt="" /></li>
-<li><img src="http://static.flickr.com/75/199481072_b4a0d09597_s.jpg" width="75" height="75" alt="" /></li>
-<li><img src="http://static.flickr.com/57/199481087_33ae73a8de_s.jpg" width="75" height="75" alt="" /></li>
-<li><img src="http://static.flickr.com/77/199481108_4359e6b971_s.jpg" width="75" height="75" alt="" /></li>
+<p><img src="http://static.flickr.com/66/199481236_dc98b5abb3_s.jpg" width="75" height="75" alt="" /></p>
+<p><img src="http://static.flickr.com/75/199481072_b4a0d09597_s.jpg" width="75" height="75" alt="" /></p>
+<p><img src="http://static.flickr.com/57/199481087_33ae73a8de_s.jpg" width="75" height="75" alt="" /></p>
+<p><img src="http://static.flickr.com/77/199481108_4359e6b971_s.jpg" width="75" height="75" alt="" /></p>
 ~~~
 
 
@@ -160,7 +160,7 @@ Examples from jQuery demo pages.
 
 ##Known Issues
 
- * Widget ordering
+None so far ;)
 
 
 ##Screenshots
