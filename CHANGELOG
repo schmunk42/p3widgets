@@ -1,0 +1,13 @@
+CHANGELOG p3widgets
+===================
+
+Version 0.2.0  25.10.2011
+-------------------------
+- Bug #3 (phundament): Widget ordering (peili)
+- Bug: Widget error handling and content parsing (schmunk)
+- Enh: Widget property auto-detection (schmunk)
+- Chg: Added p3extensions and gtc as dependencies (schmunk)
+
+Version 0.1.0
+-------------
+First release
