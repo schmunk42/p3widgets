@@ -57,7 +57,7 @@ Note: This command will create an own migration table for this module, it will
 not disturb your application migration table! Use your application yiic command.
 
 ~~~
-> ./yiic migrate \
+> protected/yiic migrate \
     --migrationPath=application.modules.p3widgets.migrations \
     --migrationTable=migration_module_p3widgets
 ~~~
