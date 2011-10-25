@@ -79,7 +79,7 @@ class P3WidgetContainer extends CWidget {
 			if (isset($_GET[$this->varyByRequestParam])) {
 				$widgetAttributes['requestParam'] = $criteria->params[':requestParam'] = $_GET[$this->varyByRequestParam];
 			} else {
-				$criteria->params[':requestParam'] = null;
+				$criteria->params[':requestParam'] = ''; // TODO: null type not inserted correctly?
 			}
 		}
 		
