@@ -15,23 +15,24 @@ Database schema setup is done easily with yiic migrate.
 
 ##Resources
 
- * [Project page](https://github.com/schmunk42/phundament/)
+ * [Project page](https://github.com/schmunk42/p3widgets/)
  * [Download](https://github.com/schmunk42/phundament/archives/master)
  * [Join discussion](http://www.yiiframework.com/forum/index.php?/topic/20092-module-p3widgets/)
- * [Try out a demo](http://demo.phundament.com/3.0-dev) (outdated)
- * [Report a bug](https://github.com/schmunk42/phundament/issues)
+ * [Try out a demo](http://demo.phundament.com/3.0-dev) (login with: editor / editor)
+ * [Report a bug](https://github.com/schmunk42/p3widgets/issues)
+ * [Phundament on github](https://github.com/schmunk42/phundament/) 
  * [Website](http://phundament.com)
 
 Addon: [In-depth thread about general module management and a Yii-based CMS](http://www.yiiframework.com/forum/index.php?/topic/17591-planning-yii-cms-a-different-approach/)
 
 ##Version
 
-0.1 - this is an alpha release -
+0.2
 
 
 ##Requirements
 
- * Yii 1.1.7
+ * Yii 1.1.8
  * Database (tested with SQLite and MySQL)
 
 
@@ -94,7 +95,7 @@ Available widgets from Yii, zii and yiiext:
 
 
 5)
-Add a P3WidgetContainer to a view.
+Open /p3widgets/default/test or add a P3WidgetContainer to a view.
 
 ~~~
 [php]
@@ -133,14 +134,14 @@ Widget class and content
 ~~~
 
 
-###ECarouselWidget
+###ECycleWidget
 
 ~~~
 [html]
-<li><img src="http://static.flickr.com/66/199481236_dc98b5abb3_s.jpg" width="75" height="75" alt="" /></li>
-<li><img src="http://static.flickr.com/75/199481072_b4a0d09597_s.jpg" width="75" height="75" alt="" /></li>
-<li><img src="http://static.flickr.com/57/199481087_33ae73a8de_s.jpg" width="75" height="75" alt="" /></li>
-<li><img src="http://static.flickr.com/77/199481108_4359e6b971_s.jpg" width="75" height="75" alt="" /></li>
+<p><img src="http://static.flickr.com/66/199481236_dc98b5abb3_s.jpg" width="75" height="75" alt="" /></p>
+<p><img src="http://static.flickr.com/75/199481072_b4a0d09597_s.jpg" width="75" height="75" alt="" /></p>
+<p><img src="http://static.flickr.com/57/199481087_33ae73a8de_s.jpg" width="75" height="75" alt="" /></p>
+<p><img src="http://static.flickr.com/77/199481108_4359e6b971_s.jpg" width="75" height="75" alt="" /></p>
 ~~~
 
 
@@ -160,7 +161,7 @@ Examples from jQuery demo pages.
 
 ##Known Issues
 
- * Widget ordering
+None so far ;)
 
 
 ##Screenshots
