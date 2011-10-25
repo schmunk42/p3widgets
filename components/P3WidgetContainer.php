@@ -68,11 +68,12 @@ class P3WidgetContainer extends CWidget {
 		$widgetAttributes = array();
 		$criteria = new CDbCriteria();
 		$criteria->params = array(
+			':moduleId' => ($this->controller->module !== null)?$this->controller->module->id:'', // TODO: null type not inserted correctly?
 			':controllerId' => $this->controller->id,
 			':actionName' => $this->controller->action->id,
 			':containerId' => $this->id,
 		);
-		$criteria->condition = 'controllerId = :controllerId AND actionName = :actionName AND containerId = :containerId';
+		$criteria->condition = 'moduleId = :moduleId AND controllerId = :controllerId AND actionName = :actionName AND containerId = :containerId';
 		if ($this->varyByRequestParam !== null) {
 			$criteria->condition .= ' AND requestParam = :requestParam';
 			if (isset($_GET[$this->varyByRequestParam])) {
@@ -109,6 +110,7 @@ class P3WidgetContainer extends CWidget {
 		if (($this->checkAccess === false) || Yii::app()->user->checkAccess($this->checkAccess)) {
 			// prepare Widget model attributes for add button
 			$widgetAttributes = CMap::mergeArray($widgetAttributes, array(
+					'moduleId' => ($this->controller->module !== null)?$this->controller->module->id:null,
 					'controllerId' => $this->controller->id,
 					'actionName' => $this->controller->action->id,
 					'containerId' => $this->id,
