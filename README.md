@@ -39,45 +39,63 @@ Addon: [In-depth thread about general module management and a Yii-based CMS](htt
 ##Installation
 
 1) 
-Extract into 'protected/modules'.
+Extract into 'p3widgets'.
 
 
-2) 
-Add contents from 'p3widgets/config/main.php' to the corresponding part in your
-application configuration.
-~~~
-return CMap::mergeArray(
-    require(dirname(__FILE__).'/../modules/p3widgets/config/main.php'),
-    ...
-~~~
+2)
+Create a webapp by running
 
 ~~~
-	'modules' => array(
-		'p3widgets' => array(
-			'params' => array(
-				'widgets' => array(
-					'CFlexWidget' => 'Flex Widget',
-					'CMenu' => 'Menu',
-					'CPortlet' => 'Portlet',
-				)
-			)
-		)
-	),
+cd p3widgts
+/path/to/yii/framework yiic webapp .
 ~~~
+
 
 3)
 Import database schema with yiic.
 Note: This command will create an own migration table for this module, it will
 not disturb your application migration table! Use your application yiic command.
+
 ~~~
 > ./yiic migrate \
     --migrationPath=application.modules.p3widgets.migrations \
     --migrationTable=migration_module_p3widgets
 ~~~
 
+4) 
+Add contents from 'p3widgets/config/main.php' to the corresponding part in your
+application configuration.
 
-4)
+~~~
+return CMap::mergeArray(
+    require(dirname(__FILE__).'/../modules/p3widgets/config/main.php'),
+    ...
+~~~
+
+Available widgets from Yii, zii and yiiext:
+
+~~~
+	'modules' => array(
+		'p3widgets' => array(
+			'params' => array(
+				'widgets' => array(
+					'zii.widgets.CMenu' => 'Menu',
+					'zii.widgets.CPortlet' => 'Portlet',
+					'ext.yiiext.widgets.fancybox.EFancyboxWidget' => 'Fancy Box',
+					'ext.yiiext.widgets.cycle.ECycleWidget' => 'Cycle',
+					'CFlexWidget' => 'Flex Widget',
+					'ext.yiiext.widgets.swfobject.ESwfobjectWidget' => 'SWF Object',
+					'ext.yiiext.widgets.lipsum.ELipsum' => 'Lorem Ipsum Text',
+				)
+			)
+		)
+	),
+~~~
+
+
+5)
 Add a P3WidgetContainer to a view.
+
 ~~~
 [php]
     $this->widget(
@@ -149,7 +167,9 @@ Examples from jQuery demo pages.
 ![Backend](http://demo.phundament.com/pub/p3widgets/p3widgets-0.1-01.png "Backend")
 ![Frontend](http://demo.phundament.com/pub/p3widgets/p3widgets-0.1-02.png "Frontend")
 
+
 ##Developer
+
 ~~~
 git clone --recursive git://github.com/schmunk42/p3widgets.git \
   protected/modules/p3widgets
@@ -158,7 +178,9 @@ git clone --recursive git://github.com/schmunk42/p3extensions.git \
 git clone --recursive https://github.com/schmunk42/gii-template-collection \
   protected/extensions/gtc
 ~~~
+
+
 ##Contact
-Tobias Munk
-schmunk@usrbin.de
-phundament.com
+Tobias Munk  
+phundament@usrbin.de  
+http://phundament.com
