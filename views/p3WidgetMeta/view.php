@@ -14,7 +14,6 @@ $this->menu=array(
 <h1><?php echo Yii::t('app', 'View');?> P3WidgetMeta #<?php echo $model->id; ?></h1>
 
 <?php
-$locale = CLocale::getInstance(Yii::app()->language);
 
  $this->widget('zii.widgets.CDetailView', array(
 'data'=>$model,

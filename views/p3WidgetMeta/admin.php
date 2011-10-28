@@ -34,8 +34,6 @@ data: $(this).serialize()
 )); ?>
 </div>
 <?php
-$locale = CLocale::getInstance(Yii::app()->language);
-
  $this->widget('zii.widgets.grid.CGridView', array(
 	'id'=>'p3-widget-meta-grid',
 	'dataProvider'=>$model->search(),
