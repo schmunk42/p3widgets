@@ -57,14 +57,22 @@ class Widget extends CActiveRecord
 	/**
 	 * @return array relational rules.
 	 */
-	public function relations()
-	{
-		// NOTE: you may need to adjust the relation name and the related
-		// class name for the relations automatically generated below.
+	public function relations() {
 		return array(
+			'metaData' => array(self::HAS_ONE, 'P3WidgetMeta', 'id'),
 		);
-	}
-
+	} 
+	
+	public function behaviors() {
+		return array_merge(
+				array(
+				'MetaData' => array(
+					'class' => 'ext.p3extensions.behaviors.P3MetaDataBehavior',
+					'metaDataRelation' => 'metaData',
+				)
+				), parent::behaviors()
+		);
+	}	
 	/**
 	 * @return array customized attribute labels (name=>label)
 	 */

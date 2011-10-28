@@ -10,6 +10,13 @@
 				'options' => array('icons' => 'js:{primary:"ui-icon-wrench"}'),
 				#'onclick' => 'js:function(){alert("clicked"); this.blur(); return false;}',
 			));
+			$this->widget('zii.widgets.jui.CJuiButton', array(
+				'buttonType' => 'link',
+				'url' => array('/p3widgets/p3WidgetMeta/update', 'id' => $model->id),
+				'name' => 'btnClick' . uniqid(),
+				'options' => array('icons' => 'js:{primary:"ui-icon-info"}'),
+				#'onclick' => 'js:function(){alert("clicked"); this.blur(); return false;}',
+			));
 			echo '<div class="handle">';
 			$this->widget('zii.widgets.jui.CJuiButton', array(
 				'buttonType' => 'link',

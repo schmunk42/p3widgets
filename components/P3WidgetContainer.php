@@ -72,8 +72,10 @@ class P3WidgetContainer extends CWidget {
 			':controllerId' => $this->controller->id,
 			':actionName' => $this->controller->action->id,
 			':containerId' => $this->id,
+			':language' => Yii::app()->language,
 		);
-		$criteria->condition = 'moduleId = :moduleId AND controllerId = :controllerId AND actionName = :actionName AND containerId = :containerId';
+		$criteria->condition = '(metaData.language = :language OR metaData.language IS NULL) AND moduleId = :moduleId AND controllerId = :controllerId AND actionName = :actionName AND containerId = :containerId';
+		$criteria->with = array('metaData');
 		if ($this->varyByRequestParam !== null) {
 			$criteria->condition .= ' AND requestParam = :requestParam';
 			if (isset($_GET[$this->varyByRequestParam])) {

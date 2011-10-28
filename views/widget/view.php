@@ -32,3 +32,22 @@ $this->menu=array(
 		'sessionParam',
 	),
 )); ?>
+
+
+	<h2><?php echo CHtml::link(Yii::t('app','P3WidgetMeta'), array('/p3widgets/p3WidgetMeta/admin'));?></h2>
+<ul><?php $foreignobj = $model->metaData; 
+
+					if ($foreignobj !== null) {
+					echo '<li>';
+					echo '#'.$model->metaData->id.' ';
+					echo CHtml::link($model->metaData->_label, array('/p3widgets/p3WidgetMeta/view','id'=>$model->metaData->id));
+							
+					echo ' '.CHtml::link(Yii::t('app','Update'), array('/p3widgets/p3WidgetMeta/update','id'=>$model->metaData->id), array('class'=>'edit'));
+
+					
+					
+					}
+					?></ul><p><?php if($model->metaData === null) echo CHtml::link(
+				Yii::t('app','Create'),
+				array('/p3widgets/p3WidgetMeta/create', 'P3WidgetMeta' => array('id'=>$model->{$model->tableSchema->primaryKey}))
+				);  ?></p>
