@@ -19,18 +19,19 @@ $(function() {
     $( ".widget-container" ).sortable({
     connectWith: ".widget-container",
     placeholder: 'ui-state-highlight',
+    forcePlaceholderSize : 32,
     handle: '.handle',
         update: function() {
                 var order = $(this).sortable("serialize");
-                $.post('<?php echo Yii::app()->controller->createUrl("/p3widgets/widget/updateOrder") ?>', order);
-        }
-    }).disableSelection();
-});
-/*$(function() {
-    $( ".widget-container" ).sortable({
-	connectWith: ".widget-container",
-	placeholder: 'ui-state-highlight',
-	handle: '.handle',
+                $.ajax({
+		    type: 'POST',
+		    url: '<?php echo Yii::app()->controller->createUrl("/p3widgets/widget/updateOrder") ?>', 
+		    data: order,
+		    error: function(data){
+			alert(data.responseText)
+		    }
+		});
+        },
 	stop: function(event,ui) {
 	    widgetId = ui.item.attr('id').replace('widget-','');
 	    widgetIndex = ui.item.index();
@@ -45,7 +46,6 @@ $(function() {
 		{
 		    Widget:{
 			containerId:containerId,
-			rank:widgetIndex*10
 		    }
 		},
 		function(data){
@@ -61,6 +61,13 @@ $(function() {
 		);
 	}
     }).disableSelection();
+});
+/*$(function() {
+    $( ".widget-container" ).sortable({
+	connectWith: ".widget-container",
+	placeholder: 'ui-state-highlight',
+	handle: '.handle',
+    }).disableSelection();
 });*/
 
 // Handler for widget deletion
@@ -71,20 +78,25 @@ $('.delete').click(
 	    msg = 'Widget #'+widgetId;
 	    console.log(msg);
 	    url = '<?php echo Yii::app()->controller->createUrl("/p3widgets/widget/delete", array("id"=>"_ID_")) ?>';
-	    $.post(
-		url.replace(/_ID_/,widgetId),
-		{
+	    $.ajax({
+		type: 'POST',
+		url: url.replace(/_ID_/,widgetId),
+		data: {
 		    Widget:{
 			id:widgetId
 		    }
 		},
-		function(data){
+		success: function(data){
 		    if(data.search(/<h1>Manage Widgets/i) != -1) {
 			alert(msg+' deleted');
 			$('#widget-'+widgetId).hide();
 		    } else {
 			alert(msg+' could not be deleted!');
 		    }
+		},
+		error: function(data){
+		    alert(data.responseText);
+		}
 		}
 		);
 	    return true;
@@ -93,3 +105,7 @@ $('.delete').click(
 	}
     }
     );
+
+$('.widget-container SPAN.cssClasses').each(function(index){
+    $(this).html($(this).parent().parent().parent().parent().attr('class'));
+});
