@@ -55,8 +55,13 @@ class WidgetController extends Controller {
 		// $this->performAjaxValidation($model);
 		if (isset($_POST['Widget'])) {
 			$model->attributes = $_POST['Widget'];
-			if ($model->save())
-				$this->redirect(array('view', 'id' => $model->id));
+			if ($model->save()) {
+				if ($returnUrl = Yii::app()->request->getParam('returnUrl')) {
+					$this->redirect($returnUrl);
+				} else {
+					$this->redirect(array('view', 'id' => $model->id));
+				}
+			}
 		}
 		elseif (isset($_GET['Widget'])) {
 			$model->attributes = $_GET['Widget'];
@@ -79,8 +84,13 @@ class WidgetController extends Controller {
 
 		if (isset($_POST['Widget'])) {
 			$model->attributes = $_POST['Widget'];
-			if ($model->save())
-				$this->redirect(array('view', 'id' => $model->id));
+			if ($model->save()) {
+				if ($returnUrl = Yii::app()->request->getParam('returnUrl')) {
+					$this->redirect($returnUrl);
+				} else {
+					$this->redirect(array('view', 'id' => $model->id));
+				}
+			}				
 		}
 
 		$this->render('update', array(
@@ -169,6 +179,10 @@ class WidgetController extends Controller {
 	 * Thanks & Credits to peili (http://www.yiiframework.com/extension/p3widgets/#c5563)
 	 */
 	public function actionUpdateOrder() {
+		if (!isset($_POST['widget'])) {
+			echo "No data.";
+			return;
+		}
         $updateRecordsArray = $_POST['widget'];
 		$listingCounter = 10;
         foreach ($updateRecordsArray as $id) {
@@ -177,6 +191,7 @@ class WidgetController extends Controller {
             $model->save(false);
             $listingCounter = $listingCounter + 10;
         }
+		echo "Updated widget order successfully.";
     }
 	
 }

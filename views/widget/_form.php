@@ -1,4 +1,6 @@
 <div class="form">
+	
+<?php echo CHtml::hiddenField('returnUrl',Yii::app()->request->getParam('returnUrl')); ?>
 
 <?php $form=$this->beginWidget('CActiveForm', array(
 	'id'=>'widget-form',
