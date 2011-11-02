@@ -39,6 +39,10 @@ DIV.widget-container DIV.admin-panel {
     height: 40px;
     padding: 6px 6px 2px;
 }
+DIV.widget-container DIV.admin-panel DIV {
+    white-space: nowrap;
+    clear: both;
+}
 
 DIV.widget-container {
     border: 1px solid #ccc;
@@ -82,7 +86,6 @@ DIV.widget-container DIV.header H1 {
     color: #333;
 }
 DIV.widget-container DIV.admin-panel H1 {
-    float: right;
     font-size: 12px;
 }
 
