@@ -29,6 +29,7 @@ DIV.widget-container DIV.header {
     text-align: right;
     height: 44px;
     padding: 8px;
+    z-index: 99;
 }
 
 DIV.widget-container DIV.admin-panel {
@@ -38,6 +39,7 @@ DIV.widget-container DIV.admin-panel {
     top: -49px;
     height: 40px;
     padding: 6px 6px 2px;
+    z-index: 99;
 }
 DIV.widget-container DIV.admin-panel DIV {
     white-space: nowrap;
