@@ -3,6 +3,10 @@
 class m110518_000000_init extends CDbMigration {
 
 	public function up() {
+		if (Yii::app()->db->schema instanceof CMysqlSchema)
+			$options = 'ENGINE=InnoDB DEFAULT CHARSET=utf8';
+		else
+			$options = '';
 
 		$this->createTable("p3_widget", array(
 			"id" => "pk",
@@ -16,7 +20,7 @@ class m110518_000000_init extends CDbMigration {
 			"actionName" => "varchar(128)",
 			"requestParam" => "varchar(128)",
 			"sessionParam" => "varchar(128)",
-			), "");
+			), $options);
 	}
 
 	public function down() {
