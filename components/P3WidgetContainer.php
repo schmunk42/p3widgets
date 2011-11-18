@@ -8,6 +8,9 @@
  * @copyright Copyright &copy; 2005-2010 diemeisterei GmbH
  * @license http://www.phundament.com/license/
  */
+
+Yii::import('p3widgets.models.*');
+
 /**
  * Description ...
  *
@@ -27,10 +30,9 @@
  *
  * @author Tobias Munk <schmunk@usrbin.de>
  * @version $Id$
- * @package pii.cells
- * @since 2.0
+ * @package p3widgets.components
+ * @since 3.0
  */
-Yii::import('p3widgets.models.*');
 
 class P3WidgetContainer extends CWidget {
 	const CONTAINER_CSS_PREFIX = 'container-';
@@ -54,7 +56,7 @@ class P3WidgetContainer extends CWidget {
 	function init() {
 		parent::init();
 		if (!$this->getId(false)) {
-			throw new CException('Widget container must have an id.');
+			throw new CException("Widget container must have an 'id' attribute.");
 		}
 	}
 
@@ -68,16 +70,16 @@ class P3WidgetContainer extends CWidget {
 		$widgetAttributes = array();
 		$criteria = new CDbCriteria();
 		$criteria->params = array(
-			':moduleId' => ($this->controller->module !== null)?$this->controller->module->id:'', // TODO: null type not inserted correctly?
+			':moduleId' => ($this->controller->module !== null) ? $this->controller->module->id : '', // TODO: null type not inserted correctly?
 			':controllerId' => $this->controller->id,
 			':actionName' => $this->controller->action->id,
 			':containerId' => $this->id,
 			':language' => Yii::app()->language,
 		);
-		$criteria->condition = '(metaData.language = :language OR metaData.language IS NULL) AND '.
-			'moduleId = :moduleId AND '.
-			'(controllerId = :controllerId OR controllerId IS NULL) AND '.
-			'(actionName = :actionName OR actionName = "") AND '. // TODO: correct types
+		$criteria->condition = '(metaData.language = :language OR metaData.language IS NULL) AND ' .
+			'moduleId = :moduleId AND ' .
+			'(controllerId = :controllerId OR controllerId IS NULL) AND ' .
+			'(actionName = :actionName OR actionName = "") AND ' . // TODO: correct types
 			'containerId = :containerId';
 		$criteria->with = array('metaData');
 		if ($this->varyByRequestParam !== null) {
@@ -88,9 +90,9 @@ class P3WidgetContainer extends CWidget {
 				$criteria->params[':requestParam'] = ''; // TODO: null type not inserted correctly?
 			}
 		}
-		
+
 		$criteria->order = "rank ASC";
-		
+
 		$models = Widget::model()->findAll($criteria);
 
 		// render widgets
@@ -116,17 +118,13 @@ class P3WidgetContainer extends CWidget {
 		if (($this->checkAccess === false) || Yii::app()->user->checkAccess($this->checkAccess)) {
 			// prepare Widget model attributes for add button
 			$widgetAttributes = CMap::mergeArray($widgetAttributes, array(
-					'moduleId' => ($this->controller->module !== null)?$this->controller->module->id:null,
+					'moduleId' => ($this->controller->module !== null) ? $this->controller->module->id : null,
 					'controllerId' => $this->controller->id,
 					'actionName' => $this->controller->action->id,
 					'containerId' => $this->id,
 				));
 
-			// include admin CSS and JS
-			$cssFile = Yii::app()->assetManager->publish(Yii::getPathOfAlias('p3widgets.themes.default') . DIRECTORY_SEPARATOR . 'container.css');
-			Yii::app()->clientScript->registerCssFile($cssFile);
-			$jsFile = $this->renderInternal(Yii::getPathOfAlias('p3widgets.themes.default') . DIRECTORY_SEPARATOR . 'container.js', null, true);
-			Yii::app()->clientScript->registerScript('P3WidgetContainer', $jsFile, CClientScript::POS_END);
+			$this->registerClientScripts();
 
 			$this->render(
 				'container', array(
@@ -150,7 +148,7 @@ class P3WidgetContainer extends CWidget {
 		try {
 			$class = Yii::import($alias);
 		} catch (Exception $e) {
-			return "<div class='error'>{$e->getMessage()}'</div>";
+			return "<div class='flash-error'>{$e->getMessage()}'</div>";
 		}
 
 		if (@class_exists($class) == true) {
@@ -178,6 +176,14 @@ class P3WidgetContainer extends CWidget {
 			Yii::log($msg, CLogger::LEVEL_ERROR);
 			return "<div class='flash-error'>" . $msg . "</div>";
 		}
+	}
+
+	private function registerClientScripts() {
+		// include admin CSS and JS
+		$cssFile = Yii::app()->assetManager->publish(Yii::getPathOfAlias('p3widgets.themes.default') . DIRECTORY_SEPARATOR . 'container.css');
+		Yii::app()->clientScript->registerCssFile($cssFile);
+		$jsFile = $this->renderInternal(Yii::getPathOfAlias('p3widgets.themes.default') . DIRECTORY_SEPARATOR . 'container.js', null, true);
+		Yii::app()->clientScript->registerScript('P3WidgetContainer', $jsFile, CClientScript::POS_END);
 	}
 
 }

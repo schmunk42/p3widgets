@@ -1,4 +1,12 @@
 <?php
+/**
+ * Class file.
+ *
+ * @author Tobias Munk <schmunk@usrbin.de>
+ * @link http://www.phundament.com/
+ * @copyright Copyright &copy; 2005-2011 diemeisterei GmbH
+ * @license http://www.phundament.com/license/
+ */
 
 /**
  * This is the model class for table "p3_widgets".
@@ -14,6 +22,10 @@
  * @property string $actionName
  * @property string $requestParam
  * @property string $sessionParam
+ 
+ * @author Tobias Munk <schmunk@usrbin.de>
+ * @package p3widgets.models
+ * @since 3.0.1
  */
 class Widget extends CActiveRecord
 {
