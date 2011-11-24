@@ -1,5 +1,20 @@
 <?php
+/**
+ * Class file.
+ *
+ * @author Tobias Munk <schmunk@usrbin.de>
+ * @link http://www.phundament.com/
+ * @copyright Copyright &copy; 2005-2011 diemeisterei GmbH
+ * @license http://www.phundament.com/license/
+ */
 
+/**
+ * Desc
+ * * 
+ * @author Tobias Munk <schmunk@usrbin.de>
+ * @package p3widgets.models
+ * @since 3.0.1
+ */
 class P3WidgetMeta extends BaseP3WidgetMeta
 {
 	// Add your model-specific methods here. This file will not be overriden by gtc except you force it.
