@@ -59,6 +59,7 @@ class Widget extends CActiveRecord
 			array('alias', 'length', 'max'=>255),
 			array('containerId', 'length', 'max'=>64),
 			array('moduleId, controllerId, actionName, requestParam, sessionParam', 'length', 'max'=>128),
+			#array('containerId, moduleId, controllerId, actionName, requestParam, sessionParam', 'default', 'setOnEmpty' => true, 'value' => null),
 			array('properties, content', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.

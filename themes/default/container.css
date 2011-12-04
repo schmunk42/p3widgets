@@ -20,6 +20,11 @@ DIV.widget-container DIV.header {
 
 }
 
+/*DIV.widget-container.over {
+    position: relative;
+    z-index: 98;
+}*/
+
 DIV.widget-container DIV.header {
     display: none;    
     background: #ccc;
@@ -51,6 +56,17 @@ DIV.widget-container {
     margin: -1px;
     min-height: 32px;
 }
+
+DIV.widget-container.controlPositionBottom DIV.header {
+    top: auto;
+    bottom: -60px;
+}
+DIV.widget-container.controlPositionBottom DIV.admin-panel {
+    top: auto;
+    bottom: -49px;
+}
+
+
 DIV.widget {
     /*border: 1px dashed #eee;
     margin: -1px;*/

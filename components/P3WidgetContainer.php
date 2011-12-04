@@ -8,11 +8,12 @@
  * @copyright Copyright &copy; 2005-2010 diemeisterei GmbH
  * @license http://www.phundament.com/license/
  */
-
 Yii::import('p3widgets.models.*');
 
 /**
- * Description ...
+ * Component which dynamically creates widgets
+ * 
+ * UNIVERSAL_VALUE will be always selected
  *
  * Detailed info
  * <pre>
@@ -33,10 +34,10 @@ Yii::import('p3widgets.models.*');
  * @package p3widgets.components
  * @since 3.0
  */
-
 class P3WidgetContainer extends CWidget {
 	const CONTAINER_CSS_PREFIX = 'container-';
 	const WIDGET_CSS_PREFIX = 'widget-';
+	const UNIVERSAL_VALUE = "_ALL";
 
 	/**
 	 * Defines $_GET parameter for widget queries
@@ -52,6 +53,12 @@ class P3WidgetContainer extends CWidget {
 	 * @var string
 	 */
 	public $checkAccess = 'P3widgets.Widget.*';
+
+	/**
+	 * Wheter to render the controls on top or on bottom of the container
+	 * @var type 
+	 */
+	public $controlPosition = 'top';
 
 	function init() {
 		parent::init();
@@ -70,24 +77,25 @@ class P3WidgetContainer extends CWidget {
 		$widgetAttributes = array();
 		$criteria = new CDbCriteria();
 		$criteria->params = array(
-			':moduleId' => ($this->controller->module !== null) ? $this->controller->module->id : '', // TODO: null type not inserted correctly?
+			':universalValue' => self::UNIVERSAL_VALUE,
+			':moduleId' => ($this->controller->module !== null) ? $this->controller->module->id : '',
 			':controllerId' => $this->controller->id,
 			':actionName' => $this->controller->action->id,
 			':containerId' => $this->id,
 			':language' => Yii::app()->language,
 		);
 		$criteria->condition = '(metaData.language = :language OR metaData.language IS NULL) AND ' .
-			'moduleId = :moduleId AND ' .
-			'(controllerId = :controllerId OR controllerId IS NULL) AND ' .
-			'(actionName = :actionName OR actionName = "") AND ' . // TODO: correct types
+			'(moduleId = :moduleId OR moduleId = :universalValue) AND ' .
+			'(controllerId = :controllerId OR controllerId = :universalValue) AND ' .
+			'(actionName = :actionName OR actionName = :universalValue) AND ' .
 			'containerId = :containerId';
 		$criteria->with = array('metaData');
 		if ($this->varyByRequestParam !== null) {
-			$criteria->condition .= ' AND (requestParam = :requestParam OR requestParam = "")';
+			$criteria->condition .= ' AND (requestParam = :requestParam OR requestParam = :universalValue)';
 			if (isset($_GET[$this->varyByRequestParam])) {
 				$widgetAttributes['requestParam'] = $criteria->params[':requestParam'] = $_GET[$this->varyByRequestParam];
 			} else {
-				$criteria->params[':requestParam'] = ''; // TODO: null type not inserted correctly?
+				$criteria->params[':requestParam'] = '';
 			}
 		}
 
