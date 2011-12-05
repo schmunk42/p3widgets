@@ -85,8 +85,13 @@ DIV.widget-container.over {
     margin: -4px;
     padding: 2px;
 }
-DIV.widget.over {
+/* works more reliable with a slight border :) */
+DIV.widget {
     border: 1px solid #eee;
+    margin: -1px;
+}
+DIV.widget.over {
+    border: 1px solid #ccc;
     margin: -1px;
 }
 
