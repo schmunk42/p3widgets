@@ -137,10 +137,11 @@ class WidgetController extends Controller {
 	 * Lists all models.
 	 */
 	public function actionIndex() {
-		$dataProvider = new CActiveDataProvider('Widget');
-		$this->render('index', array(
-			'dataProvider' => $dataProvider,
-		));
+		$this->redirect(array('admin'));
+		#$dataProvider = new CActiveDataProvider('Widget');
+		#$this->render('index', array(
+		#	'dataProvider' => $dataProvider,
+		#));
 	}
 
 	/**
