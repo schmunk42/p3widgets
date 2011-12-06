@@ -1,13 +1,23 @@
 // Apply another CSS class if a container and/or a widget is hovered
 $('.widget-container').mouseover(function(){
-    $(this).addClass('over');
+    if ($('#P3WidgetContainerShowControls:checked').length !== 0) {
+	$(this).addClass('over');
+    } else if ($('#P3WidgetContainerShowControls').length === 0) {
+	// always show admin controls if element is not present
+	$(this).addClass('over');
+    }
 });
 $('.widget-container').mouseout(function(){
     $(this).removeClass('over');
 });
 
 $('.widget').mouseover(function(){
-    $(this).addClass('over');
+    if ($('#P3WidgetContainerShowControls:checked').length !== 0) {
+	$(this).addClass('over');
+    } else if ($('#P3WidgetContainerShowControls').length === 0) {
+	// always show admin controls if element is not present
+	$(this).addClass('over');
+    }
 });
 $('.widget').mouseout(function(){
     $(this).removeClass('over');
