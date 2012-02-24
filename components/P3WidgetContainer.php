@@ -84,7 +84,7 @@ class P3WidgetContainer extends CWidget {
 			':containerId' => $this->id,
 			':language' => Yii::app()->language,
 		);
-		$criteria->condition = '(metaData.language = :language OR metaData.language IS NULL) AND ' .
+		$criteria->condition = '(metaData.language = :language OR metaData.language = :universalValue) AND ' .
 			'(moduleId = :moduleId OR moduleId = :universalValue) AND ' .
 			'(controllerId = :controllerId OR controllerId = :universalValue) AND ' .
 			'(actionName = :actionName OR actionName = :universalValue) AND ' .
