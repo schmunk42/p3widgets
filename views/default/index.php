@@ -22,6 +22,11 @@ This module requires installation.
 <p>
 	<?php echo CHtml::link('Manage Widgets', array('widget/admin'))?>
 </p>
+<p>
+	<li><?php echo CHtml::link('Manage Widgets', array('p3widget/admin'))?></li>
+	<li><?php echo CHtml::link('Manage Widget Meta Data', array('p3widgetMeta/admin'))?></li>
+	<li><?php echo CHtml::link('Manage Widget Translations', array('p3widgetTranslation/admin'))?></li>
+</p>
 
 <p>
 	<?php echo CHtml::link('Test Page', array('test'))?>

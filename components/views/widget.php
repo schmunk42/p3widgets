@@ -3,12 +3,19 @@
 		<h1><?php echo $headline ?></h1>
 		<div>
 			<?php
-			if (Yii::app()->user->checkAccess($model->metaData->checkAccessUpdate)) {
+			if (Yii::app()->user->checkAccess($model->p3WidgetMeta->checkAccessUpdate)) {
 				$this->widget('zii.widgets.jui.CJuiButton', array(
 					'buttonType' => 'link',
-					'url' => array('/p3widgets/widget/update', 'id' => $model->id, 'returnUrl' => Yii::app()->request->getUrl()),
+					'url' => array('/p3widgets/p3widget/update', 'id' => $model->id, 'returnUrl' => Yii::app()->request->getUrl()),
 					'name' => 'btnClick' . uniqid(),
 					'options' => array('icons' => 'js:{primary:"ui-icon-wrench"}'),
+					#'onclick' => 'js:function(){alert("clicked"); this.blur(); return false;}',
+				));
+				$this->widget('zii.widgets.jui.CJuiButton', array(
+					'buttonType' => 'link',
+					'url' => array('/p3widgets/p3Widget/view', 'id' => $model->id, 'returnUrl' => Yii::app()->request->getUrl()),
+					'name' => 'btnClick' . uniqid(),
+					'options' => array('icons' => 'js:{primary:"ui-icon-document"}'),
 					#'onclick' => 'js:function(){alert("clicked"); this.blur(); return false;}',
 				));
 				$this->widget('zii.widgets.jui.CJuiButton', array(
@@ -26,7 +33,7 @@
 					#'onclick' => 'js:function(){alert("tbd: drag and drop"); this.blur(); return false;}',
 				));
 			}
-			if (Yii::app()->user->checkAccess($model->metaData->checkAccessDelete)) {
+			if (Yii::app()->user->checkAccess($model->p3WidgetMeta->checkAccessDelete)) {
 				echo '</div>';
 				$this->widget('zii.widgets.jui.CJuiButton', array(
 					'id' => 'delete-' . $model->id,

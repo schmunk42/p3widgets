@@ -84,12 +84,12 @@ class P3WidgetContainer extends CWidget {
 			':containerId' => $this->id,
 			':language' => Yii::app()->language,
 		);
-		$criteria->condition = '(metaData.language = :language OR metaData.language = :universalValue) AND ' .
+		$criteria->condition = '(p3WidgetMeta.language = :language OR p3WidgetMeta.language = :universalValue) AND ' .
 			'(moduleId = :moduleId OR moduleId = :universalValue) AND ' .
 			'(controllerId = :controllerId OR controllerId = :universalValue) AND ' .
 			'(actionName = :actionName OR actionName = :universalValue) AND ' .
 			'containerId = :containerId';
-		$criteria->with = array('metaData');
+		$criteria->with = array('p3WidgetMeta');
 		if ($this->varyByRequestParam !== null) {
 			$criteria->condition .= ' AND (requestParam = :requestParam OR requestParam = :universalValue)';
 			if (isset($_GET[$this->varyByRequestParam])) {
@@ -101,14 +101,15 @@ class P3WidgetContainer extends CWidget {
 
 		$criteria->order = "rank ASC";
 
-		$models = Widget::model()->findAll($criteria);
-
+		$models = P3Widget::model()->findAll($criteria);
+		Yii::trace("Found ".count($models)." widgets.");
+		
 		// render widgets
 		$widgets = "";
 		foreach ($models AS $model) {
-
-			$properties = (is_array(CJSON::decode($model->properties))) ? CJSON::decode($model->properties) : array();
-			$content = $this->prepareWidget($model->alias, $properties, $model->content);
+						
+			$properties = (is_array(CJSON::decode($model->t('properties')))) ? CJSON::decode($model->properties) : array();
+			$content = $this->prepareWidget($model->alias, $properties, $model->t('content',null,true));
 
 			if (($this->checkAccess === false) || Yii::app()->user->checkAccess($this->checkAccess)) {
 				// admin mode
