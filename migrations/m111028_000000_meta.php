@@ -37,7 +37,7 @@ class m111028_000000_meta extends CDbMigration {
 
 		if ((Yii::app()->db->schema instanceof CSqliteSchema) == false):
 
-		$this->addForeignKey('fk_p3_widget_id', 'p3_widget_meta', 'id', 'p3_widget', 'id', null, null); // update 'null' for ON DELTE and ON UPDATE
+		$this->addForeignKey('fk_p3_widget_id', 'p3_widget_meta', 'id', 'p3_widget', 'id', 'CASCADE', 'CASCADE'); // update 'null' for ON DELTE and ON UPDATE
 
 		endif;
 		
