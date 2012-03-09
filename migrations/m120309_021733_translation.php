@@ -17,7 +17,7 @@ class m120309_021733_translation extends CDbMigration {
 		$this->createTable("p3_widget_translation", array(
 			"id" => "pk",
 			"p3_widget_id" => "int(11) NOT NULL",
-			"language" => "varchar(8)",
+			"language" => "varchar(8) NOT NULL",
 			"properties" => "text",
 			"content" => "text",
 			), $options);

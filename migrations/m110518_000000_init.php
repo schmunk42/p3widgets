@@ -11,15 +11,15 @@ class m110518_000000_init extends CDbMigration {
 		$this->createTable("p3_widget", array(
 			"id" => "pk",
 			"alias" => "varchar(128) NOT NULL",
-			"properties" => "text",
-			"content" => "text",
+			#"properties" => "text",
+			#"content" => "text",
 			"rank" => "integer(11) NOT NULL default 0",
 			"containerId" => "varchar(128) NOT NULL",
-			"moduleId" => "varchar(128)",
-			"controllerId" => "varchar(128)",
-			"actionName" => "varchar(128)",
-			"requestParam" => "varchar(128)",
-			"sessionParam" => "varchar(128)",
+			"moduleId" => "varchar(128) NOT NULL",
+			"controllerId" => "varchar(128) NOT NULL",
+			"actionName" => "varchar(128) NOT NULL",
+			"requestParam" => "varchar(128) NOT NULL",
+			"sessionParam" => "varchar(128) NOT NULL",
 			), $options);
 	}
 
