@@ -33,7 +33,7 @@ abstract class BaseP3Widget extends CActiveRecord{
 	{
 		return array(
 			array('alias, containerId', 'required'),
-			array('rank, moduleId, controllerId, actionName, requestParam, sessionParam', 'default', 'setOnEmpty' => true, 'value' => null),
+			array('rank, moduleId, controllerId, actionName, requestParam, sessionParam', 'default', 'setOnEmpty' => true, 'value' => ''),
 			array('rank', 'numerical', 'integerOnly'=>true),
 			array('alias, containerId, moduleId, controllerId, actionName, requestParam, sessionParam', 'length', 'max'=>128),
 			array('id, alias, rank, containerId, moduleId, controllerId, actionName, requestParam, sessionParam', 'safe', 'on'=>'search'),
