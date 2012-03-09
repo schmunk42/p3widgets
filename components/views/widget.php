@@ -43,7 +43,7 @@
 				$this->widget('zii.widgets.jui.CJuiButton', array(
 					'buttonType' => 'link',
 					#'caption' => 'Edit',
-					'url' => array('/p3widgets/p3widget/update', 'id' => $model->id, 'returnUrl' => Yii::app()->request->getUrl()),
+					'url' => array('/p3widgets/p3Widget/update', 'id' => $model->id, 'returnUrl' => Yii::app()->request->getUrl()),
 					'name' => 'btnClick' . uniqid(),
 					'options' => array('icons' => 'js:{primary:"ui-icon-wrench"}'),
 					#'onclick' => 'js:function(){alert("clicked"); this.blur(); return false;}',

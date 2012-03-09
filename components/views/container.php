@@ -5,7 +5,7 @@
 		$this->widget('zii.widgets.jui.CJuiButton', array(
 			'buttonType' => 'link',
 			#'caption'=>'Create',
-			'url' => array('/p3widgets/p3widget/create', 'P3Widget' => $widgetAttributes, 'returnUrl' => Yii::app()->request->getUrl()),
+			'url' => array('/p3widgets/p3Widget/create', 'P3Widget' => $widgetAttributes, 'returnUrl' => Yii::app()->request->getUrl()),
 			'name' => 'btnClick' . uniqid(),
 			'options' => array('icons' => 'js:{primary:"ui-icon-plus"}'),
 			#'onclick' => 'js:function(){alert("clicked"); this.blur(); return false;}',
