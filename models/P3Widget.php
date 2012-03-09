@@ -30,6 +30,7 @@ class P3Widget extends BaseP3Widget {
 					'class' => 'ext.p3extensions.behaviors.P3TranslationBehavior',
 					'relation' => 'p3WidgetTranslations',
 					'fallbackLanguage' => 'en',
+					'fallbackValue' => null,
 				//'attributesBlacklist' => array('loadfrom'),
 				)
 				), parent::behaviors()

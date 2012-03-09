@@ -34,7 +34,7 @@ DIV.widget-container DIV.header {
     text-align: right;
     height: 44px;
     padding: 8px;
-    z-index: 99;
+    z-index: 1099;
 }
 
 DIV.widget-container DIV.admin-panel {
@@ -44,7 +44,7 @@ DIV.widget-container DIV.admin-panel {
     top: -49px;
     height: 40px;
     padding: 6px 6px 2px;
-    z-index: 99;
+    z-index: 1100;
 }
 DIV.widget-container DIV.admin-panel DIV {
     white-space: nowrap;
@@ -106,10 +106,12 @@ DIV.widget.over DIV.admin-panel, DIV.widget-container.over DIV.header {
 
 DIV.widget-container DIV.header H1 {
     font-size: 16px;
+    line-height: 28px;
     color: #333;
 }
 DIV.widget-container DIV.admin-panel H1 {
     font-size: 12px;
+    line-height: 20px;
 }
 
 DIV.widget-container DIV.handle,

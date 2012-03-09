@@ -35,6 +35,7 @@ Yii::import('p3widgets.models.*');
  * @since 3.0
  */
 class P3WidgetContainer extends CWidget {
+
 	const CONTAINER_CSS_PREFIX = 'container-';
 	const WIDGET_CSS_PREFIX = 'widget-';
 	const UNIVERSAL_VALUE = "_ALL";
@@ -102,22 +103,31 @@ class P3WidgetContainer extends CWidget {
 		$criteria->order = "rank ASC";
 
 		$models = P3Widget::model()->findAll($criteria);
-		Yii::trace("Found ".count($models)." widgets.");
-		
+		Yii::trace("Found " . count($models) . " widgets.");
+
 		// render widgets
 		$widgets = "";
 		foreach ($models AS $model) {
-						
-			$properties = (is_array(CJSON::decode($model->t('properties')))) ? CJSON::decode($model->properties) : array();
-			$content = $this->prepareWidget($model->alias, $properties, $model->t('content',null,true));
+
+			$properties = (is_array(CJSON::decode($model->t('properties', null, true)))) ? CJSON::decode($model->t('properties', null, true)) : array();
+
+			$content = $this->prepareWidget($model->alias, $properties, $model->t('content', null, true));
+
 
 			if (($this->checkAccess === false) || Yii::app()->user->checkAccess($this->checkAccess)) {
-				// admin mode
-				$widgets .= $this->render(
-					'widget', array(
-					'headline' => ((strrchr($model->alias, '.')) ? substr(strrchr($model->alias, '.'), 1) : $model->alias) . ' #' . $model->id,
-					'content' => $content,
-					'model' => $model), true);
+				if ($model->getTranslationModel() !== null) {
+					// admin mode
+					$widgets .= $this->render(
+						'widget', array(
+						'headline' => ((strrchr($model->alias, '.')) ? substr(strrchr($model->alias, '.'), 1) : $model->alias) . ' #' . $model->id,
+						'content' => $content,
+						'model' => $model), true);
+				} else {
+					// no translation
+					$widgets .= "<div class='notice'>Translation for widget #{$model->id} {$model->alias} not found.<br>Click " .
+						CHtml::link('here', array('/p3widgets/p3WidgetTranslation/create', 'P3WidgetTranslation' => array('p3_widget_id' => $model->id, 'language' => Yii::app()->language), 'returnUrl' => Yii::app()->request->getUrl())) .
+						" to create it now.</div>";
+				}
 			} else {
 				$widgets .= $content;
 			}
