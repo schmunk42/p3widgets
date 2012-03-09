@@ -35,7 +35,7 @@ $(function() {
                 var order = $(this).sortable("serialize");
                 $.ajax({
 		    type: 'POST',
-		    url: '<?php echo Yii::app()->controller->createUrl("/p3widgets/widget/updateOrder") ?>', 
+		    url: '<?php echo Yii::app()->controller->createUrl("/p3widgets/p3Widget/updateOrder") ?>', 
 		    data: order,
 		    error: function(data){
 			alert(data.responseText)
@@ -50,7 +50,7 @@ $(function() {
 	    msg = 'Moving widget #'+widgetId+' to '+containerId+' index '+widgetIndex;
 	    console.log(msg);
 
-	    url = '<?php echo Yii::app()->controller->createUrl("/p3widgets/widget/update", array("id"=>"_ID_")) ?>';
+	    url = '<?php echo Yii::app()->controller->createUrl("/p3widgets/p3Widget/update", array("id"=>"_ID_")) ?>';
 	    $.post(
 		url.replace('_ID_',widgetId),
 		{
@@ -87,7 +87,7 @@ $('.delete').click(
 	if (confirm('Do want really want to delete widget #'+widgetId+'?')) {
 	    msg = 'Widget #'+widgetId;
 	    console.log(msg);
-	    url = '<?php echo Yii::app()->controller->createUrl("/p3widgets/widget/delete", array("id"=>"_ID_")) ?>';
+	    url = '<?php echo Yii::app()->controller->createUrl("/p3widgets/p3Widget/delete", array("id"=>"_ID_")) ?>';
 	    $.ajax({
 		type: 'POST',
 		url: url.replace(/_ID_/,widgetId),
@@ -97,7 +97,8 @@ $('.delete').click(
 		    }
 		},
 		success: function(data){
-		    if(data.search(/<h1>Manage Widgets/i) != -1) {
+		    // TODO: better detection
+		    if(data.search(/Manage P3 Widgets/i) != -1) {
 			alert(msg+' deleted');
 			$('#widget-'+widgetId).hide();
 		    } else {

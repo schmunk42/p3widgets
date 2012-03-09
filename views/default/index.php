@@ -20,9 +20,6 @@ The P3WidgetManager allows you to dynamically create any type of widget.
 This module requires installation.
 </p>
 <p>
-	<?php echo CHtml::link('Manage Widgets', array('widget/admin'))?>
-</p>
-<p>
 	<li><?php echo CHtml::link('Manage Widgets', array('p3widget/admin'))?></li>
 	<li><?php echo CHtml::link('Manage Widget Meta Data', array('p3widgetMeta/admin'))?></li>
 	<li><?php echo CHtml::link('Manage Widget Translations', array('p3widgetTranslation/admin'))?></li>
