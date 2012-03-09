@@ -75,7 +75,7 @@ class P3WidgetController extends Controller {
 
 		if (isset($_POST['P3Widget'])) {
 			$model->attributes = $_POST['P3Widget'];
-
+			
 
 			try {
 				if ($model->save()) {

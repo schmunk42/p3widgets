@@ -54,13 +54,13 @@ $(function() {
 	    $.post(
 		url.replace('_ID_',widgetId),
 		{
-		    Widget:{
+		    P3Widget:{
 			containerId:containerId,
 		    }
 		},
 		function(data){
 		    //alert(data); // TODO: detection
-		    if(data.search(/Update P3Widget/i) != -1) {
+		    if(data.search(/View P3Widget/i) != -1) {
 			//alert(msg+' - OK');
 			console.log('OK');
 		    } else {
@@ -92,7 +92,7 @@ $('.delete').click(
 		type: 'POST',
 		url: url.replace(/_ID_/,widgetId),
 		data: {
-		    Widget:{
+		    P3Widget:{
 			id:widgetId
 		    }
 		},
