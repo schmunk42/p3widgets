@@ -59,13 +59,13 @@ $(function() {
 		    }
 		},
 		function(data){
-		    //alert(data);
-		    if(data.search(/<h1>View Widget/i) != -1) {
+		    //alert(data); // TODO: detection
+		    if(data.search(/Update P3Widget/i) != -1) {
 			//alert(msg+' - OK');
 			console.log('OK');
 		    } else {
 			alert(msg+' - Error');
-			console.log('ERROR'+msg);
+			console.log('ERROR: '+msg);
 		    }
 		}
 		);

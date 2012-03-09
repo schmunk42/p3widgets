@@ -81,7 +81,7 @@
 <script type="text/javascript">
 	function resetProperties() {
 		$("#P3WidgetTranslation_properties").jsoneditor('input');
-		url = "<?php echo $this->createUrl('/p3widgets/widget/classVars', array('alias' => '__ALIAS__')) ?>";
+		url = "<?php echo $this->createUrl('/p3widgets/p3Widget/classVars', array('alias' => '__ALIAS__')) ?>";
 		url = url.replace("__ALIAS__", "<?php echo $model->p3Widget->alias; ?>");
 			
 		$.ajax(
