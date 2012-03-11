@@ -6,7 +6,7 @@ return array(
 			'class' => 'application.modules.p3widgets.P3WidgetsModule',
 			'params' => array(
 				'widgets' => array(
-					'CWidget' => 'Basic Widget',
+					'CWidget' => 'Basic HTML Widget',
 				)
 			)
 		)
