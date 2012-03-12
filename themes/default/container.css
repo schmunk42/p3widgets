@@ -55,8 +55,8 @@ DIV.widget-container DIV.admin-panel DIV {
 }
 
 DIV.widget-container {
-    Xborder: 1px solid #ccc;
-    Xmargin: -1px;
+    border: 2px dashed #ccc;
+    margin: -2px;
     min-height: 32px;
 }
 

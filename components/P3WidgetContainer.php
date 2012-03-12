@@ -116,18 +116,19 @@ class P3WidgetContainer extends CWidget {
 
 			if (($this->checkAccess === false) || Yii::app()->user->checkAccess($this->checkAccess)) {
 				if ($model->getTranslationModel() !== null) {
-					// admin mode
-					$widgets .= $this->render(
-						'widget', array(
-						'headline' => ((strrchr($model->alias, '.')) ? substr(strrchr($model->alias, '.'), 1) : $model->alias) . ' #' . $model->id,
-						'content' => $content,
-						'model' => $model), true);
+					
 				} else {
 					// no translation
-					$widgets .= "<div class='notice'>Translation for widget #{$model->id} {$model->alias} not found.<br>Click " .
+					$content = "<div class='notice'>Translation for widget #{$model->id} {$model->alias} not found.<br>Click " .
 						CHtml::link('here', array('/p3widgets/p3WidgetTranslation/create', 'P3WidgetTranslation' => array('p3_widget_id' => $model->id, 'language' => Yii::app()->language), 'returnUrl' => Yii::app()->request->getUrl())) .
-						" to create it now.</div>";
+						" to create it now.</div>".$content;
 				}
+				// admin mode
+				$widgets .= $this->render(
+					'widget', array(
+					'headline' => ((strrchr($model->alias, '.')) ? substr(strrchr($model->alias, '.'), 1) : $model->alias) . ' #' . $model->id,
+					'content' => $content,
+					'model' => $model), true);
 			} else {
 				$widgets .= $content;
 			}

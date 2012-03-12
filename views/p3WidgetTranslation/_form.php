@@ -13,7 +13,7 @@
 	echo $form->errorSummary($model);
 	?>
 
-	<?php echo "<h2>" . $model->p3Widget->alias . "</h2>"; ?>
+	<?php echo "<p>" . $model->p3Widget->alias . "</p>"; ?>
 
     <div class="row">
 		<?php echo $form->labelEx($model, 'language'); ?>
