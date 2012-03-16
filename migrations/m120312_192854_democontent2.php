@@ -472,8 +472,10 @@ class m120312_192854_democontent2 extends CDbMigration {
 			"p3_widget_id" => "7",
 			"language" => "en",
 			"properties" => "{\"skin\":\"default\"}",
-			"content" => "<p>
-	&copy; 2012 - powered by <a href=\"http://phundament.com\">Phundament 3</a></p>
+			"content" => "<div class=\"pull-left\">
+	&copy; 2012 by My Company</div>
+<div class=\"pull-right\">
+	<a href=\"http://phundament.com\"><img alt=\"Powered by Phundament 3\" src=\"http://t.phundament.com/p3-32-bw.png\" /></a></div>
 ",
 		));
 
