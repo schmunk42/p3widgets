@@ -56,7 +56,11 @@ class P3WidgetController extends Controller {
 
 			try {
 				if ($model->save()) {
-					$this->redirect(array('view', 'id' => $model->id));
+					if (isset($_GET['returnUrl'])) {
+						$this->redirect($_GET['returnUrl']);
+					} else {
+						$this->redirect(array('view', 'id' => $model->id));
+					}
 				}
 			} catch (Exception $e) {
 				$model->addError('id', $e->getMessage());
@@ -79,7 +83,11 @@ class P3WidgetController extends Controller {
 
 			try {
 				if ($model->save()) {
-					$this->redirect(array('view', 'id' => $model->id));
+					if (isset($_GET['returnUrl'])) {
+						$this->redirect($_GET['returnUrl']);
+					} else {
+						$this->redirect(array('view', 'id' => $model->id));
+					}
 				}
 			} catch (Exception $e) {
 				$model->addError('id', $e->getMessage());

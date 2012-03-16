@@ -13,7 +13,7 @@ $this->menu=array(
 
 <h1><?php echo Yii::t('app', 'View');?> P3Widget #<?php echo $model->id; ?></h1>
 
-<?php echo CHtml::link('Widget Page',array("/".$model->controllerId."/".$model->actionName)); ?>
+<?php echo CHtml::link('Widget Page',array("/".$model->controllerId."/".$model->actionName,'pageId'=>$model->requestParam)); // TODO: save request Param key? ?>
 
 <?php $this->widget('zii.widgets.CDetailView', array(
 'data'=>$model,

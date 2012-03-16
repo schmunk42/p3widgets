@@ -20,7 +20,7 @@
 					$this->widget('zii.widgets.jui.CJuiButton', array(
 						'buttonType' => 'link',
 						#'caption' => 'Translations',
-						'url' => array('/p3widgets/p3WidgetTranslation/update', 'id' => $model->getTranslationModel()->id),
+						'url' => array('/p3widgets/p3WidgetTranslation/update', 'id' => $model->getTranslationModel()->id, 'returnUrl' => Yii::app()->request->getUrl()),
 						'name' => 'btnClick' . uniqid(),
 						'options' => array('icons' => 'js:{primary:"ui-icon-pencil"}'),
 						#'onclick' => 'js:function(){alert("clicked"); this.blur(); return false;}',

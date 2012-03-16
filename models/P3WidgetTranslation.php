@@ -38,5 +38,9 @@ class P3WidgetTranslation extends BaseP3WidgetTranslation
 				parent::rules()
 				);
 	}
-
+	public function get_label()
+	{
+		return $this->language;		
+		
+			}
 }
