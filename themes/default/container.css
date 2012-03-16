@@ -84,20 +84,24 @@ DIV.widget-container.admin DIV.widget {
 
 
 DIV.widget-container.over {
+    background: #fff;
     border: 2px solid #ccc;
     margin: -14px;
     padding: 12px;
+     z-index: 1099;
 }
 /* works more reliable with a slight border :) */
 DIV.widget {
     border: 0px solid #eee;
     padding: 8px;
     margin: -8px;
+    z-index: 1000;
 }
 DIV.widget.over {
     border: 4px solid #d9edf7;
     margin: -12px;
     background: #d9edf7;
+    z-index: 1101;
 }
 
 DIV.widget.over DIV.admin-panel, DIV.widget-container.over DIV.header {
