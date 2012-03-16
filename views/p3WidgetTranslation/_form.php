@@ -23,7 +23,7 @@
 	</div>
 
 
-	<div class="row">
+	<div class="row2">
 		<?php echo $form->labelEx($model, 'properties'); ?>
 
 		<?php
@@ -36,7 +36,7 @@
 
 	</div>
 
-	<div class="row">
+	<div class="row2">
 		<?php echo $form->labelEx($model, 'content'); ?>
 		<?php #echo $form->textArea($model,'content',array('rows'=>6, 'cols'=>50)); ?>
 		<?php
