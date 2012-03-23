@@ -15,7 +15,7 @@ class m120312_192854_democontent2 extends CDbMigration {
 
 		$this->insert("p3_widget", array(
 			"id" => "1",
-			"alias" => "ext.yii-bootstrap.widgets.BootHero",
+			"alias" => "ext.crisu83.yii-bootstrap.widgets.BootHero",
 			"rank" => "0",
 			"containerId" => "hero",
 			"moduleId" => "",
