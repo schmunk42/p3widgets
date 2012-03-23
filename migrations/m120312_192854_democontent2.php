@@ -367,7 +367,7 @@ class m120312_192854_democontent2 extends CDbMigration {
 			"id" => "1",
 			"p3_widget_id" => "1",
 			"language" => "en",
-			"properties" => "{\"options\":{},\"events\":{},\"htmlOptions\":{},\"skin\":\"default\",\"heading\":\"Hello World!\",\"content\":\"Phundament 3\"}",
+			"properties" => "{\"options\":{},\"events\":{},\"htmlOptions\":{},\"skin\":\"default\",\"heading\":\"Hello World!\"}",
 			"content" => null,
 		));
 
