@@ -23,11 +23,11 @@ class P3Widget extends BaseP3Widget {
 		return array_merge(
 				array(
 				'MetaData' => array(
-					'class' => 'ext.p3extensions.behaviors.P3MetaDataBehavior',
+					'class' => 'ext.phundament.p3extensions.behaviors.P3MetaDataBehavior',
 					'metaDataRelation' => 'p3WidgetMeta',
 				),
 				'Translation' => array(
-					'class' => 'ext.p3extensions.behaviors.P3TranslationBehavior',
+					'class' => 'ext.phundament.p3extensions.behaviors.P3TranslationBehavior',
 					'relation' => 'p3WidgetTranslations',
 					'fallbackLanguage' => 'en',
 					'fallbackValue' => null,
