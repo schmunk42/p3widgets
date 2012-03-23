@@ -8,6 +8,8 @@
  * @copyright Copyright &copy; 2005-2010 diemeisterei GmbH
  * @license http://www.phundament.com/license/
  */
+
+Yii::setPathOfAlias('P3WidgetContainer', dirname(__FILE__));
 Yii::import('p3widgets.models.*');
 
 /**
@@ -124,8 +126,9 @@ class P3WidgetContainer extends CWidget {
 						" to create it now.</div>".$content;
 				}
 				// admin mode
+				
 				$widgets .= $this->render(
-					'widget', array(
+					'P3WidgetContainer.views.widget', array(
 					'headline' => ((strrchr($model->alias, '.')) ? substr(strrchr($model->alias, '.'), 1) : $model->alias) . ' #' . $model->id,
 					'content' => $content,
 					'model' => $model), true);
