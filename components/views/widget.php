@@ -80,12 +80,12 @@
 					'id' => 'delete-' . $model->id,
 					'buttonType' => 'link',
 					#'caption' => 'Delete',
-					'htmlOptions' => array('class' => 'delete'),
 					'name' => 'btnClick3' . uniqid(),
 					'options' => array('icons' => 'js:{primary:"ui-icon-close"}'),
 					// onclick' => see container.js,
 					'htmlOptions' => array(
-						'title' => 'Delete Widget with all Translations'
+						'title' => 'Delete Widget with all Translations',
+                        'class' => 'delete'
 					)
 				));
 			}
