@@ -25,7 +25,7 @@
 
 	<div class="row2">
 		<?php echo $form->labelEx($model, 'properties'); ?>
-
+        <?php echo CHtml::button('Reset Properties', array('onclick'=>'if (confirm("Reset all Properties?")) {resetProperties();}')); ?>
 		<?php
 		$this->widget('ext.phundament.p3extensions.widgets.jsonEditorView.JuiJSONEditorInput', array(
 			'model' => $model, // ActiveRecord, or any CModel child class
@@ -83,7 +83,7 @@
 		$("#P3WidgetTranslation_properties").jsoneditor('input');
 		url = "<?php echo $this->createUrl('/p3widgets/p3Widget/classVars', array('alias' => '__ALIAS__')) ?>";
 		url = url.replace("__ALIAS__", "<?php echo $model->p3Widget->alias; ?>");
-			
+
 		$.ajax(
 		url,
 		{
@@ -94,13 +94,13 @@
 				//alert(json);
 			}
 		}
-			
+
 	);
 	}
-	
+
 <?php if (!$model->properties || $model->properties == "{}"): // {} == fallback, TODO? ?>
 		$(document).ready(function() {
-			resetProperties();		
+			resetProperties();
 		});
 <?php endif; ?>
 
