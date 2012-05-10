@@ -111,7 +111,7 @@ class m120312_192854_democontent2 extends CDbMigration {
 
 		$this->insert("p3_widget", array(
 			"id" => "9",
-			"alias" => "ext.yiiext.lipsum-widgets.ELipsum",
+			"alias" => "ext.yiiext.lipsum-widget.ELipsum",
 			"rank" => "0",
 			"containerId" => "main",
 			"moduleId" => "p3pages",
