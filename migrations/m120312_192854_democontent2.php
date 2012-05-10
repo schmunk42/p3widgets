@@ -63,7 +63,7 @@ class m120312_192854_democontent2 extends CDbMigration {
 
 		$this->insert("p3_widget", array(
 			"id" => "5",
-			"alias" => "ext.yiiext.widgets.fancybox.EFancyboxWidget",
+			"alias" => "ext.yiiext.fancybox-widget.EFancyboxWidget",
 			"rank" => "0",
 			"containerId" => "main",
 			"moduleId" => "",
@@ -75,7 +75,7 @@ class m120312_192854_democontent2 extends CDbMigration {
 
 		$this->insert("p3_widget", array(
 			"id" => "6",
-			"alias" => "ext.yiiext.widgets.lipsum.ELipsum",
+			"alias" => "ext.yiiext.lipsum-widget.ELipsum",
 			"rank" => "0",
 			"containerId" => "wiki",
 			"moduleId" => "",
@@ -111,7 +111,7 @@ class m120312_192854_democontent2 extends CDbMigration {
 
 		$this->insert("p3_widget", array(
 			"id" => "9",
-			"alias" => "ext.yiiext.widgets.lipsum.ELipsum",
+			"alias" => "ext.yiiext.lipsum-widgets.ELipsum",
 			"rank" => "0",
 			"containerId" => "main",
 			"moduleId" => "p3pages",
@@ -367,7 +367,7 @@ class m120312_192854_democontent2 extends CDbMigration {
 			"id" => "1",
 			"p3_widget_id" => "1",
 			"language" => "en",
-			"properties" => "{\"options\":{},\"events\":{},\"htmlOptions\":{},\"skin\":\"default\",\"heading\":\"Hello World!\"}",
+			"properties" => "{\"htmlOptions\":{},\"skin\":\"default\",\"heading\":\"Hello World!\"}",
 			"content" => null,
 		));
 
