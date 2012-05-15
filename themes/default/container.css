@@ -1,4 +1,4 @@
-/* 
+/*
     Document   : container
     Created on : 13.05.2011, 20:46:23
     Author     : tobias
@@ -6,7 +6,7 @@
         Purpose of the stylesheet follows.
 */
 
-/* 
+/*
    TODO customize this sample style
    Syntax recommendation http://www.w3.org/TR/REC-CSS2/
 */
@@ -26,7 +26,7 @@ DIV.widget-container DIV.header {
 }*/
 
 DIV.widget-container DIV.header {
-    display: none;    
+    display: none;
     background: #ccc;
     position: absolute;
     top: -60px;
@@ -38,7 +38,7 @@ DIV.widget-container DIV.header {
 }
 
 DIV.widget-container DIV.admin-panel {
-    background: #d9edf7;    
+    background: #d9edf7;
     display: none;
     position: absolute;
     top: -49px;
@@ -121,6 +121,7 @@ DIV.widget-container DIV.header H1 {
 DIV.widget-container DIV.admin-panel H1 {
     font-size: 12px;
     line-height: 20px;
+    color: #333;
 }
 
 DIV.widget-container DIV.handle,
@@ -145,11 +146,11 @@ DIV.widget-container DIV.admin-panel .ui-icon {
 }
 
 .ui-sortable-placeholder
-{ 
+{
     border: 1px dotted black;
     visibility: visible !important;
     height: 50px !important;
 }
-.ui-sortable-placeholder * { 
+.ui-sortable-placeholder * {
     visibility: hidden;
 }
