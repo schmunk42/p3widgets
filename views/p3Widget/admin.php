@@ -26,8 +26,8 @@ return false;
 <h1> <?php echo Yii::t('app', 'Manage'); ?> <?php echo Yii::t('app', 'P3 Widgets'); ?> </h1>
 
 <ul>
-    <li>HasOne <?php echo CHtml::link('P3WidgetMeta', array('p3WidgetMeta/admin')) ?></li>
-    <li>HasMany <?php echo CHtml::link('P3WidgetTranslation', array('P3WidgetTranslation/admin')) ?></li>
+    <li>HasOne <?php echo CHtml::link(Yii::t('app', 'P3 Widget Metas'), array('p3WidgetMeta/admin')) ?></li>
+    <li>HasMany <?php echo CHtml::link(Yii::t('app', 'P3 Widget Translations'), array('P3WidgetTranslation/admin')) ?></li>
 </ul>
 
 <?php echo CHtml::link(Yii::t('app', 'Advanced Search'),'#',array('class'=>'search-button')); ?><div class="search-form" style="display:none">
