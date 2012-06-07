@@ -80,7 +80,7 @@
 
 	<?php
 	echo CHtml::Button(Yii::t('app', 'Cancel'), array(
-		'submit' => array('p3widget/admin')));
+		'submit' => array('p3Widget/admin')));
 	echo CHtml::submitButton(Yii::t('app', 'Save'));
 	$this->endWidget();
 	?>

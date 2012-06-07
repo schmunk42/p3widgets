@@ -173,7 +173,7 @@ echo $form->errorSummary($model);
 
 <?php
 echo CHtml::Button(Yii::t('app', 'Cancel'), array(
-			'submit' => array('p3widgetmeta/admin'))); 
+			'submit' => array('p3WidgetMeta/admin'))); 
 echo CHtml::submitButton(Yii::t('app', 'Save')); 
 $this->endWidget(); ?>
 </div> <!-- form -->
