@@ -26,7 +26,7 @@ return false;
 <h1> <?php echo Yii::t('app', 'Manage'); ?> <?php echo Yii::t('app', 'P3 Widget Translations'); ?> </h1>
 
 
-<ul><li>BelongsTo <a href="/?r=p3widgets/p3Widget/admin&amp;lang=en">P3Widget</a> </li></ul>
+<ul><li>HasOne <?php echo CHtml::link(Yii::t('app', 'P3 Widgets'), array('p3Widget/admin')) ?></li></ul>
 
 <?php echo CHtml::link(Yii::t('app', 'Advanced Search'),'#',array('class'=>'search-button')); ?><div class="search-form" style="display:none">
 	<?php $this->renderPartial('_search',array(
