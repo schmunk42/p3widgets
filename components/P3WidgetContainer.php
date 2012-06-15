@@ -14,7 +14,7 @@ Yii::import('p3widgets.models.*');
 
 /**
  * Component which dynamically creates widgets
- * 
+ *
  * UNIVERSAL_VALUE will be always selected
  *
  * Detailed info
@@ -59,7 +59,7 @@ class P3WidgetContainer extends CWidget {
 
 	/**
 	 * Wheter to render the controls on top or on bottom of the container
-	 * @var type 
+	 * @var type
 	 */
 	public $controlPosition = 'top';
 
@@ -118,7 +118,7 @@ class P3WidgetContainer extends CWidget {
 
 			if (($this->checkAccess === false) || Yii::app()->user->checkAccess($this->checkAccess)) {
 				if ($model->getTranslationModel() !== null) {
-					
+
 				} else {
 					// no translation
 					$content = "<div class='notice'>Translation for widget #{$model->id} {$model->alias} not found.<br>Click " .
@@ -126,7 +126,7 @@ class P3WidgetContainer extends CWidget {
 						" to create it now.</div>".$content;
 				}
 				// admin mode
-				
+
 				$widgets .= $this->render(
 					'P3WidgetContainer.views.widget', array(
 					'headline' => ((strrchr($model->alias, '.')) ? substr(strrchr($model->alias, '.'), 1) : $model->alias) . ' #' . $model->id,
@@ -191,9 +191,10 @@ class P3WidgetContainer extends CWidget {
 				}
 			}
 			ob_start();
-			echo $content;
 			$this->controller->endWidget();
-			return $beginWidget . ob_get_clean();
+            $widget = $beginWidget . ob_get_clean();
+            $return = str_replace("{WIDGET_CONTENT}", $widget, $content);
+			return $return;
 		} else {
 			$msg = 'Widget \'' . $alias . '\' not found!';
 			Yii::log($msg, CLogger::LEVEL_ERROR);
