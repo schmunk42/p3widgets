@@ -29,22 +29,22 @@ DIV.widget-container DIV.header {
     display: none;
     background: #ccc;
     position: absolute;
-    top: -60px;
+    top: 0px;
     right: 0px;
     text-align: right;
     height: 44px;
     padding: 8px;
-    z-index: 1099;
+    z-index: 1205;
 }
 
 DIV.widget-container DIV.admin-panel {
     background: #d9edf7;
     display: none;
     position: absolute;
-    top: -49px;
+    top: 0px;
     height: 40px;
     padding: 6px 6px 2px;
-    z-index: 1100;
+    z-index: 1210;
 }
 DIV.widget-container DIV.admin-panel A {
     color: white;
@@ -54,7 +54,7 @@ DIV.widget-container DIV.admin-panel DIV {
     clear: both;
 }
 
-DIV.widget-container {
+DIV.widget-container.admin {
     border: 2px dashed #ccc;
     margin: -2px;
     min-height: 32px;
@@ -88,20 +88,20 @@ DIV.widget-container.over {
     border: 2px solid #ccc;
     margin: -14px;
     padding: 12px;
-     z-index: 1099;
+     z-index: 1199;
 }
 /* works more reliable with a slight border :) */
 DIV.widget {
     border: 0px solid #eee;
     padding: 8px;
     margin: -8px;
-    z-index: 1000;
+    //z-index: 1000;
 }
 DIV.widget.over {
     border: 4px solid #d9edf7;
     margin: -12px;
     background: #d9edf7;
-    z-index: 1101;
+    z-index: 1201;
 }
 
 DIV.widget.over DIV.admin-panel, DIV.widget-container.over DIV.header {

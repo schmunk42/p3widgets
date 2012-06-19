@@ -133,7 +133,10 @@ class P3WidgetContainer extends CWidget {
 					'content' => $content,
 					'model' => $model), true);
 			} else {
-				$widgets .= $content;
+				$widgets .= $this->render(
+					'P3WidgetContainer.views.widgetDisplay', array(
+					'content' => $content,
+					'model' => $model), true);
 			}
 		}
 
@@ -155,7 +158,11 @@ class P3WidgetContainer extends CWidget {
 				'widgetAttributes' => $widgetAttributes,
 				), false);
 		} else {
-			echo $widgets;
+			$this->render(
+				'containerDisplay', array(
+				'widgets' => $widgets,
+				//'widgetAttributes' => $widgetAttributes,
+				), false);
 		}
 	}
 

@@ -23,6 +23,14 @@ $('.widget').mouseout(function(){
     $(this).removeClass('over');
 });
 
+$('BODY').mouseleave(function(){
+    console.log('out');
+    $('.widget-container ').switchClass('admin','display');
+}).mouseenter(function(){
+    console.log('over');
+    $('.widget-container ').switchClass('display','admin');
+});
+
 // Apply sortable function to containers, handle widget movement
 // Thanks & Credits to peili (http://www.yiiframework.com/extension/p3widgets/#c5563)
 $(function() {
