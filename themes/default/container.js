@@ -25,10 +25,10 @@ $('.widget').mouseout(function(){
 
 $('BODY').mouseleave(function(){
     console.log('out');
-    $('.widget-container ').switchClass('admin','display');
+    $('.widget-container ').switchClass('admin','display',0);
 }).mouseenter(function(){
     console.log('over');
-    $('.widget-container ').switchClass('display','admin');
+    $('.widget-container ').switchClass('display','admin',0);
 });
 
 // Apply sortable function to containers, handle widget movement
