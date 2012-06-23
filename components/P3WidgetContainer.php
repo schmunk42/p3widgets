@@ -189,6 +189,7 @@ class P3WidgetContainer extends CWidget {
                 $beginWidget = ob_get_clean();
             } catch (Exception $e) {
                 ob_end_clean();
+                restore_error_handler();
                 Yii::log($e->getMessage(), CLogger::LEVEL_ERROR);
                 $markup = "<div class='flash-warning'>" . $e->getMessage() . "</div>";
                 if (Yii::app()->user->checkAccess($this->checkAccess)) {
