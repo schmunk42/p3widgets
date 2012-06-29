@@ -12,11 +12,11 @@ class P3WidgetController extends Controller {
 
 	public function accessRules() {
 		return array(
-			array('allow', 
+			array('allow',
 				'actions'=>array('admin','delete','index','view','create','update','classVars','updateOrder'),
 				'expression' => 'Yii::app()->user->checkAccess("P3widgets.Widget.*")||YII_DEBUG',
 			),
-			array('deny',  
+			array('deny',
 				'users'=>array('*'),
 			),
 		);
@@ -79,7 +79,7 @@ class P3WidgetController extends Controller {
 
 		if (isset($_POST['P3Widget'])) {
 			$model->attributes = $_POST['P3Widget'];
-			
+
 
 			try {
 				if ($model->save()) {
@@ -152,15 +152,19 @@ class P3WidgetController extends Controller {
 	public function actionClassVars($alias) {
 		$class = Yii::createComponent($alias);
 		foreach (get_class_vars(get_class($class)) AS $key => $value) {
-			if ($value !== null)
-				$return[$key] = $value;
+            // special handling for NULL values
+			if ($value === null)
+				$return[$key] = "NULL";
+            else {
+                $return[$key] = $value;
+            }
 		}
 		echo CJSON::encode($return);
 	}
 
 	/**
 	 * tbd
-	 * 
+	 *
 	 * Thanks & Credits to peili (http://www.yiiframework.com/extension/p3widgets/#c5563)
 	 */
 	public function actionUpdateOrder() {

@@ -1,6 +1,6 @@
 <div id="<?php echo P3WidgetContainer::CONTAINER_CSS_PREFIX . $this->id ?>" class="widget-container admin controlPosition<?php echo ucfirst($this->controlPosition) ?>">
 	<div class="header">
-		<h1>Container <?php echo $this->id ?> [<span class="cssClasses"></span>]</h1>			
+		<h1>Container <?php echo $this->id ?> [<span class="cssClasses"></span>]</h1>
 		<?php
 		$this->widget('zii.widgets.jui.CJuiButton', array(
 			'buttonType' => 'link',
