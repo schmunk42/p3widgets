@@ -180,9 +180,9 @@ class P3WidgetContainer extends CWidget {
         } catch (Exception $e) {
             return "<div class='flash-error'>{$e->getMessage()}'</div>";
         }
-
-        if (@class_exists($class) == true) {
-            set_error_handler(array($this, 'handleError'));
+        
+        set_error_handler(array($this, 'handleError'));
+        if (class_exists($class) == true) {
             try {
                 // special handling for NULL values
                 $parsedProperties = array();
@@ -224,6 +224,7 @@ class P3WidgetContainer extends CWidget {
         } else {
             $msg = 'Widget \'' . $alias . '\' not found!';
             Yii::log($msg, CLogger::LEVEL_ERROR);
+            restore_error_handler();
             return "<div class='flash-error'>" . $msg . "</div>";
         }
     }
@@ -238,7 +239,7 @@ class P3WidgetContainer extends CWidget {
 
     public function handleError($errno, $errstr, $errfile, $errline) {
         if (Yii::app()->user->checkAccess($this->checkAccess)) {
-
+            
 
             if (!(error_reporting() & $errno)) {
                 // This error code is not included in error_reporting
@@ -249,15 +250,16 @@ class P3WidgetContainer extends CWidget {
                 case E_NOTICE:
                 case E_USER_NOTICE:
                     echo "<div class='flash-warning'> [$errno] $errstr</div>\n";
+                    return true;
                     break;
                 default:
                     echo "<div class='flash-error'> [$errno] $errstr</div>\n";
+                    return false;
                     break;
             }
             /* Don't execute PHP internal error handler */
-            return true;
         } else {
-            // do not output errors for non-admins
+            // do not output errors for non-admins -- TODO?
             return true;
         }
     }
