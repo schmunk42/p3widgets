@@ -40,6 +40,7 @@ class P3WidgetContainer extends CWidget {
     const CONTAINER_CSS_PREFIX = 'container-';
     const WIDGET_CSS_PREFIX = 'widget-';
     const UNIVERSAL_VALUE = "_ALL";
+    const PLACEHOLDER = '{WIDGET_CONTENT}';
 
     /**
      * Defines $_GET parameter for widget queries
@@ -183,12 +184,23 @@ class P3WidgetContainer extends CWidget {
         if (@class_exists($class) == true) {
             set_error_handler(array($this, 'handleError'));
             try {
+                // special handling for NULL values
+                $parsedProperties = array();
+                foreach($properties AS $key => $value){
+                    if ($value == "NULL") {
+                        $parsedProperties[$key] = null;
+                    } else {
+                        $parsedProperties[$key] = $value;
+                    }
+                }
+
                 // instantiate widget with properties
                 ob_start();
-                $this->controller->beginWidget($class, $properties);
+                $this->controller->beginWidget($class, $parsedProperties);
                 $beginWidget = ob_get_clean();
             } catch (Exception $e) {
                 ob_end_clean();
+                restore_error_handler();
                 Yii::log($e->getMessage(), CLogger::LEVEL_ERROR);
                 $markup = "<div class='flash-warning'>" . $e->getMessage() . "</div>";
                 if (Yii::app()->user->checkAccess($this->checkAccess)) {
@@ -200,7 +212,13 @@ class P3WidgetContainer extends CWidget {
             ob_start();
             $this->controller->endWidget();
             $widget = $beginWidget . ob_get_clean();
-            $return = str_replace("{WIDGET_CONTENT}", $widget, $content);
+
+            if (strstr($content, self::PLACEHOLDER)) {
+                $return = str_replace(self::PLACEHOLDER, $widget, $content);
+            } else {
+                $return = $widget.$content;
+            }
+
             restore_error_handler();
             return $return;
         } else {

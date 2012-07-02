@@ -29,7 +29,7 @@ class P3Widget extends BaseP3Widget {
 				'Translation' => array(
 					'class' => 'ext.phundament.p3extensions.behaviors.P3TranslationBehavior',
 					'relation' => 'p3WidgetTranslations',
-					'fallbackLanguage' => 'en',
+					'fallbackLanguage' => (isset(Yii::app()->params['p3.fallbackLanguage'])) ? Yii::app()->params['p3.fallbackLanguage'] : 'en',
 					'fallbackValue' => null,
 				//'attributesBlacklist' => array('loadfrom'),
 				)
