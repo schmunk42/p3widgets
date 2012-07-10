@@ -180,7 +180,7 @@ class P3WidgetContainer extends CWidget {
         } catch (Exception $e) {
             return "<div class='flash-error'>{$e->getMessage()}'</div>";
         }
-        
+
         set_error_handler(array($this, 'handleError'));
         if (class_exists($class) == true) {
             try {
@@ -239,13 +239,14 @@ class P3WidgetContainer extends CWidget {
 
     public function handleError($errno, $errstr, $errfile, $errline) {
         if (Yii::app()->user->checkAccess($this->checkAccess)) {
-            
+
 
             if (!(error_reporting() & $errno)) {
                 // This error code is not included in error_reporting
                 return;
             }
             switch ($errno) {
+                case E_WARNING:
                 case E_USER_WARNING:
                 case E_NOTICE:
                 case E_USER_NOTICE:
