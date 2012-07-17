@@ -1,6 +1,6 @@
 <div class="widget" id="<?php echo P3WidgetContainer::WIDGET_CSS_PREFIX . $model->id ?>">
 	<div class="admin-panel">
-		<h1><?php echo $headline ?></h1>
+        <span><?php echo $headline ?></span>
 		<div>
 			<?php
 			if (Yii::app()->user->checkAccess($model->p3WidgetMeta->checkAccessUpdate)) {

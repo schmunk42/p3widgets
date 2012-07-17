@@ -12,7 +12,7 @@
 */
 
 
-DIV.widget-container, DIV.widget {
+DIV.widget-container {
     position: relative;
 }
 
@@ -29,11 +29,11 @@ DIV.widget-container DIV.header {
     display: none;
     background: #ccc;
     position: absolute;
-    top: 0px;
     right: 0px;
+    font-weight: bold;
     text-align: right;
-    height: 44px;
-    padding: 8px;
+    height: 40px;
+    padding: 6px 6px 2px;
     z-index: 1205;
 }
 
@@ -41,10 +41,11 @@ DIV.widget-container DIV.admin-panel {
     background: #d9edf7;
     display: none;
     position: absolute;
-    top: 0px;
     height: 40px;
     padding: 6px 6px 2px;
     z-index: 1210;
+    border-left: 2px solid #ccc;
+    border-right: 2px solid #ccc;
 }
 DIV.widget-container DIV.admin-panel A {
     color: white;
@@ -60,13 +61,26 @@ DIV.widget-container.admin {
     min-height: 32px;
 }
 
-DIV.widget-container.controlPositionBottom DIV.header {
-    top: auto;
-    bottom: -60px;
+DIV.widget-container.control-position-top DIV.header {
+    bottom: auto;
+    top: -50px;
+    border-top: 2px solid #ccc;
 }
-DIV.widget-container.controlPositionBottom DIV.admin-panel {
+DIV.widget-container.control-position-top DIV.admin-panel {
+    bottom: auto;
+    top: -50px;
+    border-top: 2px solid #ccc;
+}
+
+DIV.widget-container.control-position-bottom DIV.header {
     top: auto;
     bottom: -49px;
+    border-bottom: 2px solid #ccc;
+}
+DIV.widget-container.control-position-bottom DIV.admin-panel {
+    top: auto;
+    bottom: -49px;
+    border-bottom: 2px solid #ccc;
 }
 
 
