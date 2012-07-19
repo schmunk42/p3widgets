@@ -58,7 +58,7 @@ class P3WidgetContainer extends CWidget {
     public $checkAccess = 'P3widgets.Widget.*';
 
     /**
-     * Wheter to render the controls on top or on bottom of the container
+     * Wheter to render the controls on 'top' or on 'bottom' of the container
      * @var type
      */
     public $controlPosition = 'top';
