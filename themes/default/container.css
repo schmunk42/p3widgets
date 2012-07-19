@@ -12,7 +12,7 @@
 */
 
 
-DIV.widget-container {
+DIV.widget-container, DIV.widget {
     position: relative;
 }
 
