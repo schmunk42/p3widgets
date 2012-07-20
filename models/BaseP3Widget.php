@@ -45,6 +45,7 @@ abstract class BaseP3Widget extends CActiveRecord{
 		return array(
 			'p3WidgetMeta' => array(self::HAS_ONE, 'P3WidgetMeta', 'id'),
 			'p3WidgetTranslations' => array(self::HAS_MANY, 'P3WidgetTranslation', 'p3_widget_id'),
+            'id0' => array(self::BELONGS_TO, 'P3Widget', 'id'),
 		);
 	}
 
@@ -82,11 +83,11 @@ abstract class BaseP3Widget extends CActiveRecord{
 			'criteria'=>$criteria,
 		));
 	}
-	
+
 	public function get_label()
 	{
-		return '#'.$this->id;		
-		
+		return '#'.$this->id;
+
 			}
-	
+
 }
