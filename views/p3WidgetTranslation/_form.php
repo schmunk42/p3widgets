@@ -27,7 +27,7 @@
 		<?php echo $form->labelEx($model, 'properties'); ?>
         <?php echo CHtml::button('Reset Properties', array('onclick'=>'if (confirm("Reset all Properties?")) {resetProperties();}')); ?>
 		<?php
-		$this->widget('ext.phundament.p3extensions.widgets.jsonEditorView.JuiJSONEditorInput', array(
+		$this->widget('jsonEditorView.JuiJSONEditorInput', array(
 			'model' => $model, // ActiveRecord, or any CModel child class
 			'attribute' => 'properties' // Model attribute holding initial JSON data string
 		));
@@ -41,7 +41,7 @@
 		<?php #echo $form->textArea($model,'content',array('rows'=>6, 'cols'=>50)); ?>
 		<?php
 		$this->widget(
-			'ext.phundament.p3extensions.widgets.ckeditor.CKEditor', array(
+			'ckeditor.CKEditor', array(
 			'model' => $model,
 			'attribute' => 'content',
 			'options' => is_array(Yii::app()->params['ext.ckeditor.options']) ? Yii::app()->params['ext.ckeditor.options'] : array()

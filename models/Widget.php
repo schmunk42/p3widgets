@@ -22,7 +22,7 @@
  * @property string $actionName
  * @property string $requestParam
  * @property string $sessionParam
- 
+
  * @author Tobias Munk <schmunk@usrbin.de>
  * @package p3widgets.models
  * @since 3.0.1
@@ -74,18 +74,18 @@ class Widget extends CActiveRecord
 		return array(
 			'metaData' => array(self::HAS_ONE, 'P3WidgetMeta', 'id'),
 		);
-	} 
-	
+	}
+
 	public function behaviors() {
 		return array_merge(
 				array(
 				'MetaData' => array(
-					'class' => 'ext.phundament.p3extensions.behaviors.P3MetaDataBehavior',
+					'class' => 'P3MetaDataBehavior',
 					'metaDataRelation' => 'metaData',
 				)
 				), parent::behaviors()
 		);
-	}	
+	}
 	/**
 	 * @return array customized attribute labels (name=>label)
 	 */

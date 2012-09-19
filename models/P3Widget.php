@@ -23,11 +23,11 @@ class P3Widget extends BaseP3Widget {
 		return array_merge(
 				array(
 				'MetaData' => array(
-					'class' => 'ext.phundament.p3extensions.behaviors.P3MetaDataBehavior',
+					'class' => 'P3MetaDataBehavior',
 					'metaDataRelation' => 'p3WidgetMeta',
 				),
 				'Translation' => array(
-					'class' => 'ext.phundament.p3extensions.behaviors.P3TranslationBehavior',
+					'class' => 'P3TranslationBehavior',
 					'relation' => 'p3WidgetTranslations',
 					'fallbackLanguage' => (isset(Yii::app()->params['p3.fallbackLanguage'])) ? Yii::app()->params['p3.fallbackLanguage'] : 'en',
 					'fallbackValue' => null,
