@@ -1,7 +1,7 @@
 {
     "name": "phundament/p3widgets",
     "description": "Widget Manager",
-    "keywords": ["package", "dependency", "autoload"],
+    "keywords": ["widget", "cms", "p3media"],
     "homepage": "http://phundament.com/",
     "type": "library",
     "license": "BSD",
@@ -14,6 +14,7 @@
     ],
     "require": {
         "php": ">=5.3.0",
-        "phundament/p3extensions": "dev-master"
+        "yiisoft/yii": "1.1.*",
+        "phundament/p3extensions": ">=0.7"
     }
 }
