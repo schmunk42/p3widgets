@@ -6,7 +6,7 @@ class m120920_122921_fix_widget_aliases extends EDbMigration
 	{
         $this->update('p3_widget', array('alias'=>'TbHeroUnit'), 'alias = :oldAlias', array(':oldAlias'=>'ext.crisu83.yii-bootstrap.widgets.BootHero'));
         $this->update('p3_widget', array('alias'=>'TbCarousel'), 'alias = :oldAlias', array(':oldAlias'=>'ext.crisu83.yii-bootstrap.widgets.BootCarousel'));
-        $this->update('p3_widget', array('alias'=>'EFancyBoxWidget'), 'alias = :oldAlias', array(':oldAlias'=>'ext.yiiext.fancybox-widget.EFancyboxWidget'));
+        $this->update('p3_widget', array('alias'=>'EFancyboxWidget'), 'alias = :oldAlias', array(':oldAlias'=>'ext.yiiext.fancybox-widget.EFancyboxWidget'));
 	}
 
 	public function safeDown()
