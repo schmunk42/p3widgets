@@ -3,7 +3,7 @@
         <span><?php echo $headline ?></span>
 		<div>
 			<?php
-			if (Yii::app()->user->checkAccess($model->p3WidgetMeta->checkAccessUpdate)) {
+			if (!$model->p3WidgetMeta->checkAccessUpdate || Yii::app()->user->checkAccess($model->p3WidgetMeta->checkAccessUpdate)) {
 				if (!$model->t('properties')) {
 					$this->widget('zii.widgets.jui.CJuiButton', array(
 						'buttonType' => 'link',
@@ -75,7 +75,7 @@
 					)
 				));
 			}
-			if (Yii::app()->user->checkAccess($model->p3WidgetMeta->checkAccessDelete)) {
+			if (!$model->p3WidgetMeta->checkAccessDelete || Yii::app()->user->checkAccess($model->p3WidgetMeta->checkAccessDelete)) {
 				$this->widget('zii.widgets.jui.CJuiButton', array(
 					'id' => 'delete-' . $model->id,
 					'buttonType' => 'link',
