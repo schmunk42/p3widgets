@@ -210,13 +210,13 @@ class P3WidgetContainer extends CWidget {
                 }
             }
             ob_start();
-            $this->controller->endWidget();
-            $widget = $beginWidget . ob_get_clean();
-
             if (strstr($content, self::PLACEHOLDER)) {
+                $this->controller->endWidget();
+                $widget = $beginWidget . ob_get_clean();
                 $return = str_replace(self::PLACEHOLDER, $widget, $content);
             } else {
-                $return = $widget.$content;
+                $this->controller->endWidget();
+                $return = $beginWidget . $content . ob_get_clean();
             }
 
             restore_error_handler();
