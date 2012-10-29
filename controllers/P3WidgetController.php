@@ -14,7 +14,7 @@ class P3WidgetController extends Controller {
         return array(
             array('allow',
                 'actions' => array('admin', 'delete', 'index', 'view', 'create', 'update', 'classVars', 'updateOrder'),
-                'expression' => 'Yii::app()->user->checkAccess("P3widgets.Widget.*")||YII_DEBUG',
+                'expression' => 'Yii::app()->user->checkAccess("P3widgets.Widget.*")',
             ),
             array('deny',
                 'users' => array('*'),

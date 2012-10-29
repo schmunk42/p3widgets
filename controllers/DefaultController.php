@@ -37,7 +37,7 @@ class DefaultController extends Controller {
 		return array(
 			array('allow', 
 				'actions'=>array('index','test'),
-				'expression' => 'Yii::app()->user->checkAccess("P3widgets.Default.*")||YII_DEBUG',
+				'expression' => 'Yii::app()->user->checkAccess("P3widgets.Default.*")',
 			),
 			array('deny',  
 				'users'=>array('*'),
@@ -47,10 +47,6 @@ class DefaultController extends Controller {
 
 	public function actionIndex() {
 		$this->render('index');
-	}
-
-	public function actionTest() {
-		$this->render('test');
 	}
 
 }
