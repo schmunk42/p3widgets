@@ -2,9 +2,9 @@
     "name": "phundament/p3widgets",
     "description": "Widget Manager",
     "keywords": ["widget", "cms", "p3media"],
-    "homepage": "http://phundament.com/",
-    "type": "library",
-    "license": "BSD",
+    "homepage": "https://github.com/schmunk42/p3widgets",
+    "type": "yii-extension",
+    "license": "BSD-3-Clause",
     "authors": [
         {
             "name": "Tobias Munk",
@@ -14,7 +14,7 @@
     ],
     "require": {
         "php": ">=5.3.0",
-        "yiisoft/yii": "1.1.*",
+        "yiisoft/yii": "<1.1.13",
         "phundament/p3extensions": ">=0.7"
     }
 }
