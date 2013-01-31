@@ -41,11 +41,9 @@ $locale = CLocale::getInstance(Yii::app()->language);
 		'containerId',
 		'moduleId',
 		'controllerId',
-		/*
 		'actionName',
 		'requestParam',
 		'sessionParam',
-		*/
 array(
 'class'=>'TbButtonColumn',
 'viewButtonUrl' => "Yii::app()->controller->createUrl('view', array('id' => \$data->id))",
