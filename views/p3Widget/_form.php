@@ -28,7 +28,7 @@
         <?php echo $form->labelEx($model, 'rank'); ?>
         <?php echo $form->textField($model, 'rank'); ?>
         <?php echo $form->error($model, 'rank'); ?>
-        <div class='hint'><?php if ('hint.rank' != $hint = Yii::t('P3WidgetsModule.crud', 'hint.rank')) {
+        <div class='hint'><?php if ('help.rank' != $hint = Yii::t('P3WidgetsModule.crud', 'help.rank')) {
             echo $hint;
         } ?></div>
     </div>
@@ -37,7 +37,7 @@
         <?php echo $form->labelEx($model, 'containerId'); ?>
         <?php echo $form->textField($model, 'containerId', array('size' => 60, 'maxlength' => 128)); ?>
         <?php echo $form->error($model, 'containerId'); ?>
-        <div class='hint'><?php if ('hint.containerId' != $hint = Yii::t('P3WidgetsModule.crud', 'hint.containerId')) {
+        <div class='hint'><?php if ('help.containerId' != $hint = Yii::t('P3WidgetsModule.crud', 'help.containerId')) {
             echo $hint;
         } ?></div>
     </div>
@@ -46,7 +46,7 @@
         <?php echo $form->labelEx($model, 'moduleId'); ?>
         <?php echo $form->textField($model, 'moduleId', array('size' => 60, 'maxlength' => 128)); ?>
         <?php echo $form->error($model, 'moduleId'); ?>
-        <div class='hint'><?php if ('hint.moduleId' != $hint = Yii::t('P3WidgetsModule.crud', 'hint.moduleId')) {
+        <div class='hint'><?php if ('help.moduleId' != $hint = Yii::t('P3WidgetsModule.crud', 'help.moduleId')) {
             echo $hint;
         } ?></div>
     </div>
@@ -55,7 +55,7 @@
         <?php echo $form->labelEx($model, 'controllerId'); ?>
         <?php echo $form->textField($model, 'controllerId', array('size' => 60, 'maxlength' => 128)); ?>
         <?php echo $form->error($model, 'controllerId'); ?>
-        <div class='hint'><?php if ('hint.controllerId' != $hint = Yii::t('P3WidgetsModule.crud', 'hint.controllerId')) {
+        <div class='hint'><?php if ('help.controllerId' != $hint = Yii::t('P3WidgetsModule.crud', 'help.controllerId')) {
             echo $hint;
         } ?></div>
     </div>
@@ -64,7 +64,7 @@
         <?php echo $form->labelEx($model, 'actionName'); ?>
         <?php echo $form->textField($model, 'actionName', array('size' => 60, 'maxlength' => 128)); ?>
         <?php echo $form->error($model, 'actionName'); ?>
-        <div class='hint'><?php if ('hint.actionName' != $hint = Yii::t('P3WidgetsModule.crud', 'hint.actionName')) {
+        <div class='hint'><?php if ('help.actionName' != $hint = Yii::t('P3WidgetsModule.crud', 'help.actionName')) {
             echo $hint;
         } ?></div>
     </div>
@@ -73,7 +73,7 @@
         <?php echo $form->labelEx($model, 'requestParam'); ?>
         <?php echo $form->textField($model, 'requestParam', array('size' => 60, 'maxlength' => 128)); ?>
         <?php echo $form->error($model, 'requestParam'); ?>
-        <div class='hint'><?php if ('hint.requestParam' != $hint = Yii::t('P3WidgetsModule.crud', 'hint.requestParam')) {
+        <div class='hint'><?php if ('help.requestParam' != $hint = Yii::t('P3WidgetsModule.crud', 'help.requestParam')) {
             echo $hint;
         } ?></div>
     </div>
@@ -82,7 +82,7 @@
         <?php echo $form->labelEx($model, 'sessionParam'); ?>
         <?php echo $form->textField($model, 'sessionParam', array('size' => 60, 'maxlength' => 128)); ?>
         <?php echo $form->error($model, 'sessionParam'); ?>
-        <div class='hint'><?php if ('hint.sessionParam' != $hint = Yii::t('P3WidgetsModule.crud', 'hint.sessionParam')) {
+        <div class='hint'><?php if ('help.sessionParam' != $hint = Yii::t('P3WidgetsModule.crud', 'help.sessionParam')) {
             echo $hint;
         } ?></div>
     </div>

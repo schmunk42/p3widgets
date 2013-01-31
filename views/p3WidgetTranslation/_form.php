@@ -19,7 +19,7 @@
 
         <?php echo $form->textField($model, 'language', array('size' => 8, 'maxlength' => 8)); ?>
         <?php echo $form->error($model, 'language'); ?>
-        <div class='hint'><?php if ('hint.language' != $hint = Yii::t('P3WidgetsModule.crud', 'hint.language')) {
+        <div class='hint'><?php if ('help.language' != $hint = Yii::t('P3WidgetsModule.crud', 'help.language')) {
             echo $hint;
         } ?></div>
     </div>
