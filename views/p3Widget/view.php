@@ -1,63 +1,87 @@
 <?php
-$this->breadcrumbs['P3 Widgets'] = array('index');$this->breadcrumbs[] = $model->_label;
-if(!isset($this->menu) || $this->menu === array()) {
-$this->menu=array(
-	array('label'=>Yii::t('app', 'Update') , 'url'=>array('update', 'id'=>$model->id)),
-	array('label'=>Yii::t('app', 'Delete') , 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->id),'confirm'=>'Are you sure you want to delete this item?')),
-	array('label'=>Yii::t('app', 'Create') , 'url'=>array('create')),
-	array('label'=>Yii::t('app', 'Manage') , 'url'=>array('admin')),
-	/*array('label'=>Yii::t('app', 'List') , 'url'=>array('index')),*/
-);
-}
+$this->breadcrumbs['P3 Widgets'] = array('admin');
+$this->breadcrumbs[] = $model->id;
 ?>
+<?php $this->widget("TbBreadcrumbs", array("links"=>$this->breadcrumbs)) ?>
+<h1>
+    P3 Widget <small>View #<?php echo $model->id ?></small></h1>
 
-<h1><?php echo Yii::t('app', 'View');?> P3Widget #<?php echo $model->id; ?></h1>
 
-<?php echo CHtml::link('Widget Page',array("/".$model->controllerId."/".$model->actionName,'pageId'=>$model->requestParam)); // TODO: save request Param key? ?>
 
-<?php $this->widget('zii.widgets.CDetailView', array(
-'data'=>$model,
-	'attributes'=>array(
-					'id',
-		'alias',
-		'rank',
-		'containerId',
-		'moduleId',
-		'controllerId',
-		'actionName',
-		'requestParam',
-		'sessionParam',
+<?php $this->renderPartial("_toolbar", array("model"=>$model)); ?>
+
+<h2>
+    Data
+</h2>
+
+<p>
+    <?php
+    $this->widget('TbDetailView', array(
+    'data'=>$model,
+    'attributes'=>array(
+            'id',
+        'alias',
+        'rank',
+        'containerId',
+        'moduleId',
+        'controllerId',
+        'actionName',
+        'requestParam',
+        'sessionParam',
 ),
-	)); ?>
+        )); ?></p>
 
 
-	<h2><?php echo CHtml::link(Yii::t('app','P3WidgetMeta'), array('/p3widgets/p3WidgetMeta/admin'));?></h2>
-<ul><?php $foreignobj = $model->p3WidgetMeta; 
+<h2>
+    Relations
+</h2>
 
-					if ($foreignobj !== null) {
-					echo '<li>';
-					echo '#'.$model->p3WidgetMeta->id.' ';
-					echo CHtml::link($model->p3WidgetMeta->_label, array('/p3widgets/p3WidgetMeta/view','id'=>$model->p3WidgetMeta->id));
-							
-					echo ' '.CHtml::link(Yii::t('app','Update'), array('/p3widgets/p3WidgetMeta/update','id'=>$model->p3WidgetMeta->id), array('class'=>'edit'));
+<div class='row'>
+<div class='span3'><?php $this->widget('bootstrap.widgets.TbButtonGroup', array(
+        'type'=>'', // '', 'primary', 'info', 'success', 'warning', 'danger' or 'inverse'
+        'buttons'=>array(
+            array('label'=>'p3WidgetMeta', 'icon'=>'icon-list-alt', 'url'=> array('p3WidgetMeta/admin')),
+                array('icon'=>'icon-plus', 'url'=>array('p3WidgetMeta/create', 'P3WidgetMeta' => array('id'=>$model->{$model->tableSchema->primaryKey}))),
+        ),
+    )); ?></div><div class='span8'>
+<?php
+    echo '<span class=label>CHasOneRelation</span>';
+    $relatedModel = $model->p3WidgetMeta; 
 
-					
-					
-					}
-					?></ul><p><?php if($model->p3WidgetMeta === null) echo CHtml::link(
-				Yii::t('app','Create'),
-				array('/p3widgets/p3WidgetMeta/create', 'P3WidgetMeta' => array('id'=>$model->{$model->tableSchema->primaryKey}))
-				);  ?></p><h2><?php echo CHtml::link(Yii::t('app','P3WidgetTranslations'), array('/p3widgets/p3WidgetTranslation/admin'));?></h2>
-<ul>
-			<?php if (is_array($model->p3WidgetTranslations)) foreach($model->p3WidgetTranslations as $foreignobj) { 
+    if ($relatedModel !== null) {
+        echo CHtml::openTag('ul');
+        echo '<li>';
+        echo CHtml::link(
+            '#'.$model->p3WidgetMeta->id.' '.$model->p3WidgetMeta->status,
+            array('p3WidgetMeta/view','id'=>$model->p3WidgetMeta->id),
+            array('class'=>''));
 
-					echo '<li>';
-					echo CHtml::link($foreignobj->_label, array('/p3widgets/p3WidgetTranslation/view','id'=>$foreignobj->id));
-							
-					echo ' '.CHtml::link(Yii::t('app','Update'), array('/p3widgets/p3WidgetTranslation/update','id'=>$foreignobj->id), array('class'=>'edit'));
+        echo '</li>';
 
-					}
-						?></ul><p><?php echo CHtml::link(
-				Yii::t('app','Create'),
-				array('/p3widgets/p3WidgetTranslation/create', 'P3WidgetTranslation' => array('p3_widget_id'=>$model->{$model->tableSchema->primaryKey}))
-				);  ?></p>
+        echo CHtml::closeTag('ul');
+    }
+?></div></div>
+<div class='row'>
+<div class='span3'><?php $this->widget('bootstrap.widgets.TbButtonGroup', array(
+        'type'=>'', // '', 'primary', 'info', 'success', 'warning', 'danger' or 'inverse'
+        'buttons'=>array(
+            array('label'=>'p3WidgetTranslations', 'icon'=>'icon-list-alt', 'url'=> array('p3WidgetTranslation/admin')),
+                array('icon'=>'icon-plus', 'url'=>array('p3WidgetTranslation/create', 'P3WidgetTranslation' => array('p3_widget_id'=>$model->{$model->tableSchema->primaryKey}))),
+        ),
+    )); ?></div><div class='span8'>
+<?php
+    echo '<span class=label>CHasManyRelation</span>';
+    if (is_array($model->p3WidgetTranslations)) {
+
+        echo CHtml::openTag('ul');
+            foreach($model->p3WidgetTranslations as $relatedModel) {
+
+                echo '<li>';
+                echo CHtml::link($relatedModel->language, array('p3WidgetTranslation/view','id'=>$relatedModel->id), array('class'=>''));
+
+                echo '</li>';
+            }
+        echo CHtml::closeTag('ul');
+    }
+?></div>
+</div>

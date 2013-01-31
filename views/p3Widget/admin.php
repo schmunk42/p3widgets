@@ -1,12 +1,5 @@
 <?php
-$this->breadcrumbs['P3 Widgets'] = array('index');
-$this->breadcrumbs[] = Yii::t('app', 'Admin');
-
-if(!isset($this->menu) || $this->menu === array())
-$this->menu=array(
-array('label'=>Yii::t('app', 'Create') , 'url'=>array('create')),
-array('label'=>Yii::t('app', 'List') , 'url'=>array('index')),
-);
+$this->breadcrumbs[] = 'P3 Widgets';
 
 
 Yii::app()->clientScript->registerScript('search', "
@@ -23,25 +16,24 @@ return false;
 ");
 ?>
 
-<h1> <?php echo Yii::t('app', 'Manage'); ?> <?php echo Yii::t('app', 'P3 Widgets'); ?> </h1>
+<?php $this->widget("TbBreadcrumbs", array("links"=>$this->breadcrumbs)) ?>
+<h1>
+    <?php echo Yii::t('P3WidgetsModule.crud', 'P3 Widgets'); ?> <small><?php echo Yii::t('P3WidgetsModule.crud', 'Manage'); ?></small></h1>
 
-<ul>
-    <li>HasOne <?php echo CHtml::link(Yii::t('app', 'P3 Widget Metas'), array('p3WidgetMeta/admin')) ?></li>
-    <li>HasMany <?php echo CHtml::link(Yii::t('app', 'P3 Widget Translations'), array('P3WidgetTranslation/admin')) ?></li>
-</ul>
+<?php $this->renderPartial("_toolbar", array("model"=>$model)); ?>
+<?php
+$locale = CLocale::getInstance(Yii::app()->language);
 
-<?php echo CHtml::link(Yii::t('app', 'Advanced Search'),'#',array('class'=>'search-button')); ?><div class="search-form" style="display:none">
-	<?php $this->renderPartial('_search',array(
-	'model'=>$model,
-)); ?>
-</div>
-
-<?php 
-$this->widget('zii.widgets.grid.CGridView', array(
+ $this->widget('TbGridView', array(
 'id'=>'p3-widget-grid',
 'dataProvider'=>$model->search(),
 'filter'=>$model,
+'pager' => array(
+'class' => 'TbPager',
+'displayFirstAndLast' => true,
+),
 'columns'=>array(
+
 
 		'id',
 		'alias',
@@ -49,19 +41,17 @@ $this->widget('zii.widgets.grid.CGridView', array(
 		'containerId',
 		'moduleId',
 		'controllerId',
-		
+		/*
 		'actionName',
 		'requestParam',
-		/*'sessionParam',
+		'sessionParam',
 		*/
-
 array(
-'class'=>'CButtonColumn',
+'class'=>'TbButtonColumn',
 'viewButtonUrl' => "Yii::app()->controller->createUrl('view', array('id' => \$data->id))",
 'updateButtonUrl' => "Yii::app()->controller->createUrl('update', array('id' => \$data->id))",
 'deleteButtonUrl' => "Yii::app()->controller->createUrl('delete', array('id' => \$data->id))",
-),
-),
-)); 
 
- ?>
+),
+),
+)); ?>

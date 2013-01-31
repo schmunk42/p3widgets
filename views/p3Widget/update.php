@@ -1,18 +1,14 @@
 <?php
-$this->breadcrumbs['P3 Widgets'] = array('index');
-$this->breadcrumbs[$model->id] = array('view','id'=>$model->id);
-$this->breadcrumbs[] = Yii::t('app', 'Update');
-
-if(!isset($this->menu) || $this->menu === array())
-$this->menu=array(
-	array('label'=>Yii::t('app', 'Delete') , 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->id),'confirm'=>'Are you sure you want to delete this item?')),
-	//array('label'=>Yii::t('app', 'Create') , 'url'=>array('create')),
-	//array('label'=>Yii::t('app', 'Manage') , 'url'=>array('admin')),
-);
+$this->breadcrumbs['P3 Widgets'] = array('admin');
+$this->breadcrumbs[$model->{$model->tableSchema->primaryKey}] = array('view','id'=>$model->{$model->tableSchema->primaryKey});
+$this->breadcrumbs[] = Yii::t('P3WidgetsModule.crud', 'Update');
 ?>
+<?php $this->widget("TbBreadcrumbs", array("links"=>$this->breadcrumbs)) ?>
+<h1>
+    P3 Widget <small>Update #<?php echo $model->id ?></small></h1>
 
-<h1> <?php echo Yii::t('app', 'Update');?> <?php echo Yii::t('app', 'P3Widget');?> #<?php echo $model->id; ?> </h1>
+<?php $this->renderPartial("_toolbar", array("model"=>$model)); ?>
 <?php
 $this->renderPartial('_form', array(
-			'model'=>$model));
+'model'=>$model));
 ?>

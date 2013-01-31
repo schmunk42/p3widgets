@@ -27,8 +27,8 @@ abstract class BaseP3WidgetTranslation extends CActiveRecord{
 	public function rules()
 	{
 		return array(
-			array('p3_widget_id', 'required'),
-			array('language, properties, content', 'default', 'setOnEmpty' => true, 'value' => null),
+			array('p3_widget_id, language', 'required'),
+			array('properties, content', 'default', 'setOnEmpty' => true, 'value' => null),
 			array('p3_widget_id', 'numerical', 'integerOnly'=>true),
 			array('language', 'length', 'max'=>8),
 			array('properties, content', 'safe'),
@@ -46,11 +46,11 @@ abstract class BaseP3WidgetTranslation extends CActiveRecord{
 	public function attributeLabels()
 	{
 		return array(
-			'id' => Yii::t('app', 'ID'),
-			'p3_widget_id' => Yii::t('app', 'P3 Widget'),
-			'language' => Yii::t('app', 'Language'),
-			'properties' => Yii::t('app', 'Properties'),
-			'content' => Yii::t('app', 'Content'),
+			'id' => Yii::t('P3WidgetsModule.crud', 'ID'),
+			'p3_widget_id' => Yii::t('P3WidgetsModule.crud', 'P3 Widget'),
+			'language' => Yii::t('P3WidgetsModule.crud', 'Language'),
+			'properties' => Yii::t('P3WidgetsModule.crud', 'Properties'),
+			'content' => Yii::t('P3WidgetsModule.crud', 'Content'),
 		);
 	}
 
@@ -59,11 +59,11 @@ abstract class BaseP3WidgetTranslation extends CActiveRecord{
 	{
 		$criteria=new CDbCriteria;
 
-		$criteria->compare('id', $this->id);
-		$criteria->compare('p3_widget_id', $this->p3_widget_id);
-		$criteria->compare('language', $this->language, true);
-		$criteria->compare('properties', $this->properties, true);
-		$criteria->compare('content', $this->content, true);
+		$criteria->compare('t.id', $this->id);
+		$criteria->compare('t.p3_widget_id', $this->p3_widget_id);
+		$criteria->compare('t.language', $this->language, true);
+		$criteria->compare('t.properties', $this->properties, true);
+		$criteria->compare('t.content', $this->content, true);
 
 		return new CActiveDataProvider(get_class($this), array(
 			'criteria'=>$criteria,

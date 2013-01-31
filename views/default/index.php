@@ -3,7 +3,10 @@ $this->breadcrumbs=array(
 	$this->module->id,
 );
 ?>
-<h1>Phundament 3 Widgets</h1>
+
+<?php $this->widget("TbBreadcrumbs", array("links"=>$this->breadcrumbs)) ?>
+
+<h1>Widgets</h1>
 
 <p>
 This module provides a control called P3WidgetManager, along with an administration interface.<br/>

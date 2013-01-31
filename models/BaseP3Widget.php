@@ -45,24 +45,23 @@ abstract class BaseP3Widget extends CActiveRecord{
 		return array(
 			'p3WidgetMeta' => array(self::HAS_ONE, 'P3WidgetMeta', 'id'),
 			'p3WidgetTranslations' => array(self::HAS_MANY, 'P3WidgetTranslation', 'p3_widget_id'),
-            'id0' => array(self::BELONGS_TO, 'P3Widget', 'id'),
 		);
 	}
 
-	public function attributeLabels()
-	{
-		return array(
-			'id' => Yii::t('app', 'ID'),
-			'alias' => Yii::t('app', 'Alias'),
-			'rank' => Yii::t('app', 'Rank'),
-			'containerId' => Yii::t('app', 'Container'),
-			'moduleId' => Yii::t('app', 'Module'),
-			'controllerId' => Yii::t('app', 'Controller'),
-			'actionName' => Yii::t('app', 'Action Name'),
-			'requestParam' => Yii::t('app', 'Request Param'),
-			'sessionParam' => Yii::t('app', 'Session Param'),
-		);
-	}
+    public function attributeLabels()
+    {
+        return array(
+            'id' => Yii::t('P3WidgetsModule.crud', 'ID'),
+            'alias' => Yii::t('P3WidgetsModule.crud', 'Alias'),
+            'rank' => Yii::t('P3WidgetsModule.crud', 'Rank'),
+            'containerId' => Yii::t('P3WidgetsModule.crud', 'Container'),
+            'moduleId' => Yii::t('P3WidgetsModule.crud', 'Module'),
+            'controllerId' => Yii::t('P3WidgetsModule.crud', 'Controller'),
+            'actionName' => Yii::t('P3WidgetsModule.crud', 'Action Name'),
+            'requestParam' => Yii::t('P3WidgetsModule.crud', 'Request Param'),
+            'sessionParam' => Yii::t('P3WidgetsModule.crud', 'Session Param'),
+        );
+    }
 
 
 	public function search()
