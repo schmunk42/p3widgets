@@ -6,7 +6,7 @@ $this->breadcrumbs=array(
 
 <?php $this->widget("TbBreadcrumbs", array("links"=>$this->breadcrumbs)) ?>
 
-<h1>Widgets</h1>
+<h1>Widgets <small>Overview</small></h1>
 
 <p>
 This module provides a control called P3WidgetManager, along with an administration interface.<br/>
@@ -22,5 +22,5 @@ This module requires installation.
 </p>
 
 <p>
-	<?php echo CHtml::link('Test Page', array('test'))?>
+	<?php echo CHtml::link('Widget Playground', array('playground'))?>
 </p>
