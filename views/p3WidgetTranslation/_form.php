@@ -42,7 +42,18 @@
 
     <div class="row2">
         <?php echo $form->labelEx($model, 'content'); ?>
-        <?php #echo $form->textArea($model,'content',array('rows'=>6, 'cols'=>50)); ?>
+        <p>
+        <?php
+        $this->widget('bootstrap.widgets.TbButton',
+                      array('label' => 'Upload Files',
+                            //'url' => array('/p3media/import/uploadPopup'),
+                            'htmlOptions' => array(
+                                'class' => 'btn-primary',
+                                'onclick' => 'window.open("'.$this->createUrl('/p3media/import/uploadPopup').'", "Upload", "width=800,height=800");',
+                                'target' => '_blank'))
+        );
+        ?>
+        </p>
         <?php
         $this->widget(
             'ckeditor.CKEditor', array(
@@ -56,7 +67,7 @@
         <?php echo $form->error($model, 'content'); ?>
     </div>
 
-    <div class="row">
+    <div class="row hide">
         <label for="p3Widget"><?php echo Yii::t('P3WidgetsModule.crud', 'P3Widget'); ?></label>
         <?php $this->widget(
         'Relation',
@@ -69,7 +80,8 @@
              'htmlOptions' => array(
                  'checkAll' => 'all'),
         )
-    ); ?><br/>
+    );
+        ?><br/>
     </div>
 
 
@@ -110,12 +122,12 @@
 
     <?php
     if (!$model->properties || $model->properties == "{}"): // {} == fallback, TODO?
-    ?>
+        ?>
 
     $(document).ready(function () {
         resetProperties();
     });
-    <?php
+        <?php
     endif;
     ?>
 

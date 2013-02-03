@@ -30,7 +30,7 @@ $('.create-widget').change(function(){
 
     params = {};
     params.autoCreate = "1";
-    params.returnUrl = "<?php echo Yii::app()->controller->createUrl(null) ?>";
+    params.returnUrl = "<?php echo urlencode($_SERVER["REQUEST_URI"]) ?>"; // TODO? or OK
 
     var urlParams = "?";
     $.each(params, function(key,value){
@@ -128,7 +128,7 @@ $('[id^=delete]').click(
                 success: function(data){
                     // TODO: better detection
                     if(data.search(/Manage P3 Widgets/i) != -1) {
-                        alert(msg+' deleted');
+                        //alert(msg+' deleted');
                         $('#widget-'+widgetId).hide();
                     } else {
                         alert(msg+' could not be deleted!');

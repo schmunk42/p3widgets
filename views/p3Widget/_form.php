@@ -19,9 +19,9 @@
         <?php #echo $form->textField($model,'alias',array('size'=>60,'maxlength'=>255)); ?>
         <?php echo $form->dropDownList($model, 'alias', $this->module->params['widgets'], array('onchange' => 'updateProperties()')); ?>
         <?php echo $form->error($model, 'alias'); ?>
-        <p class="hint">
-            Alias of the widget
-        </p>
+        <div class='hint'><?php if ('help.alias' != $hint = Yii::t('P3WidgetsModule.crud', 'help.alias')) {
+            echo $hint;
+        } ?></div>
     </div>
 
     <div class="row">
