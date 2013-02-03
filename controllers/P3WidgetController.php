@@ -54,7 +54,11 @@ public function accessRules() {
         $model->scenario = $this->scenario;
 
                 $this->performAjaxValidation($model, 'p3-widget-form');
-    
+
+        if (isset($_GET['autoCreate'])) {
+            $_POST['P3Widget'] = $_GET['P3Widget'];
+        }
+
         if(isset($_POST['P3Widget'])) {
             $model->attributes = $_POST['P3Widget'];
 

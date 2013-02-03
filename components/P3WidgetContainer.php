@@ -144,7 +144,7 @@ class P3WidgetContainer extends CWidget {
         if (($this->checkAccess === false) || Yii::app()->user->checkAccess($this->checkAccess)) {
             // prepare Widget model attributes for add button
             $widgetAttributes = CMap::mergeArray($widgetAttributes, array(
-                    'moduleId' => ($this->controller->module !== null) ? $this->controller->module->id : null,
+                    'moduleId' => ($this->controller->module !== null) ? $this->controller->module->id : '',
                     'controllerId' => $this->controller->id,
                     'actionName' => $this->controller->action->id,
                     'containerId' => $this->id,

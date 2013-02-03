@@ -108,10 +108,15 @@
         );
     }
 
-    <?php if (!$model->properties || $model->properties == "{}"): // {} == fallback, TODO? ?>
+    <?php
+    if (!$model->properties || $model->properties == "{}"): // {} == fallback, TODO?
+    ?>
+
     $(document).ready(function () {
         resetProperties();
     });
-        <?php endif; ?>
+    <?php
+    endif;
+    ?>
 
 </script>

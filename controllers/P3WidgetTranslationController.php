@@ -54,7 +54,8 @@ public function accessRules() {
         $model->scenario = $this->scenario;
 
                 $this->performAjaxValidation($model, 'p3-widget-translation-form');
-    
+
+
         if(isset($_POST['P3WidgetTranslation'])) {
             $model->attributes = $_POST['P3WidgetTranslation'];
 
@@ -81,6 +82,7 @@ public function accessRules() {
     {
         $model = $this->loadModel($id);
         $model->scenario = $this->scenario;
+
 
                 $this->performAjaxValidation($model, 'p3-widget-translation-form');
         

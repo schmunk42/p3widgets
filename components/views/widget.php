@@ -3,8 +3,9 @@
         <span><?php echo $headline ?></span>
 		<div>
 			<?php
+            //echo "yyy".$model->t('properties');exit;
 			if (!$model->p3WidgetMeta->checkAccessUpdate || Yii::app()->user->checkAccess($model->p3WidgetMeta->checkAccessUpdate)) {
-				if (!$model->t('properties')) {
+				if (!$model->t('language')) {
 					$this->widget('zii.widgets.jui.CJuiButton', array(
 						'buttonType' => 'link',
 						#'caption' => 'Translations',
@@ -41,17 +42,6 @@
 					)
 				));
 				echo '</div>';
-				$this->widget('zii.widgets.jui.CJuiButton', array(
-					'buttonType' => 'link',
-					#'caption' => 'View',
-					'url' => array('/p3widgets/p3Widget/view', 'id' => $model->id, 'returnUrl' => Yii::app()->request->getUrl()),
-					'name' => 'btnClick' . uniqid(),
-					'options' => array('icons' => 'js:{primary:"ui-icon-document"}'),
-					#'onclick' => 'js:function(){alert("clicked"); this.blur(); return false;}',
-					'htmlOptions' => array(
-						'title' => 'View Widget Details'
-					)
-				));
 				$this->widget('zii.widgets.jui.CJuiButton', array(
 					'buttonType' => 'link',
 					#'caption' => 'Edit',

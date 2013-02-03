@@ -23,12 +23,33 @@ $('.widget').mouseout(function(){
     $(this).removeClass('over');
 });
 
+$('.create-widget').change(function(){
+    p3WidgetParams = $(this).data('widget-attributes');
+    p3WidgetParams.alias = $(this).val();
+    url = "<?php echo Yii::app()->controller->createUrl('/p3widgets/p3Widget/create') ?>";
+
+    params = {};
+    params.autoCreate = "1";
+    params.returnUrl = "<?php echo Yii::app()->controller->createUrl(null) ?>";
+
+    var urlParams = "?";
+    $.each(params, function(key,value){
+        urlParams += key+"="+value+"&";
+    });
+    $.each(p3WidgetParams, function(key,value){
+        urlParams += "P3Widget["+key+"]="+value+"&";
+    });
+
+    //console.log(url+""+urlParams);
+    window.location.href = url+urlParams;
+});
+
 $('BODY').mouseleave(function(){
     console.log('out');
-    $('.widget-container ').switchClass('admin','display',0);
+    $('.widget-container').switchClass('admin','display',0);
 }).mouseenter(function(){
     console.log('over');
-    $('.widget-container ').switchClass('display','admin',0);
+    $('.widget-container').switchClass('display','admin',0);
 });
 
 // Apply sortable function to containers, handle widget movement
