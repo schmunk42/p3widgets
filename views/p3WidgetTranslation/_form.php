@@ -90,7 +90,7 @@
 
     <?php
     echo CHtml::Button(Yii::t('P3WidgetsModule.crud', 'Cancel'), array(
-                                                                      'submit' => array('p3widgettranslation/admin'),
+                                                                      'submit' => array('p3WidgetTranslation/admin'),
                                                                       'class' => 'btn'
                                                                  ));
     echo ' ' . CHtml::submitButton(Yii::t('P3WidgetsModule.crud', 'Save'), array(
