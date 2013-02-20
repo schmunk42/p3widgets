@@ -100,7 +100,7 @@
 
     <?php
     echo CHtml::Button(Yii::t('P3WidgetsModule.crud', 'Cancel'), array(
-                                                                      'submit' => array('p3widget/admin'),
+                                                                      'submit' => array('p3Widget/admin'),
                                                                       'class' => 'btn'
                                                                  ));
     echo ' ' . CHtml::submitButton(Yii::t('P3WidgetsModule.crud', 'Save'), array(
