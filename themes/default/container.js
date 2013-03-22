@@ -77,7 +77,7 @@ $(function() {
             widgetIndex = ui.item.index();
             containerId = $(ui.item).parent().attr('id').replace('container-','');
 
-            msg = 'Moving widget #'+widgetId+' to '+containerId+' index '+widgetIndex;
+            var msg = 'Moving widget #'+widgetId+' to '+containerId+' index '+widgetIndex;
             console.log(msg);
 
             url = '<?php echo Yii::app()->controller->createUrl("/p3widgets/p3Widget/update", array("id"=>"_ID_")) ?>';
@@ -89,16 +89,11 @@ $(function() {
                     }
                 },
                 function(data){
-                    //alert(data); // TODO: detection
-                    if(data.search(/View P3Widget/i) != -1) {
-                        //alert(msg+' - OK');
-                        console.log('OK');
-                    } else {
-                        alert(msg+' - Error');
-                        console.log('ERROR: '+msg);
-                    }
+                    console.log(data); // TODO: detection
                 }
-                );
+            ).error(function() {
+                    alert('Internal Server Error');
+                });;
         }
     }).disableSelection();
 });
@@ -117,7 +112,7 @@ $('[id^=delete]').click(
         if (confirm('Do want really want to delete widget #'+widgetId+'?')) {
             msg = 'Widget #'+widgetId;
             console.log(msg);
-            url = '<?php echo Yii::app()->controller->createUrl("/p3widgets/p3Widget/delete", array("id"=>"_ID_")) ?>';
+            url = '<?php echo Yii::app()->controller->createUrl("/p3widgets/p3Widget/delete", array("id"=>"_ID_", "ajax" => "1")) ?>';
             $.ajax({
                 type: 'POST',
                 url: url.replace(/_ID_/,widgetId),
@@ -127,13 +122,7 @@ $('[id^=delete]').click(
                     }
                 },
                 success: function(data){
-                    // TODO: better detection
-                    if(data.search(/Manage P3 Widgets/i) != -1) {
-                        //alert(msg+' deleted');
-                        $('#widget-'+widgetId).hide();
-                    } else {
-                        alert(msg+' could not be deleted!');
-                    }
+                    $('#widget-'+widgetId).hide();
                 },
                 error: function(data){
                     alert(data.responseText);
