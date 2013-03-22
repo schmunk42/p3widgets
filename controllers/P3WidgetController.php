@@ -95,6 +95,9 @@ public function accessRules() {
 
             try {
                 if($model->save()) {
+                    if (Yii::app()->request->isAjaxRequest) {
+                        return;
+                    }
                     if (isset($_GET['returnUrl'])) {
                         $this->redirect($_GET['returnUrl']);
                     } else {
