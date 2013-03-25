@@ -26,7 +26,7 @@ $('.create-widget').change(function () {
 
     params = {};
     params.autoCreate = "1";
-    params.returnUrl = "<?php echo urlencode($_SERVER["REQUEST_URI"]) ?>"; // TODO? or OK
+    params.returnUrl = "<?php echo urlencode($_SERVER['REQUEST_URI']) ?>"; // TODO? or OK
 
     //alert(url.search("\\?"));
     var urlParams = (url.search("\\?") != -1) ? "&" : "?";
