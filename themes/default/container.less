@@ -1,0 +1,45 @@
+DIV.widget-container, DIV.widget {
+  position: relative;
+}
+
+DIV.widget-container.admin {
+  border: 1px dashed #ccc;
+  margin: -1px;
+  min-height: 70px;
+  DIV.widget {
+    min-height: 70px;
+  }
+}
+
+DIV.widget-container {
+  DIV.handle, DIV.delete {
+    display: inline-block;
+  }
+  DIV.overlay {
+    background: rgba(30, 30, 30, 0.5);
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    display: none;
+    text-align: center;
+  }
+  DIV.controls {
+    margin: 4px;
+    SELECT {
+      margin: 0 4px 22px 0;
+    }
+    .ui-icon {
+      left: 5px;
+    }
+    .ui-button-text {
+      width: 0;
+      line-height: 0;
+      padding: 13px;
+      visibility: hidden;
+    }
+  }
+}
+
+DIV.widget.over .overlay, DIV.widget-container.over .overlay {
+  display: block;
+}

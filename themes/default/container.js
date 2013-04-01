@@ -1,106 +1,107 @@
 // Apply another CSS class if a container and/or a widget is hovered
-$('.widget-container').mouseover(function () {
-    if ($('#P3WidgetContainerShowControls.view').length > 0) {
+$('.widget-container')
+    .mouseover(function () {
+        if ($('#P3WidgetContainerShowControls.view').length > 0 || $('.widget', this).length > 0) {
 
-    } else {
-        $(this).addClass('over');
-    }
-}).mouseout(function () {
+        } else {
+            $(this).addClass('over');
+        }
+    })
+    .mouseout(function () {
         $(this).removeClass('over');
     });
 
-$('.widget').mouseover(function () {
-    if ($('#P3WidgetContainerShowControls.view').length > 0) {
+$('.widget')
+    .mouseover(function () {
+        if ($('#P3WidgetContainerShowControls.view').length > 0) {
 
-    } else {
-        $(this).addClass('over');
-    }
-}).mouseout(function () {
+        } else {
+            $(this).addClass('over');
+        }
+    })
+    .mouseout(function () {
         $(this).removeClass('over');
     });
 
-$('.create-widget').change(function () {
-    p3WidgetParams = $(this).data('widget-attributes');
-    p3WidgetParams.alias = $(this).val();
-    url = "<?php echo Yii::app()->controller->createUrl('/p3widgets/p3Widget/create') ?>";
 
-    params = {};
-    params.autoCreate = "1";
-    params.returnUrl = "<?php echo urlencode($_SERVER['REQUEST_URI']) ?>"; // TODO? or OK
+$('.create-widget')
+    .change(function () {
+        p3WidgetParams = $(this).data('widget-attributes');
+        p3WidgetParams.alias = $(this).val();
+        url = "<?php echo Yii::app()->controller->createUrl('/p3widgets/p3Widget/create') ?>";
 
-    //alert(url.search("\\?"));
-    var urlParams = (url.search("\\?") != -1) ? "&" : "?";
-    $.each(params, function (key, value) {
-        urlParams += key + "=" + value + "&";
+        params = {};
+        params.autoCreate = "1";
+        params.returnUrl = "<?php echo urlencode($_SERVER['REQUEST_URI']) ?>"; // TODO? or OK
+
+        //alert(url.search("\\?"));
+        var urlParams = (url.search("\\?") != -1) ? "&" : "?";
+        $.each(params, function (key, value) {
+            urlParams += key + "=" + value + "&";
+        });
+        $.each(p3WidgetParams, function (key, value) {
+            urlParams += "P3Widget[" + key + "]=" + value + "&";
+        });
+
+        //console.log(url+""+urlParams);
+        window.location.href = url + urlParams;
     });
-    $.each(p3WidgetParams, function (key, value) {
-        urlParams += "P3Widget[" + key + "]=" + value + "&";
+
+$('#P3WidgetContainerShowControls')
+    .click(function () {
+        $('.widget-container').toggleClass('admin display', 0);
     });
-
-    //console.log(url+""+urlParams);
-    window.location.href = url + urlParams;
-});
-
-$('#P3WidgetContainerShowControls').click(function () {
-    $('.widget-container').toggleClass('admin display', 0);
-});
 
 // Apply sortable function to containers, handle widget movement
 // Thanks & Credits to peili (http://www.yiiframework.com/extension/p3widgets/#c5563)
 $(function () {
-    $(".widget-container").sortable({
-        connectWith: ".widget-container",
-        placeholder: 'ui-state-highlight',
-        forcePlaceholderSize: 32,
-        handle: '.handle',
-        update: function () {
-            var order = $(this).sortable("serialize");
-            $.ajax({
-                type: 'POST',
-                url: '<?php echo Yii::app()->controller->createUrl("/p3widgets/p3Widget/updateOrder") ?>',
-                data: order,
-                error: function (data) {
-                    alert(data.responseText)
-                }
-            });
-        },
-        stop: function (event, ui) {
-            widgetId = ui.item.attr('id').replace('widget-', '');
-            widgetIndex = ui.item.index();
-            containerId = $(ui.item).parent().attr('id').replace('container-', '');
-
-            var msg = 'Moving widget #' + widgetId + ' to ' + containerId + ' index ' + widgetIndex;
-            console.log(msg);
-
-            url = '<?php echo Yii::app()->controller->createUrl("/p3widgets/p3Widget/update", array("id"=>"_ID_")) ?>';
-            $.post(
-                url.replace('_ID_', widgetId),
-                {
-                    P3Widget: {
-                        containerId: containerId,
+    $(".widget-container")
+        .sortable({
+            connectWith: ".widget-container",
+            placeholder: 'ui-state-highlight',
+            forcePlaceholderSize: 32,
+            handle: '.handle',
+            update: function () {
+                var order = $(this).sortable("serialize");
+                $.ajax({
+                    type: 'POST',
+                    url: '<?php echo Yii::app()->controller->createUrl("/p3widgets/p3Widget/updateOrder") ?>',
+                    data: order,
+                    error: function (data) {
+                        alert(data.responseText)
                     }
-                },
-                function (data) {
-                    console.log(data); // TODO: detection
-                }
-            ).error(function () {
-                    alert('Internal Server Error');
                 });
-            ;
-        }
-    }).disableSelection();
+            },
+            stop: function (event, ui) {
+                widgetId = ui.item.attr('id').replace('widget-', '');
+                widgetIndex = ui.item.index();
+                containerId = $(ui.item).parent().attr('id').replace('container-', '');
+
+                var msg = 'Moving widget #' + widgetId + ' to ' + containerId + ' index ' + widgetIndex;
+                console.log(msg);
+
+                url = '<?php echo Yii::app()->controller->createUrl("/p3widgets/p3Widget/update", array("id"=>"_ID_")) ?>';
+                $.post(
+                    url.replace('_ID_', widgetId),
+                    {
+                        P3Widget: {
+                            containerId: containerId,
+                        }
+                    },
+                    function (data) {
+                        console.log(data); // TODO: detection
+                    }
+                ).error(function () {
+                        alert('Internal Server Error');
+                    });
+                ;
+            }
+        });//.disableSelection();// as the select inputs would stop working on FF;
 });
-/*$(function() {
- $( ".widget-container" ).sortable({
- connectWith: ".widget-container",
- placeholder: 'ui-state-highlight',
- handle: '.handle',
- }).disableSelection();
- });*/
 
 // Handler for widget deletion
-$('[id^=delete]').click(
-    function () {
+$('[id^=delete]')
+    .click(function () {
         widgetId = $(this).attr('id').replace(/delete-/, '');
         if (confirm('Do want really want to delete widget #' + widgetId + '?')) {
             msg = 'Widget #' + widgetId;
@@ -129,6 +130,7 @@ $('[id^=delete]').click(
     }
 );
 
-$('.widget-container SPAN.cssClasses').each(function (index) {
-    $(this).html($(this).parent().parent().parent().parent().attr('class'));
-});
+$('.widget-container SPAN.cssClasses')
+    .each(function (index) {
+        $(this).html($(this).parent().parent().parent().parent().attr('class'));
+    });

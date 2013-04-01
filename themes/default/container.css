@@ -1,170 +1,43 @@
-/*
-    Document   : container
-    Created on : 13.05.2011, 20:46:23
-    Author     : tobias
-    Description:
-        Purpose of the stylesheet follows.
-*/
-
-/*
-   TODO customize this sample style
-   Syntax recommendation http://www.w3.org/TR/REC-CSS2/
-*/
-
-
-DIV.widget-container, DIV.widget {
-    position: relative;
-}
-
-DIV.widget-container DIV.header {
-
-}
-
-/*DIV.widget-container.over {
-    position: relative;
-    z-index: 98;
-}*/
-
-DIV.widget-container DIV.header {
-    display: none;
-    background: #ccc;
-    position: absolute;
-    right: 0px;
-    font-weight: bold;
-    text-align: right;
-    height: 40px;
-    padding: 6px 6px 2px;
-    z-index: 1205;
-}
-
-DIV.widget-container DIV.admin-panel {
-    background: #d9edf7;
-    display: none;
-    position: absolute;
-    height: 40px;
-    padding: 6px 6px 2px;
-    z-index: 1210;
-    border-left: 2px solid #ccc;
-    border-right: 2px solid #ccc;
-}
-DIV.widget-container DIV.admin-panel A {
-    color: white;
-}
-DIV.widget-container DIV.admin-panel DIV {
-    white-space: nowrap;
-    clear: both;
-}
-
-DIV.widget-container.admin {
-    border: 2px dashed #ccc;
-    margin: -2px;
-    min-height: 32px;
-}
-
-DIV.widget-container.control-position-top DIV.header {
-    bottom: auto;
-    top: -50px;
-    border-top: 2px solid #ccc;
-}
-DIV.widget-container.control-position-top DIV.admin-panel {
-    bottom: auto;
-    top: -50px;
-    border-top: 2px solid #ccc;
-}
-
-DIV.widget-container.control-position-bottom DIV.header {
-    top: auto;
-    bottom: -49px;
-    border-bottom: 2px solid #ccc;
-}
-DIV.widget-container.control-position-bottom DIV.admin-panel {
-    top: auto;
-    bottom: -49px;
-    border-bottom: 2px solid #ccc;
-}
-
-
+DIV.widget-container,
 DIV.widget {
-    /*border: 1px dashed #eee;
-    margin: -1px;*/
+  position: relative;
 }
-
 DIV.widget-container.admin {
-    min-height: 20px;
+  border: 1px dashed #ccc;
+  margin: -1px;
+  min-height: 70px;
 }
 DIV.widget-container.admin DIV.widget {
-    min-height: 10px;
+  min-height: 70px;
 }
-
-
-DIV.widget-container.over {
-    background: #fff;
-    border: 2px solid #ccc;
-    margin: -14px;
-    padding: 12px;
-     z-index: 1199;
-}
-/* works more reliable with a slight border :) */
-DIV.widget {
-    border: 0px solid #eee;
-    padding: 8px;
-    margin: -8px;
-    //z-index: 1000;
-}
-DIV.widget.over {
-    border: 4px solid #d9edf7;
-    margin: -12px;
-    background: #d9edf7;
-    z-index: 1201;
-}
-
-DIV.widget.over DIV.admin-panel, DIV.widget-container.over DIV.header {
-    display: block;
-}
-
-
-
-
-
-
-DIV.widget-container DIV.header H1 {
-    font-size: 16px;
-    line-height: 28px;
-    color: #333;
-}
-DIV.widget-container DIV.admin-panel H1 {
-    font-size: 12px;
-    line-height: 20px;
-    color: #333;
-}
-
 DIV.widget-container DIV.handle,
 DIV.widget-container DIV.delete {
-    display: inline-block;
+  display: inline-block;
 }
-
-
-
-
-DIV.widget-container DIV.header .ui-button-text,
-DIV.widget-container DIV.admin-panel .ui-button-text {
-    width: 0;
-    line-height: 0;
-    padding: 8px;
-    visibility: hidden;
+DIV.widget-container DIV.overlay {
+  background: rgba(30, 30, 30, 0.5);
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  display: none;
+  text-align: center;
 }
-
-DIV.widget-container DIV.header .ui-icon,
-DIV.widget-container DIV.admin-panel .ui-icon {
-    left: 0;
+DIV.widget-container DIV.controls {
+  margin: 4px;
 }
-
-.ui-sortable-placeholder
-{
-    border: 1px dotted black;
-    visibility: visible !important;
-    height: 50px !important;
+DIV.widget-container DIV.controls SELECT {
+  margin: 0 4px 22px 0;
 }
-.ui-sortable-placeholder * {
-    visibility: hidden;
+DIV.widget-container DIV.controls .ui-icon {
+  left: 5px;
+}
+DIV.widget-container DIV.controls .ui-button-text {
+  width: 0;
+  line-height: 0;
+  padding: 13px;
+  visibility: hidden;
+}
+DIV.widget.over .overlay,
+DIV.widget-container.over .overlay {
+  display: block;
 }
