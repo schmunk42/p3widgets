@@ -21,6 +21,7 @@ DIV.widget-container DIV.overlay {
   width: 100%;
   display: none;
   text-align: center;
+  z-index: 1100;
 }
 DIV.widget-container DIV.controls {
   margin: 4px;
