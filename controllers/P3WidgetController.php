@@ -183,9 +183,12 @@ public function accessRules() {
      * @param type $alias
      */
     public function actionClassVars($alias) {
-        $class = Yii::createComponent($alias);
-        $array = get_class_vars(get_class($class));
-        $return = array_map(array($this, '_replaceJSON'), $array);
+        $class = $this->createWidget($alias);
+        // collect vars from created widget
+        foreach($class AS $key => $prop){
+            $classVars[$key] = $prop;
+        }
+        $return = array_map(array($this, '_replaceJSON'), $classVars);
         echo CJSON::encode($return);
     }
 
