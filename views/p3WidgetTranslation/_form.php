@@ -16,6 +16,12 @@
     ?>
 
     <div class="row">
+        <label>Widget Alias</label>
+
+        <p><?php echo $model->p3Widget->alias ?> </p>
+    </div>
+
+    <div class="row">
         <?php echo $form->labelEx($model, 'language'); ?>
 
         <?php echo $form->textField($model, 'language', array('size' => 8, 'maxlength' => 8)); ?>
@@ -132,15 +138,12 @@
         );
     }
 
-    <?php
-    if (!$model->properties || $model->properties == "{}"): // {} == fallback, TODO?
-        ?>
 
+    <?php if (!$model->properties || $model->properties == "{}"): // {} == fallback, TODO? ?>
+    <!-- new widget -->
     $(document).ready(function () {
         resetProperties();
     });
-    <?php
-endif;
-?>
+    <?php endif; ?>
 
 </script>
