@@ -83,10 +83,6 @@ abstract class BaseP3Widget extends CActiveRecord{
 		));
 	}
 
-	public function get_label()
-	{
-		return '#'.$this->id;
 
-			}
 
 }

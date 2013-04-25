@@ -44,4 +44,8 @@ class P3Widget extends BaseP3Widget {
 		);
 	}
 
+	public function get_label()
+	{
+		return '#'.$this->id." ".$this->alias;
+    }
 }
