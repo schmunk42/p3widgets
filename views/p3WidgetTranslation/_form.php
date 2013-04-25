@@ -18,7 +18,7 @@
     <div class="row">
         <label>Widget Alias</label>
 
-        <p><?php echo $model->p3Widget->alias ?> </p>
+        <p><?php echo CHtml::value($model,'p3Widget.alias') ?> </p>
     </div>
 
     <div class="row">
@@ -81,14 +81,14 @@
         <?php echo $form->error($model, 'content'); ?>
     </div>
 
-    <div class="row hide">
+    <div class="row">
         <label for="p3Widget"><?php echo Yii::t('P3WidgetsModule.crud', 'P3Widget'); ?></label>
         <?php $this->widget(
             'Relation',
             array(
                  'model'       => $model,
                  'relation'    => 'p3Widget',
-                 'fields'      => 'alias',
+                 'fields'      => '_label',
                  'allowEmpty'  => false,
                  'style'       => 'dropdownlist',
                  'htmlOptions' => array(
@@ -122,7 +122,7 @@
         $("#P3WidgetTranslation_properties").jsoneditor('input');
         url = "<?php echo $this->createUrl('/p3widgets/p3Widget/classVars',
         array('alias' => '__ALIAS__')) ?>";
-        url = url.replace("__ALIAS__", "<?php echo $model->p3Widget->alias; ?>");
+        url = url.replace("__ALIAS__", "<?php echo CHtml::value($model,'p3Widget.alias'); ?>");
 
         $.ajax(
             url,
