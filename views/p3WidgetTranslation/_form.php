@@ -97,9 +97,6 @@
         );
         ?><br/>
     </div>
-
-
-</div> <!-- form -->
 <div class="form-actions">
 
     <?php
@@ -113,8 +110,12 @@
                                    array(
                                         'class' => 'btn btn-primary'
                                    ));
-    $this->endWidget(); ?>
+     ?>
 </div>
+
+<?php $this->endWidget(); ?>
+
+</div> <!-- form -->
 
 
 <script type="text/javascript">
