@@ -212,23 +212,35 @@ class P3WidgetContainer extends CWidget
                 ob_end_clean();
                 restore_error_handler();
                 Yii::log($e->getMessage(), CLogger::LEVEL_ERROR);
-                $markup = "<div class='flash-warning'>" . $e->getMessage() . "</div>";
+                $markup = "<div class='flash-warning'>Exception on beginWidget(): " . $e->getMessage() . "</div>";
                 if (Yii::app()->user->checkAccess($this->checkAccess)) {
                     return $markup;
-                }
-                else {
+                } else {
                     return null;
                 }
             }
+            
             ob_start();
-            if (strstr($content, self::PLACEHOLDER)) {
-                $this->controller->endWidget();
-                $widget = $beginWidget . ob_get_clean();
-                $return = str_replace(self::PLACEHOLDER, $widget, $content);
-            }
-            else {
-                $this->controller->endWidget();
-                $return = $beginWidget . $content . ob_get_clean();
+            try {
+                if (strstr($content, self::PLACEHOLDER)) {
+                    $this->controller->endWidget();
+                    $widget = $beginWidget . ob_get_clean();
+                    $return = str_replace(self::PLACEHOLDER, $widget, $content);
+                }
+                else {
+                    $this->controller->endWidget();
+                    $return = $beginWidget . $content . ob_get_clean();
+                }
+            } catch (Exception $e) {
+                ob_end_clean();
+                restore_error_handler();
+                Yii::log($e->getMessage(), CLogger::LEVEL_ERROR);
+                $markup = "<div class='flash-warning'>Exception on endWidget(): " . $e->getMessage() . "</div>";
+                if (Yii::app()->user->checkAccess($this->checkAccess)) {
+                    return $markup;
+                } else {
+                    return null;
+                }
             }
 
             restore_error_handler();
