@@ -15,9 +15,10 @@ class P3Widget extends BaseP3Widget {
 		return parent::init();
 	}
 
-	public function __toString() {
-		return (string) $this->alias;
-	}
+    public function defaultScope()
+    {
+        return array('with' => array('p3WidgetMeta', 'p3WidgetTranslations'));
+    }
 
 	public function behaviors() {
 		return array_merge(
