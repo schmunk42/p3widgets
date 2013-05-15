@@ -1,7 +1,7 @@
 <div class="form">
     <p class="note">
         <?php echo Yii::t('P3WidgetsModule.crud', 'Fields with');?> <span
-            class="required">*</span> <?php echo Yii::t('P3WidgetsModule.crud', 'are required');?>        .
+            class="required">*</span> <?php echo Yii::t('P3WidgetsModule.crud', 'are required');?>.
     </p>
 
     <?php
@@ -34,7 +34,7 @@
 
     <div class="row">
         <?php echo $form->labelEx($model, 'properties'); ?>
-        <div class="notice">Do not use double quotes (") for keys and/or values!</div>
+        <div class="notice"><?php echo Yii::t('P3WidgetsModule.crud', 'Do not use double quotes (") for keys and/or values!');?></div>
         <?php echo CHtml::button('Reset Properties',
                                  array('onclick' => 'if (confirm("Reset all Properties?")) {resetProperties();}')); ?>
         <?php
@@ -59,7 +59,7 @@
         <p>
             <?php
             $this->widget('bootstrap.widgets.TbButton',
-                          array('label'       => 'Upload Files',
+                          array('label'       => Yii::t('P3WidgetsModule.crud', 'Upload Files'),
                                 //'url' => array('/p3media/import/uploadPopup'),
                                 'htmlOptions' => array(
                                     'class'   => 'btn-primary',

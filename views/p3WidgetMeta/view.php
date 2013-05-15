@@ -1,17 +1,17 @@
 <?php
-$this->breadcrumbs['P3 Widget Metas'] = array('admin');
+$this->breadcrumbs[Yii::t('P3WidgetsModule.crud', 'P3 Widget Meta')] = array('admin');
 $this->breadcrumbs[] = $model->id;
 ?>
 <?php $this->widget("TbBreadcrumbs", array("links"=>$this->breadcrumbs)) ?>
 <h1>
-    P3 Widget Meta <small>View #<?php echo $model->id ?></small></h1>
+    <?php echo Yii::t('P3WidgetsModule.crud', 'P3 Widget Meta'); ?> <small>View #<?php echo $model->id ?></small></h1>
 
 
 
 <?php $this->renderPartial("_toolbar", array("model"=>$model)); ?>
 
 <h2>
-    Data
+    <?php echo Yii::t('P3WidgetsModule.crud', 'Data'); ?>
 </h2>
 
 <p>
@@ -55,7 +55,7 @@ $this->breadcrumbs[] = $model->id;
 
 
 <h2>
-    Relations
+    <?php echo Yii::t('P3WidgetsModule.crud', 'Relations'); ?>
 </h2>
 
 <div class='row'>
@@ -66,7 +66,7 @@ $this->breadcrumbs[] = $model->id;
 <div class='span3'><?php $this->widget('bootstrap.widgets.TbButtonGroup', array(
         'type'=>'', // '', 'primary', 'info', 'success', 'warning', 'danger' or 'inverse'
         'buttons'=>array(
-            array('label'=>'p3WidgetMetas', 'icon'=>'icon-list-alt', 'url'=> array('p3WidgetMeta/admin')),
+            array('label'=>Yii::t('P3WidgetsModule.crud', 'Meta Data'), 'icon'=>'icon-list-alt', 'url'=> array('p3WidgetMeta/admin')),
                 array('icon'=>'icon-plus', 'url'=>array('p3WidgetMeta/create', 'P3WidgetMeta' => array('treeParent_id'=>$model->{$model->tableSchema->primaryKey}))),
         ),
     )); ?></div><div class='span8'>

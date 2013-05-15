@@ -1,17 +1,17 @@
 <?php
-$this->breadcrumbs['P3 Widget Translations'] = array('admin');
+$this->breadcrumbs[Yii::t('P3WidgetsModule.crud', 'P3 Widget Translations')] = array('admin');
 $this->breadcrumbs[] = $model->id;
 ?>
 <?php $this->widget("TbBreadcrumbs", array("links"=>$this->breadcrumbs)) ?>
 <h1>
-    P3 Widget Translation <small>View #<?php echo $model->id ?></small></h1>
+    <?php echo Yii::t('P3WidgetsModule.crud', 'P3 Widget Translation'); ?> <small>View #<?php echo $model->id ?></small></h1>
 
 
 
 <?php $this->renderPartial("_toolbar", array("model"=>$model)); ?>
 
 <h2>
-    Data
+    <?php echo Yii::t('P3WidgetsModule.crud', 'Data'); ?>
 </h2>
 
 <p>
@@ -33,7 +33,7 @@ $this->breadcrumbs[] = $model->id;
 
 
 <h2>
-    Relations
+    <?php echo Yii::t('P3WidgetsModule.crud', 'Relations'); ?>
 </h2>
 
 <div class='row'>
