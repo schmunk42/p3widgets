@@ -1,4 +1,4 @@
-<h1>Widget Playground</h1>
+<h1><?php echo Yii::t('P3WidgetsModule.crud', 'Widget Playground'); ?></h1>
 
 <div class="row">
 	<div class="span12">

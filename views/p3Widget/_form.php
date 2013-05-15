@@ -1,7 +1,7 @@
 <div class="">
     <p class="note">
         <?php echo Yii::t('P3WidgetsModule.crud', 'Fields with');?> <span
-            class="required">*</span> <?php echo Yii::t('P3WidgetsModule.crud', 'are required');?>        .
+            class="required">*</span> <?php echo Yii::t('P3WidgetsModule.crud', 'are required');?>.
     </p>
 
     <?php
@@ -16,7 +16,7 @@
 
     <div class="row">
         <div class="span4">
-            <?php echo $form->labelEx($model, 'alias'); ?>
+            <?php echo $form->labelEx($model, 'Alias'); ?>
             <?php #echo $form->textField($model,'alias',array('size'=>60,'maxlength'=>255)); ?>
             <?php echo $form->dropDownList($model, 'alias', $this->module->params['widgets'], array('onchange' => 'updateProperties()')); ?>
             <?php echo $form->error($model, 'alias'); ?>
