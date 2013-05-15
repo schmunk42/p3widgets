@@ -1,5 +1,5 @@
 <?php
-$this->breadcrumbs['P3 Widgets'] = array('admin');
+$this->breadcrumbs[Yii::t('P3WidgetsModule.crud', 'P3 Widgets')] = array('admin');
 $this->breadcrumbs[$model->{$model->tableSchema->primaryKey}] = array('view','id'=>$model->{$model->tableSchema->primaryKey});
 $this->breadcrumbs[] = Yii::t('P3WidgetsModule.crud', 'Update');
 ?>

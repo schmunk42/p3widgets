@@ -1,5 +1,5 @@
 <?php
-$this->breadcrumbs['P3 Widgets'] = array('admin');
+$this->breadcrumbs[Yii::t('P3WidgetsModule.crud', 'P3 Widgets')] = array('admin');
 $this->breadcrumbs[] = $model->id;
 ?>
 <?php $this->widget("TbBreadcrumbs", array("links"=>$this->breadcrumbs)) ?>
@@ -11,7 +11,7 @@ $this->breadcrumbs[] = $model->id;
 <?php $this->renderPartial("_toolbar", array("model"=>$model)); ?>
 
 <h2>
-    Data
+    <?php echo Yii::t('P3WidgetsModule.crud', 'Data'); ?>
 </h2>
 
 <p>
@@ -33,14 +33,14 @@ $this->breadcrumbs[] = $model->id;
 
 
 <h2>
-    Relations
+    <?php echo Yii::t('P3WidgetsModule.crud', 'Relations'); ?>
 </h2>
 
 <div class='row'>
 <div class='span3'><?php $this->widget('bootstrap.widgets.TbButtonGroup', array(
         'type'=>'', // '', 'primary', 'info', 'success', 'warning', 'danger' or 'inverse'
         'buttons'=>array(
-            array('label'=>'p3WidgetMeta', 'icon'=>'icon-list-alt', 'url'=> array('p3WidgetMeta/admin')),
+            array('label'=>Yii::t('P3WidgetsModule.crud', 'Meta Data'), 'icon'=>'icon-list-alt', 'url'=> array('p3WidgetMeta/admin')),
                 array('icon'=>'icon-plus', 'url'=>array('p3WidgetMeta/create', 'P3WidgetMeta' => array('id'=>$model->{$model->tableSchema->primaryKey}))),
         ),
     )); ?></div><div class='span8'>
@@ -65,7 +65,7 @@ $this->breadcrumbs[] = $model->id;
 <div class='span3'><?php $this->widget('bootstrap.widgets.TbButtonGroup', array(
         'type'=>'', // '', 'primary', 'info', 'success', 'warning', 'danger' or 'inverse'
         'buttons'=>array(
-            array('label'=>'p3WidgetTranslations', 'icon'=>'icon-list-alt', 'url'=> array('p3WidgetTranslation/admin')),
+            array('label'=>Yii::t('P3WidgetsModule.crud', 'Translations'), 'icon'=>'icon-list-alt', 'url'=> array('p3WidgetTranslation/admin')),
                 array('icon'=>'icon-plus', 'url'=>array('p3WidgetTranslation/create', 'P3WidgetTranslation' => array('p3_widget_id'=>$model->{$model->tableSchema->primaryKey}))),
         ),
     )); ?></div><div class='span8'>
