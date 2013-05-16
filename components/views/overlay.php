@@ -16,7 +16,7 @@
                                            'name'        => 'btnClick' . uniqid(),
                                            'options'     => array('icons' => 'js:{primary:"ui-icon-plusthick"}'),
                                            'htmlOptions' => array(
-                                               'title' => 'Create Widget Translation'
+                                               'title' => 'Create Widget Translation for '.$model->alias.' #'.$model->id
                                            )
                                            #'onclick' => 'js:function(){alert("clicked"); this.blur(); return false;}',
                                       ));
@@ -33,7 +33,7 @@
                                            'options'     => array('icons' => 'js:{primary:"ui-icon-pencil"}'),
                                            #'onclick' => 'js:function(){alert("clicked"); this.blur(); return false;}',
                                            'htmlOptions' => array(
-                                               'title' => 'Update Widget Translation'
+                                               'title' => 'Update Translation for '.$model->alias.' #'.$model->id
                                            )
                                       ));
                     }
