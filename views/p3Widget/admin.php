@@ -1,5 +1,5 @@
 <?php
-$this->breadcrumbs[] = Yii::t('P3WidgetsModule.crud', 'P3 Widgets');
+$this->breadcrumbs[] = Yii::t('P3WidgetsModule.crud', 'Manage');
 
 
 Yii::app()->clientScript->registerScript('search', "
@@ -18,7 +18,7 @@ return false;
 
 <?php $this->widget("TbBreadcrumbs", array("links"=>$this->breadcrumbs)) ?>
 <h1>
-    <?php echo Yii::t('P3WidgetsModule.crud', 'P3 Widgets'); ?> <small>
+    <?php echo Yii::t('P3WidgetsModule.crud', 'Widgets'); ?> <small>
     <?php echo Yii::t('P3WidgetsModule.crud', 'Manage'); ?></small></h1>
 
 <?php $this->renderPartial("_toolbar", array("model"=>$model)); ?>
