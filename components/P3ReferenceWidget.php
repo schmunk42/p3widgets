@@ -6,12 +6,14 @@
 class P3ReferenceWidget extends CWidget
 {
     public $widgetId;
+    public $overrideAttributes = array();
 
     function run()
     {
         $model = P3Widget::model()->findByPk($this->widgetId);
         if ($model !== null) {
-            $this->beginWidget($model->alias, CJSON::decode($model->t('properties')));
+            $properties = CMap::mergeArray(CJSON::decode($model->t('properties')),$this->overrideAttributes);
+            $this->beginWidget($model->alias, $properties);
             echo $model->t('content');
             $this->endWidget();
         } else {
