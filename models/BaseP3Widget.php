@@ -68,15 +68,15 @@ abstract class BaseP3Widget extends CActiveRecord{
 	{
 		$criteria=new CDbCriteria;
 
-		$criteria->compare('id', $this->id);
-		$criteria->compare('alias', $this->alias, true);
-		$criteria->compare('rank', $this->rank);
-		$criteria->compare('containerId', $this->containerId, true);
-		$criteria->compare('moduleId', $this->moduleId, true);
-		$criteria->compare('controllerId', $this->controllerId, true);
-		$criteria->compare('actionName', $this->actionName, true);
-		$criteria->compare('requestParam', $this->requestParam, true);
-		$criteria->compare('sessionParam', $this->sessionParam, true);
+		$criteria->compare('t.id', $this->id);
+		$criteria->compare('t.alias', $this->alias, true);
+		$criteria->compare('t.rank', $this->rank);
+		$criteria->compare('t.containerId', $this->containerId, true);
+		$criteria->compare('t.moduleId', $this->moduleId, true);
+		$criteria->compare('t.controllerId', $this->controllerId, true);
+		$criteria->compare('t.actionName', $this->actionName, true);
+		$criteria->compare('t.requestParam', $this->requestParam, true);
+		$criteria->compare('t.sessionParam', $this->sessionParam, true);
 
 		return new CActiveDataProvider(get_class($this), array(
 			'criteria'=>$criteria,
