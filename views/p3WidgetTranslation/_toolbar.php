@@ -59,7 +59,7 @@
                                  "id"        => $model->{$model->tableSchema->primaryKey},
                                  "returnUrl" => Yii::app()->request->getParam("returnUrl")
                              ),
-                             "confirm" => "Do you want to delete this item?"
+                             "confirm" => Yii::t('P3WidgetsModule.crud', 'Do you want to delete this item?')
                          )
                     )
                 );
@@ -93,7 +93,7 @@
                                  "id"        => $model->{$model->tableSchema->primaryKey},
                                  "returnUrl" => Yii::app()->request->getParam("returnUrl")
                              ),
-                             "confirm" => "Do you want to delete this item?"
+                             "confirm" => Yii::t('P3WidgetsModule.crud', 'Do you want to delete this item?')
                          )
                     )
                 );
