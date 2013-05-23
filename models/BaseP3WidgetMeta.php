@@ -91,8 +91,8 @@ abstract class BaseP3WidgetMeta extends CActiveRecord{
 			'createdBy' => Yii::t('P3WidgetsModule.crud', 'Created By'),
 			'modifiedAt' => Yii::t('P3WidgetsModule.crud', 'Modified At'),
 			'modifiedBy' => Yii::t('P3WidgetsModule.crud', 'Modified By'),
-			'guid' => Yii::t('P3WidgetsModule.crud', 'Guid'),
-			'ancestor_guid' => Yii::t('P3WidgetsModule.crud', 'Ancestor Guid'),
+			'guid' => Yii::t('P3WidgetsModule.crud', 'GUID'),
+			'ancestor_guid' => Yii::t('P3WidgetsModule.crud', 'Ancestor GUID'),
 			'model' => Yii::t('P3WidgetsModule.crud', 'Model'),
 		);
 	}
