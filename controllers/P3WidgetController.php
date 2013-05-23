@@ -139,7 +139,7 @@ public function accessRules() {
             }
         }
         else
-            throw new CHttpException(400,Yii::t('P3WidgetsModule.crud', 'Invalid request. Please do not repeat this request again.'));
+            throw new CHttpException(400,Yii::t('app', 'Invalid request. Please do not repeat this request again.'));
     }
 
     public function actionIndex()
@@ -164,7 +164,7 @@ public function accessRules() {
     {
         $model=P3Widget::model()->findByPk($id);
         if($model===null)
-            throw new CHttpException(404,Yii::t('P3WidgetsModule.crud', 'The requested page does not exist.'));
+            throw new CHttpException(404,Yii::t('app', 'The requested page does not exist.'));
         return $model;
     }
 

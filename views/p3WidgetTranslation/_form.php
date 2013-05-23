@@ -35,8 +35,8 @@
     <div class="row">
         <?php echo $form->labelEx($model, 'properties'); ?>
         <div class="notice"><?php echo Yii::t('P3WidgetsModule.crud', 'Do not use double quotes (") for keys and/or values!');?></div>
-        <?php echo CHtml::button('Reset Properties',
-                                 array('onclick' => 'if (confirm("Reset all Properties?")) {resetProperties();}')); ?>
+        <?php echo CHtml::button(Yii::t('P3WidgetsModule.crud', 'Reset'),
+                                 array('onclick' => 'if (confirm("'.Yii::t('P3WidgetsModule.crud', 'Reset all Properties?').'")) {resetProperties();}')); ?>
         <?php
         $this->widget('jsonEditorView.JuiJSONEditorInput',
                       array(
