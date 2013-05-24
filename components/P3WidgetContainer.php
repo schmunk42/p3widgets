@@ -130,7 +130,7 @@ class P3WidgetContainer extends CWidget
 
                 } else {
                     // no translation
-                    $content = "<div class='alert'>Translation for widget #{$model->id} {$model->alias} not found.</div>" . $content;
+                    $content = "<div class='alert container-message'>Translation for widget #{$model->id} {$model->alias} not found.</div>" . $content;
                 }
                 // admin mode
 

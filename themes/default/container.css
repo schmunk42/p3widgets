@@ -10,6 +10,9 @@ DIV.widget-container.admin {
 DIV.widget-container.admin DIV.widget {
   min-height: 70px;
 }
+DIV.widget-container.display .container-message {
+  display: none;
+}
 DIV.widget-container DIV.handle,
 DIV.widget-container DIV.delete {
   display: inline-block;

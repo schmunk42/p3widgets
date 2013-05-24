@@ -13,6 +13,9 @@ class P3ReferenceWidget extends CWidget
         $model = P3Widget::model()->findByPk($this->widgetId);
         if ($model !== null) {
             $properties = CMap::mergeArray(CJSON::decode($model->t('properties')), $this->overrideAttributes);
+            if (Yii::app()->user->checkAccess('P3widgets.Widget.*')) {
+                echo "<div class='alert alert-info container-message'>Copy of widget #{$model->id}</div>";
+            }
             $this->beginWidget($model->alias, $properties);
             echo $model->t('content');
             $this->endWidget();
