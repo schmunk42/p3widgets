@@ -1,16 +1,18 @@
 <div class="form">
     <p class="note">
-        <?php echo Yii::t('P3WidgetsModule.crud', 'Fields with');?> <span
-            class="required">*</span> <?php echo Yii::t('P3WidgetsModule.crud', 'are required');?>.
+        <?php echo Yii::t('P3WidgetsModule.crud', 'Fields with'); ?> <span
+            class="required">*</span> <?php echo Yii::t('P3WidgetsModule.crud', 'are required'); ?>.
     </p>
 
     <?php
-    $form = $this->beginWidget('CActiveForm',
-                               array(
-                                    'id'                     => 'p3-widget-translation-form',
-                                    'enableAjaxValidation'   => true,
-                                    'enableClientValidation' => true,
-                               ));
+    $form = $this->beginWidget(
+        'CActiveForm',
+        array(
+             'id'                     => 'p3-widget-translation-form',
+             'enableAjaxValidation'   => true,
+             'enableClientValidation' => true,
+        )
+    );
 
     echo $form->errorSummary($model);
     ?>
@@ -18,7 +20,7 @@
     <div class="row">
         <label>Widget Alias</label>
 
-        <p><?php echo CHtml::value($model,'p3Widget.alias') ?> </p>
+        <p><?php echo CHtml::value($model, 'p3Widget.alias') ?> </p>
     </div>
 
     <div class="row">
@@ -34,17 +36,29 @@
 
     <div class="row">
         <?php echo $form->labelEx($model, 'properties'); ?>
-        <div class="notice"><?php echo Yii::t('P3WidgetsModule.crud', 'Do not use double quotes (") for keys and/or values!');?></div>
-        <?php echo CHtml::button('Reset Properties',
-                                 array('onclick' => 'if (confirm("Reset all Properties?")) {resetProperties();}')); ?>
+        <div class="notice"><?php echo Yii::t(
+                'P3WidgetsModule.crud',
+                'Do not use double quotes (") for keys and/or values!'
+            ); ?></div>
+        <?php echo CHtml::button(
+            Yii::t('P3WidgetsModule.crud', 'Reset'),
+            array(
+                 'onclick' => 'if (confirm("' . Yii::t(
+                     'P3WidgetsModule.crud',
+                     'Reset all Properties?'
+                 ) . '")) {resetProperties();}'
+            )
+        ); ?>
         <?php
-        $this->widget('jsonEditorView.JuiJSONEditorInput',
-                      array(
-                           'model'     => $model,
-                           // ActiveRecord, or any CModel child class
-                           'attribute' => 'properties'
-                           // Model attribute holding initial JSON data string
-                      ));
+        $this->widget(
+            'jsonEditorView.JuiJSONEditorInput',
+            array(
+                 'model'     => $model,
+                 // ActiveRecord, or any CModel child class
+                 'attribute' => 'properties'
+                 // Model attribute holding initial JSON data string
+            )
+        );
         ?>
         <?php echo $form->error($model, 'properties'); ?>
 
@@ -58,24 +72,31 @@
         <?php echo $form->labelEx($model, 'content'); ?>
         <p>
             <?php
-            $this->widget('bootstrap.widgets.TbButton',
-                          array('label'       => Yii::t('P3WidgetsModule.crud', 'Upload Files'),
-                                //'url' => array('/p3media/import/uploadPopup'),
-                                'htmlOptions' => array(
-                                    'class'   => 'btn-primary',
-                                    'onclick' => 'window.open("' . $this->createUrl('/p3media/import/uploadPopup') . '", "Upload", "width=800,height=800");',
-                                    'target'  => '_blank'))
+            $this->widget(
+                'bootstrap.widgets.TbButton',
+                array(
+                     'label'       => Yii::t('P3WidgetsModule.crud', 'Upload Files'),
+                     //'url' => array('/p3media/import/uploadPopup'),
+                     'htmlOptions' => array(
+                         'class'   => 'btn-primary',
+                         'onclick' => 'window.open("' . $this->createUrl(
+                             '/p3media/import/uploadPopup'
+                         ) . '", "Upload", "width=800,height=800");',
+                         'target'  => '_blank'
+                     )
+                )
             );
             ?>
         </p>
         <?php
         $this->widget(
-            'ckeditor.CKEditor', array(
-                                      'model'     => $model,
-                                      'attribute' => 'content',
-                                      'options'   => is_array(Yii::app()->params['ext.ckeditor.options']) ?
-                                          Yii::app()->params['ext.ckeditor.options'] : array()
-                                 )
+            'ckeditor.CKEditor',
+            array(
+                 'model'     => $model,
+                 'attribute' => 'content',
+                 'options'   => is_array(Yii::app()->params['ext.ckeditor.options']) ?
+                     Yii::app()->params['ext.ckeditor.options'] : array()
+            )
         )
         ?>
         <?php echo $form->error($model, 'content'); ?>
@@ -92,28 +113,33 @@
                  'allowEmpty'  => false,
                  'style'       => 'dropdownlist',
                  'htmlOptions' => array(
-                     'checkAll' => 'all'),
+                     'checkAll' => 'all'
+                 ),
             )
         );
         ?><br/>
     </div>
-<div class="form-actions">
+    <div class="form-actions">
 
-    <?php
-    echo CHtml::Button(Yii::t('P3WidgetsModule.crud', 'Cancel'),
-                       array(
-                            'submit' => (isset($_GET['returnUrl'])) ? $_GET['returnUrl'] :
-                                array('p3WidgetTranslation/admin'),
-                            'class'  => 'btn'
-                       ));
-    echo ' ' . CHtml::submitButton(Yii::t('P3WidgetsModule.crud', 'Save'),
-                                   array(
-                                        'class' => 'btn btn-primary'
-                                   ));
-     ?>
-</div>
+        <?php
+        echo CHtml::Button(
+            Yii::t('P3WidgetsModule.crud', 'Cancel'),
+            array(
+                 'submit' => (isset($_GET['returnUrl'])) ? $_GET['returnUrl'] :
+                     array('p3WidgetTranslation/admin'),
+                 'class'  => 'btn'
+            )
+        );
+        echo ' ' . CHtml::submitButton(
+                Yii::t('P3WidgetsModule.crud', 'Save'),
+                array(
+                     'class' => 'btn btn-primary'
+                )
+            );
+        ?>
+    </div>
 
-<?php $this->endWidget(); ?>
+    <?php $this->endWidget(); ?>
 
 </div> <!-- form -->
 
