@@ -66,8 +66,7 @@ return array(
     'Search'                                                                  => 'Suchen',
     'Session Param'                                                           => '',
     'Status'                                                                  => '',
-    'This module provides a control called P3WidgetManager, along with an administration interface.<br/>
-  The P3WidgetManager allows you to dynamically create any type of widget.' => 'Dieses Modul stellt mit dem P3WidgetManager eine Steuerung inkl. Admin-Interface bereit.<br/>Der P3WidgetManager ermöglicht es Ihnen alle Typen von Widgets dynamisch zu erstellen.',
+    'This module provides a control called P3WidgetManager, along with an administration interface.<br/>The P3WidgetManager allows you to dynamically create any type of widget.' => 'Dieses Modul stellt mit dem P3WidgetManager eine Steuerung inkl. Admin-Interface bereit.<br/>Der P3WidgetManager ermöglicht es Ihnen alle Typen von Widgets dynamisch zu erstellen.',
     'This module requires installation.'                                      => 'Dieses Modul erfordert eine Installation.',
     'Translation'                                                             => 'Übersetzung',
     'Translations'                                                            => 'Übersetzungen',
