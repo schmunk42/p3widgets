@@ -96,8 +96,7 @@ class P3WidgetContainer extends CWidget
             $criteria->condition .= ' AND (requestParam = :requestParam OR requestParam = :universalValue)';
             if (isset($_GET[$this->varyByRequestParam])) {
                 $widgetAttributes['requestParam'] = $criteria->params[':requestParam'] = $_GET[$this->varyByRequestParam];
-            }
-            else {
+            } else {
                 $criteria->params[':requestParam'] = '';
             }
         }
@@ -110,14 +109,16 @@ class P3WidgetContainer extends CWidget
         // render widgets
         $widgets = "";
 
-        $widgetAttributes = CMap::mergeArray($widgetAttributes,
-                                             array(
-                                                  'moduleId'     => ($this->controller->module !== null) ?
-                                                      $this->controller->module->id : '',
-                                                  'controllerId' => $this->controller->id,
-                                                  'actionName'   => $this->controller->action->id,
-                                                  'containerId'  => $this->id,
-                                             ));
+        $widgetAttributes = CMap::mergeArray(
+            $widgetAttributes,
+            array(
+                 'moduleId'     => ($this->controller->module !== null) ?
+                     $this->controller->module->id : '',
+                 'controllerId' => $this->controller->id,
+                 'actionName'   => $this->controller->action->id,
+                 'containerId'  => $this->id,
+            )
+        );
         foreach ($models AS $model) {
 
             $properties = (is_array(CJSON::decode($model->t('properties', null, true)))) ?
@@ -129,27 +130,33 @@ class P3WidgetContainer extends CWidget
             if (($this->checkAccess === false) || Yii::app()->user->checkAccess($this->checkAccess)) {
                 if ($model->getTranslationModel() !== null) {
 
-                }
-                else {
+                } else {
                     // no translation
-                    $content = "<div class='alert'>Translation for widget #{$model->id} {$model->alias} not found.</div>" . $content;
+                    $content = "<div class='alert container-message'>Translation for widget #{$model->id} {$model->alias} not found.</div>" . $content;
                 }
                 // admin mode
 
                 $widgets .= $this->render(
-                    'P3WidgetContainer.views.widget', array(
-                                                           'headline'         => ((strrchr($model->alias, '.')) ?
-                                                               substr(strrchr($model->alias, '.'), 1) :
-                                                               $model->alias) . ' #' . $model->id,
-                                                           'content'          => $content,
-                                                           'widgetAttributes' => $widgetAttributes,
-                                                           'model'            => $model), true);
-            }
-            else {
+                    'P3WidgetContainer.views.widget',
+                    array(
+                         'headline'         => ((strrchr($model->alias, '.')) ?
+                             substr(strrchr($model->alias, '.'), 1) :
+                             $model->alias) . ' #' . $model->id,
+                         'content'          => $content,
+                         'widgetAttributes' => $widgetAttributes,
+                         'model'            => $model
+                    ),
+                    true
+                );
+            } else {
                 $widgets .= $this->render(
-                    'P3WidgetContainer.views.widgetDisplay', array(
-                                                                  'content' => $content,
-                                                                  'model'   => $model), true);
+                    'P3WidgetContainer.views.widgetDisplay',
+                    array(
+                         'content' => $content,
+                         'model'   => $model
+                    ),
+                    true
+                );
             }
         }
 
@@ -161,17 +168,22 @@ class P3WidgetContainer extends CWidget
             $this->registerClientScripts();
 
             $this->render(
-                'container', array(
-                                  'widgets'          => $widgets,
-                                  'widgetAttributes' => $widgetAttributes,
-                             ), false);
-        }
-        else {
+                'container',
+                array(
+                     'widgets'          => $widgets,
+                     'widgetAttributes' => $widgetAttributes,
+                ),
+                false
+            );
+        } else {
             $this->render(
-                'containerDisplay', array(
-                                         'widgets' => $widgets,
-                                         //'widgetAttributes' => $widgetAttributes,
-                                    ), false);
+                'containerDisplay',
+                array(
+                     'widgets' => $widgets,
+                     //'widgetAttributes' => $widgetAttributes,
+                ),
+                false
+            );
         }
     }
 
@@ -200,8 +212,7 @@ class P3WidgetContainer extends CWidget
                 foreach ($properties AS $key => $value) {
                     if ($value == "NULL") {
                         $parsedProperties[$key] = null;
-                    }
-                    else {
+                    } else {
                         $parsedProperties[$key] = $value;
                     }
                 }
@@ -221,15 +232,14 @@ class P3WidgetContainer extends CWidget
                     return null;
                 }
             }
-            
+
             ob_start();
             try {
                 if (strstr($content, self::PLACEHOLDER)) {
                     $this->controller->endWidget();
                     $widget = $beginWidget . ob_get_clean();
                     $return = str_replace(self::PLACEHOLDER, $widget, $content);
-                }
-                else {
+                } else {
                     $this->controller->endWidget();
                     $return = $beginWidget . $content . ob_get_clean();
                 }
@@ -248,8 +258,7 @@ class P3WidgetContainer extends CWidget
             restore_error_handler();
 
             return $return;
-        }
-        else {
+        } else {
             $msg = 'Widget \'' . $alias . '\' not found!';
             Yii::log($msg, CLogger::LEVEL_ERROR);
             restore_error_handler();
@@ -261,9 +270,15 @@ class P3WidgetContainer extends CWidget
     private function registerClientScripts()
     {
         // include admin CSS and JS
-        $cssFile = Yii::app()->assetManager->publish(Yii::getPathOfAlias('p3widgets.themes.default') . DIRECTORY_SEPARATOR . 'container.css');
+        $cssFile = Yii::app()->assetManager->publish(
+            Yii::getPathOfAlias('p3widgets.themes.default') . DIRECTORY_SEPARATOR . 'container.css'
+        );
         Yii::app()->clientScript->registerCssFile($cssFile);
-        $jsFile = $this->renderInternal(Yii::getPathOfAlias('p3widgets.themes.default') . DIRECTORY_SEPARATOR . 'container.js', null, true);
+        $jsFile = $this->renderInternal(
+            Yii::getPathOfAlias('p3widgets.themes.default') . DIRECTORY_SEPARATOR . 'container.js',
+            null,
+            true
+        );
         Yii::app()->clientScript->registerScript('P3WidgetContainer', $jsFile, CClientScript::POS_END);
     }
 
@@ -292,8 +307,7 @@ class P3WidgetContainer extends CWidget
                     break;
             }
             /* Don't execute PHP internal error handler */
-        }
-        else {
+        } else {
             // do not output errors for non-admins -- TODO?
             return true;
         }

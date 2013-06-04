@@ -10,6 +10,9 @@ DIV.widget-container.admin {
 DIV.widget-container.admin DIV.widget {
   min-height: 70px;
 }
+DIV.widget-container.display .container-message {
+  display: none;
+}
 DIV.widget-container DIV.handle,
 DIV.widget-container DIV.delete {
   display: inline-block;
@@ -23,16 +26,16 @@ DIV.widget-container DIV.overlay {
   text-align: center;
   z-index: 1100;
 }
-DIV.widget-container DIV.controls {
+DIV.widget-container DIV.overlay DIV.controls {
   margin: 4px;
 }
-DIV.widget-container DIV.controls SELECT {
+DIV.widget-container DIV.overlay DIV.controls SELECT {
   margin: 0 4px 22px 0;
 }
-DIV.widget-container DIV.controls .ui-icon {
+DIV.widget-container DIV.overlay DIV.controls .ui-icon {
   left: 5px;
 }
-DIV.widget-container DIV.controls .ui-button-text {
+DIV.widget-container DIV.overlay DIV.controls .ui-button-text {
   width: 0;
   line-height: 0;
   padding: 13px;
