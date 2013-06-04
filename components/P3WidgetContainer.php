@@ -47,7 +47,9 @@ class P3WidgetContainer extends CWidget
 
     /**
      * Parameter for User checkAccess() to enable frontend editing,
-     * set to 'false' if you want to disable this feature
+     * set to 'false' if you want to disable this feature.
+     *
+     * Note: You can only restrict access to a certain container **in the frontend** with this option!
      * @var string
      */
     public $checkAccess = 'P3widgets.Widget.*';
