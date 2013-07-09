@@ -36,7 +36,7 @@ class P3WidgetContainer extends CWidget
 
     const CONTAINER_CSS_PREFIX = 'container-';
     const WIDGET_CSS_PREFIX    = 'widget-';
-    const UNIVERSAL_VALUE      = "_ALL";
+    const UNIVERSAL_VALUE      = P3MetaDataBehavior::ALL_LANGUAGES;
     const PLACEHOLDER          = '{WIDGET_CONTENT}';
 
     /**

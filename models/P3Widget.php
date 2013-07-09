@@ -27,17 +27,23 @@ class P3Widget extends BaseP3Widget
     {
         return array_merge(
             array(
-                 'MetaData'    => array(
+                 'MetaData' => array(
                      'class'            => 'P3MetaDataBehavior',
                      'metaDataRelation' => 'p3WidgetMeta',
+                     'contentRelation'  => 'id0',
+                     'defaultLanguage'  => (Yii::app()->params['P3Widget.defaultLanguage']) ?
+                         Yii::app()->params['P3Widget.defaultLanguage'] : P3MetaDataBehavior::ALL_LANGUAGES,
+                     'defaultStatus'    => (Yii::app()->params['P3Widget.defaultStatus']) ?
+                         Yii::app()->params['P3Widget.defaultStatus'] : P3MetaDataBehavior::STATUS_ACTIVE,
                  ),
                  'Translation' => array(
-                     'class'            => 'P3TranslationBehavior',
-                     'relation'         => 'p3WidgetTranslations',
-                     'fallbackLanguage' => (isset(Yii::app()->params['p3.fallbackLanguage'])) ?
-                         Yii::app()->params['p3.fallbackLanguage'] : 'en',
-                     'fallbackValue'    => null,
-                     //'attributesBlacklist' => array('loadfrom'),
+                     'class'             => 'P3TranslationBehavior',
+                     'relation'          => 'p3WidgetTranslations',
+                     'fallbackLanguage'  => (isset(Yii::app()->params['P3Widget.fallbackLanguage'])) ?
+                         Yii::app()->params['P3Widget.fallbackLanguage'] : Yii::app()->sourceLanguage,
+                     'fallbackIndicator' => null,
+                     'fallbackValue'     => (isset(Yii::app()->params['P3Widget.fallbackValue'])) ?
+                         Yii::app()->params['P3Widget.fallbackValue'] : null,
                  )
             ),
             parent::behaviors()
