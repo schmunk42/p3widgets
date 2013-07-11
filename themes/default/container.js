@@ -47,10 +47,40 @@ $('.create-widget')
         window.location.href = url + urlParams;
     });
 
-$('#P3WidgetContainerShowControls')
+
+// TODO: cleanup code
+var ADMIN_CONTROLS_COOKIE_NAME = 'p3widgets-admin-controls';
+$('#P3WidgetContainerShowControls A')
     .click(function () {
         $('.widget-container').toggleClass('admin display', 0);
+        $('i',this).toggleClass('icon-eye-open icon-edit');
+        $(this).toggleClass('edit view');
+        if($('i',this).hasClass("icon-edit"))
+        {
+            //alert('hide');
+            $.cookie(ADMIN_CONTROLS_COOKIE_NAME, 'hide', {
+                path: '/',
+                expires: 10
+            });
+        }
+        else
+        {
+            //alert('show');
+            $.cookie(ADMIN_CONTROLS_COOKIE_NAME, null, {
+                path: '/',
+                expires: -1
+            });
+        }
     });
+if ($.cookie(ADMIN_CONTROLS_COOKIE_NAME)) {
+    //alert('cookie');
+    $('#P3WidgetContainerShowControls A').click();
+} else {
+    //$('#yii-debug-toolbar').show();
+}
+
+
+
 
 // Apply sortable function to containers, handle widget movement
 // Thanks & Credits to peili (http://www.yiiframework.com/extension/p3widgets/#c5563)

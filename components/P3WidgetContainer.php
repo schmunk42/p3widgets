@@ -279,7 +279,7 @@ class P3WidgetContainer extends CWidget
             null,
             true
         );
-        Yii::app()->clientScript->registerScript('P3WidgetContainer', $jsFile, CClientScript::POS_END);
+        Yii::app()->clientScript->registerScript('P3WidgetContainer', $jsFile, CClientScript::POS_READY);
     }
 
     public function handleError($errno, $errstr, $errfile, $errline)
