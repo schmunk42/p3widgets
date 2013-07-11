@@ -269,6 +269,10 @@ class P3WidgetContainer extends CWidget
 
     private function registerClientScripts()
     {
+        $cs = Yii::app()->getClientScript();
+        $cs->registerCoreScript('jquery');
+        $cs->registerCoreScript('cookie'); // for disabled / enabled state
+
         // include admin CSS and JS
         $cssFile = Yii::app()->assetManager->publish(
             Yii::getPathOfAlias('p3widgets.themes.default') . DIRECTORY_SEPARATOR . 'container.css'
