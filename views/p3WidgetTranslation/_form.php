@@ -18,28 +18,64 @@
     ?>
 
     <div class="row">
-        <label>Widget Alias</label>
+        <div class="span3">
+            <?php echo $form->labelEx($model, 'language'); ?>
 
-        <p><?php echo CHtml::value($model, 'p3Widget.alias') ?> </p>
+            <?php echo $form->textField($model, 'language', array('size' => 8, 'maxlength' => 8)); ?>
+            <?php echo $form->error($model, 'language'); ?>
+            <div class='hint'>
+                <?php if ('help.language' != $hint = Yii::t('P3WidgetsModule.crud', 'help.language')) {
+                    echo $hint;
+                } ?></div>
+        </div>
+        <div class="span3">
+
+            <label>Widget Alias</label>
+
+            <p><?php echo CHtml::value($model, 'p3Widget.alias') ?> </p>
+        </div>
+        <div class="span3">
+            <?php echo $form->labelEx($model, 'media'); ?>
+            <?php
+            $this->widget(
+                'bootstrap.widgets.TbButton',
+                array(
+                     'label'       => Yii::t('P3WidgetsModule.crud', 'Upload Files'),
+                     //'url' => array('/p3media/import/uploadPopup'),
+                     'htmlOptions' => array(
+                         'class'   => 'btn-primary',
+                         'onclick' => 'window.open("' . $this->createUrl(
+                             '/p3media/import/uploadPopup'
+                         ) . '", "Upload", "width=800,height=800");',
+                         'target'  => '_blank'
+                     )
+                )
+            );
+            ?>
+
+        </div>
     </div>
 
     <div class="row">
-        <?php echo $form->labelEx($model, 'language'); ?>
 
-        <?php echo $form->textField($model, 'language', array('size' => 8, 'maxlength' => 8)); ?>
-        <?php echo $form->error($model, 'language'); ?>
-        <div class='hint'>
-            <?php if ('help.language' != $hint = Yii::t('P3WidgetsModule.crud', 'help.language')) {
-                echo $hint;
-            } ?></div>
+        <?php echo $form->labelEx($model, 'content'); ?>
+
+        <?php
+        $this->widget(
+            'ckeditor.CKEditor',
+            array(
+                 'model'     => $model,
+                 'attribute' => 'content',
+                 'options'   => is_array(Yii::app()->params['ext.ckeditor.options']) ?
+                     Yii::app()->params['ext.ckeditor.options'] : array()
+            )
+        )
+        ?>
+        <?php echo $form->error($model, 'content'); ?>
     </div>
 
     <div class="row">
         <?php echo $form->labelEx($model, 'properties'); ?>
-        <div class="notice"><?php echo Yii::t(
-                'P3WidgetsModule.crud',
-                'Do not use double quotes (") for keys and/or values!'
-            ); ?></div>
         <?php echo CHtml::button(
             Yii::t('P3WidgetsModule.crud', 'Reset'),
             array(
@@ -60,6 +96,10 @@
             )
         );
         ?>
+        <div class="notice"><?php echo Yii::t(
+                'P3WidgetsModule.crud',
+                'Do not use double quotes (") for keys and/or values!'
+            ); ?></div>
         <?php echo $form->error($model, 'properties'); ?>
 
         <div class='hint'><?php if ('help.properties' != $hint = Yii::t('P3WidgetsModule.crud', 'help.properties')) {
@@ -68,41 +108,8 @@
 
     </div>
 
-    <div class="row">
-        <?php echo $form->labelEx($model, 'content'); ?>
-        <p>
-            <?php
-            $this->widget(
-                'bootstrap.widgets.TbButton',
-                array(
-                     'label'       => Yii::t('P3WidgetsModule.crud', 'Upload Files'),
-                     //'url' => array('/p3media/import/uploadPopup'),
-                     'htmlOptions' => array(
-                         'class'   => 'btn-primary',
-                         'onclick' => 'window.open("' . $this->createUrl(
-                             '/p3media/import/uploadPopup'
-                         ) . '", "Upload", "width=800,height=800");',
-                         'target'  => '_blank'
-                     )
-                )
-            );
-            ?>
-        </p>
-        <?php
-        $this->widget(
-            'ckeditor.CKEditor',
-            array(
-                 'model'     => $model,
-                 'attribute' => 'content',
-                 'options'   => is_array(Yii::app()->params['ext.ckeditor.options']) ?
-                     Yii::app()->params['ext.ckeditor.options'] : array()
-            )
-        )
-        ?>
-        <?php echo $form->error($model, 'content'); ?>
-    </div>
-
-    <div class="row">
+    <!-- TODO -->
+    <div class="row hide">
         <label for="p3Widget"><?php echo Yii::t('P3WidgetsModule.crud', 'P3Widget'); ?></label>
         <?php $this->widget(
             'Relation',
@@ -119,6 +126,8 @@
         );
         ?><br/>
     </div>
+
+
     <div class="form-actions">
 
         <?php
