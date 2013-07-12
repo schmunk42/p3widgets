@@ -35,16 +35,13 @@ $this->breadcrumbs[] = $model->id;
                      'type'  => 'html',
                  ),
                  'language',
-                 'properties',
+                 array(
+                     'name' => 'content',
+                     'type' => 'raw',
+                 ),
                  'content',
+                 'properties',
              ),
         )
-    ); ?></p>
-
-
-<h2>
-    <?php echo Yii::t('P3WidgetsModule.crud', 'Relations'); ?>
-</h2>
-
-<div class='row'>
-</div>
+    ); ?>
+</p>
