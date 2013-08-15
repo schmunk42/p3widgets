@@ -189,7 +189,7 @@ echo $form->errorSummary($model);
 <div class="row">
     <label for="id0"><?php echo Yii::t('P3WidgetsModule.crud', 'Id0'); ?></label>
     <?php $this->widget(
-        'Relation',
+        '\GtcRelation',
         array(
              'model'       => $model,
              'relation'    => 'id0',
@@ -206,7 +206,7 @@ echo $form->errorSummary($model);
 <div class="row">
     <label for="treeParent"><?php echo Yii::t('P3WidgetsModule.crud', 'TreeParent'); ?></label>
     <?php $this->widget(
-        'Relation',
+        '\GtcRelation',
         array(
              'model'       => $model,
              'relation'    => 'treeParent',

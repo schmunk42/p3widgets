@@ -114,7 +114,7 @@
     <div class="row hide">
         <label for="p3Widget"><?php echo Yii::t('P3WidgetsModule.crud', 'P3Widget'); ?></label>
         <?php $this->widget(
-            'Relation',
+            '\GtcRelation',
             array(
                  'model'       => $model,
                  'relation'    => 'p3Widget',
