@@ -157,7 +157,7 @@ Examples from jQuery demo pages.
 ##Known Issues
 
 If you have widgets which have a custom `assetsUrl` property (eg. `FancyBoxWidget`), it is recommended to set this 
-value to `NULL` with a skin file.
+value to `NULL` with a skin file, to avoid conflicts with changing values in development and production environment.
 
 > Note: If you're using themes, define the skin file in the theme which is active for `p3widgets/p3Widget/...`.
 
