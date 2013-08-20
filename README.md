@@ -18,17 +18,12 @@ Database schema setup is done easily with yiic migrate.
  * [Project page](https://github.com/schmunk42/p3widgets/)
  * [Download](https://github.com/schmunk42/phundament/archives/master)
  * [Join discussion](http://www.yiiframework.com/forum/index.php?/topic/20092-module-p3widgets/)
- * [Try out a demo](http://demo.phundament.com/3.0-dev) (login with: editor / editor)
+ * [Try out a demo](http://demo.phundament.com/3.0-dev) (register an account by e-mail)
  * [Report a bug](https://github.com/schmunk42/p3widgets/issues)
  * [Phundament on github](https://github.com/schmunk42/phundament/) 
  * [Website](http://phundament.com)
 
 Addon: [In-depth thread about general module management and a Yii-based CMS](http://www.yiiframework.com/forum/index.php?/topic/17591-planning-yii-cms-a-different-approach/)
-
-##Version
-
-0.2
-
 
 ##Requirements
 
@@ -161,7 +156,10 @@ Examples from jQuery demo pages.
 
 ##Known Issues
 
-None so far ;)
+If you have widgets which have a custom `assetsUrl` property (eg. `FancyBoxWidget`), it is recommended to set this 
+value to `NULL` with a skin file, to avoid conflicts with changing values in development and production environment.
+
+> Note: If you're using themes, define the skin file in the theme which is active for `p3widgets/p3Widget/...`.
 
 
 ##Screenshots
