@@ -224,7 +224,7 @@ class P3WidgetContainer extends CWidget
             } catch (Exception $e) {
                 ob_end_clean();
                 restore_error_handler();
-                Yii::log($e->getMessage(), CLogger::LEVEL_ERROR);
+                Yii::log($e->getMessage(), CLogger::LEVEL_ERROR, "p3widgets.components.P3WidgetContainer");
                 $markup = "<div class='flash-warning'>Exception on beginWidget(): " . $e->getMessage() . "</div>";
                 if (Yii::app()->user->checkAccess($this->checkAccess)) {
                     return $markup;
@@ -246,7 +246,7 @@ class P3WidgetContainer extends CWidget
             } catch (Exception $e) {
                 ob_end_clean();
                 restore_error_handler();
-                Yii::log($e->getMessage(), CLogger::LEVEL_ERROR);
+                Yii::log($e->getMessage(), CLogger::LEVEL_ERROR, "p3widgets.components.P3WidgetContainer");
                 $markup = "<div class='flash-warning'>Exception on endWidget(): " . $e->getMessage() . "</div>";
                 if (Yii::app()->user->checkAccess($this->checkAccess)) {
                     return $markup;
@@ -260,7 +260,7 @@ class P3WidgetContainer extends CWidget
             return $return;
         } else {
             $msg = 'Widget \'' . $alias . '\' not found!';
-            Yii::log($msg, CLogger::LEVEL_ERROR);
+            Yii::log($msg, CLogger::LEVEL_ERROR, "p3widgets.components.P3WidgetContainer");
             restore_error_handler();
 
             return "<div class='flash-error'>" . $msg . "</div>";
