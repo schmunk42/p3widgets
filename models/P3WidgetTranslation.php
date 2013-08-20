@@ -27,7 +27,14 @@ class P3WidgetTranslation extends BaseP3WidgetTranslation
     {
         return array_merge(
             parent::behaviors(),
-            array()
+            array(
+                 'Timestamp' => array(
+                     'class'             => 'zii.behaviors.CTimestampBehavior',
+                     'createAttribute'   => 'createdAt',
+                     'updateAttribute'   => 'modifiedAt',
+                     'setUpdateOnCreate' => true,
+                 ),
+            )
         );
     }
 
