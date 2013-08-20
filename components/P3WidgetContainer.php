@@ -326,7 +326,8 @@ class P3WidgetContainer extends CWidget
         $depFile = new CFileCacheDependency(__FILE__);
         $depUpdate = new CDbCacheDependency("SELECT MAX(p3_widget_meta.modifiedAt) FROM p3_widget_meta");
         $depUpdateTranslation = new CDbCacheDependency("SELECT MAX(p3_widget_translation.modifiedAt) FROM p3_widget_translation");
-        $dependency = new CChainedCacheDependency(array($depFile, $depUpdate, $depUpdateTranslation));
+        $depDelete = New CGlobalStateCacheDependency('p3extensions.behaviors.P3MetaDataBehavior:lastDelete:p3_widget');
+        $dependency = new CChainedCacheDependency(array($depFile, $depUpdate, $depUpdateTranslation, $depDelete));
         return $dependency;
     }
 
