@@ -5,7 +5,7 @@ class m110518_000000_init extends CDbMigration
 
     public function up()
     {
-        if (Yii::app()->db->schema instanceof CMysqlSchema) {
+        if ($this->dbConnection->schema instanceof CMysqlSchema) {
             $options = 'ENGINE=InnoDB DEFAULT CHARSET=utf8';
         } else {
             $options = '';

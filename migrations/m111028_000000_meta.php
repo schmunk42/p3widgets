@@ -5,7 +5,7 @@ class m111028_000000_meta extends CDbMigration
 
     public function up()
     {
-        if (Yii::app()->db->schema instanceof CMysqlSchema)
+        if ($this->dbConnection->schema instanceof CMysqlSchema)
             $options = 'ENGINE=InnoDB DEFAULT CHARSET=utf8';
         else {
             $options = '';
@@ -42,7 +42,7 @@ class m111028_000000_meta extends CDbMigration
             $options
         );
 
-        if ((Yii::app()->db->schema instanceof CSqliteSchema) == false):
+        if (($this->dbConnection->schema instanceof CSqliteSchema) == false):
 
             $this->addForeignKey(
                 'fk_p3_widget_id',

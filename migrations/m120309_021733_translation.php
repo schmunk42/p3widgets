@@ -5,7 +5,7 @@ class m120309_021733_translation extends CDbMigration
 
     public function up()
     {
-        if (Yii::app()->db->schema instanceof CMysqlSchema)
+        if ($this->dbConnection->schema instanceof CMysqlSchema)
             $options = 'ENGINE=InnoDB DEFAULT CHARSET=utf8';
         else {
             $options = '';
@@ -29,7 +29,7 @@ class m120309_021733_translation extends CDbMigration
 
         // Foreign Keys for table 'p3_widget_translation'
 
-        if ((Yii::app()->db->schema instanceof CSqliteSchema) == false):
+        if (($this->dbConnection->schema instanceof CSqliteSchema) == false):
 
             $this->addForeignKey(
                 'fk_p3_widget_p3_widget_id',
