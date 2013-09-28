@@ -77,38 +77,42 @@ class P3WidgetContainer extends CWidget
 
         // query widgets from database
         $widgetAttributes    = array();
-        $criteria            = new CDbCriteria();
-        $criteria->params    = array(
-            ':universalValue' => self::UNIVERSAL_VALUE,
-            ':moduleId'       => ($this->controller->module !== null) ? $this->controller->module->id : '',
-            ':controllerId'   => $this->controller->id,
-            ':actionName'     => $this->controller->action->id,
-            ':containerId'    => $this->id,
-            ':language'       => Yii::app()->language,
-        );
-        $criteria->condition = '(p3WidgetMeta.language = :language OR p3WidgetMeta.language = :universalValue) AND ' .
-            '(moduleId = :moduleId OR moduleId = :universalValue) AND ' .
-            '(controllerId = :controllerId OR controllerId = :universalValue) AND ' .
-            '(actionName = :actionName OR actionName = :universalValue) AND ' .
-            'containerId = :containerId';
-        $criteria->with      = array('p3WidgetMeta');
-        if ($this->varyByRequestParam !== null) {
-            $criteria->condition .= ' AND (requestParam = :requestParam OR requestParam = :universalValue)';
-            if (isset($_GET[$this->varyByRequestParam])) {
-                $widgetAttributes['requestParam'] = $criteria->params[':requestParam'] = $_GET[$this->varyByRequestParam];
-            } else {
-                $criteria->params[':requestParam'] = '';
+        $cacheId = $this->getCacheId();
+        $cachedItems = Yii::app()->cache->get($cacheId);
+        if ($cachedItems !== false) {
+            $models = $cachedItems;
+        } else {
+            $criteria            = new CDbCriteria();
+            $criteria->params    = array(
+                ':universalValue' => self::UNIVERSAL_VALUE,
+                ':moduleId'       => ($this->controller->module !== null) ? $this->controller->module->id : '',
+                ':controllerId'   => $this->controller->id,
+                ':actionName'     => $this->controller->action->id,
+                ':containerId'    => $this->id,
+                ':language'       => Yii::app()->language,
+            );
+            $criteria->condition = '(p3WidgetMeta.language = :language OR p3WidgetMeta.language = :universalValue) AND ' .
+                '(moduleId = :moduleId OR moduleId = :universalValue) AND ' .
+                '(controllerId = :controllerId OR controllerId = :universalValue) AND ' .
+                '(actionName = :actionName OR actionName = :universalValue) AND ' .
+                'containerId = :containerId';
+            $criteria->with      = array('p3WidgetMeta','p3WidgetTranslations');
+            if ($this->varyByRequestParam !== null) {
+                $criteria->condition .= ' AND (requestParam = :requestParam OR requestParam = :universalValue)';
+                if (isset($_GET[$this->varyByRequestParam])) {
+                    $widgetAttributes['requestParam'] = $criteria->params[':requestParam'] = $_GET[$this->varyByRequestParam];
+                } else {
+                    $criteria->params[':requestParam'] = '';
+                }
             }
+
+            $criteria->order = "rank ASC";
+
+            $models = P3Widget::model()->findAll($criteria);
+            Yii::app()->cache->set($cacheId, $models, 0, $this->getCacheDependency());
         }
 
-        $criteria->order = "rank ASC";
-
-        $models = P3Widget::model()->findAll($criteria);
-        Yii::trace("Found " . count($models) . " widgets.");
-
-        // render widgets
-        $widgets = "";
-
+        Yii::trace("Container '{$this->id}' has " . count($models) . " widget(s).", "p3widgets.components.P3WidgetContainer");
         $widgetAttributes = CMap::mergeArray(
             $widgetAttributes,
             array(
@@ -119,23 +123,21 @@ class P3WidgetContainer extends CWidget
                  'containerId'  => $this->id,
             )
         );
-        foreach ($models AS $model) {
 
+        // render widgets
+        $widgets = "";
+        foreach ($models AS $model) {
             $properties = (is_array(CJSON::decode($model->t('properties', null, true)))) ?
                 CJSON::decode($model->t('properties', null, true)) : array();
-
             $content = $this->prepareWidget($model->alias, $properties, $model->t('content', null, true));
-
-
             if (($this->checkAccess === false) || Yii::app()->user->checkAccess($this->checkAccess)) {
                 if ($model->getTranslationModel() !== null) {
-
+                    // it's fine...
                 } else {
                     // no translation
                     $content = "<div class='alert container-message'>Translation for widget #{$model->id} {$model->alias} not found.</div>" . $content;
                 }
                 // admin mode
-
                 $widgets .= $this->render(
                     'P3WidgetContainer.views.widget',
                     array(
@@ -159,6 +161,9 @@ class P3WidgetContainer extends CWidget
                 );
             }
         }
+
+
+
 
         // render container (+widgets)
         if (($this->checkAccess === false) || Yii::app()->user->checkAccess($this->checkAccess)) {
@@ -224,7 +229,7 @@ class P3WidgetContainer extends CWidget
             } catch (Exception $e) {
                 ob_end_clean();
                 restore_error_handler();
-                Yii::log($e->getMessage(), CLogger::LEVEL_ERROR);
+                Yii::log($e->getMessage(), CLogger::LEVEL_ERROR, "p3widgets.components.P3WidgetContainer");
                 $markup = "<div class='flash-warning'>Exception on beginWidget(): " . $e->getMessage() . "</div>";
                 if (Yii::app()->user->checkAccess($this->checkAccess)) {
                     return $markup;
@@ -246,7 +251,7 @@ class P3WidgetContainer extends CWidget
             } catch (Exception $e) {
                 ob_end_clean();
                 restore_error_handler();
-                Yii::log($e->getMessage(), CLogger::LEVEL_ERROR);
+                Yii::log($e->getMessage(), CLogger::LEVEL_ERROR, "p3widgets.components.P3WidgetContainer");
                 $markup = "<div class='flash-warning'>Exception on endWidget(): " . $e->getMessage() . "</div>";
                 if (Yii::app()->user->checkAccess($this->checkAccess)) {
                     return $markup;
@@ -260,7 +265,7 @@ class P3WidgetContainer extends CWidget
             return $return;
         } else {
             $msg = 'Widget \'' . $alias . '\' not found!';
-            Yii::log($msg, CLogger::LEVEL_ERROR);
+            Yii::log($msg, CLogger::LEVEL_ERROR, "p3widgets.components.P3WidgetContainer");
             restore_error_handler();
 
             return "<div class='flash-error'>" . $msg . "</div>";
@@ -317,6 +322,24 @@ class P3WidgetContainer extends CWidget
         }
     }
 
+    private function getCacheDependency(){
+        $depFile = new CFileCacheDependency(__FILE__);
+        $depUpdate = new CDbCacheDependency("SELECT MAX(p3_widget_meta.modifiedAt) FROM p3_widget_meta");
+        $depUpdateTranslation = new CDbCacheDependency("SELECT MAX(p3_widget_translation.modifiedAt) FROM p3_widget_translation");
+        $depDelete = New CGlobalStateCacheDependency('p3extensions.behaviors.P3MetaDataBehavior:lastDelete:p3_widget');
+        $dependency = new CChainedCacheDependency(array($depFile, $depUpdate, $depUpdateTranslation, $depDelete));
+        return $dependency;
+    }
+
+    private function getCacheId()
+    {
+        $id = Yii::app()->language.':';
+        $id .= ($this->controller->module !== null) ? $this->controller->module->id : '*';
+        $id .= ':'.$this->controller->id .':'. $this->controller->action->id .':'. $this->id;
+        $id .= ':'.(($this->varyByRequestParam !== null) ? Yii::app()->request->getParam($this->varyByRequestParam) : '*');
+        $id .= ':'.(($this->checkAccess === false) || Yii::app()->user->checkAccess($this->checkAccess)?'admin':'display');
+        return 'p3widgets.components.P3WidgetContainer:'.$id;
+    }
 }
 
 ?>

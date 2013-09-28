@@ -28,13 +28,13 @@
                     echo $hint;
                 } ?></div>
         </div>
-        <div class="span3">
+        <div class="span6">
 
             <label>Widget Alias</label>
 
             <p><?php echo CHtml::value($model, 'p3Widget.alias') ?> </p>
         </div>
-        <div class="span3">
+        <div class="span3 pull-right">
             <?php echo $form->labelEx($model, 'media'); ?>
             <?php
             $this->widget(
@@ -55,6 +55,8 @@
 
         </div>
     </div>
+
+    <hr/>
 
     <div class="row">
 
@@ -112,7 +114,7 @@
     <div class="row hide">
         <label for="p3Widget"><?php echo Yii::t('P3WidgetsModule.crud', 'P3Widget'); ?></label>
         <?php $this->widget(
-            'Relation',
+            '\GtcRelation',
             array(
                  'model'       => $model,
                  'relation'    => 'p3Widget',
