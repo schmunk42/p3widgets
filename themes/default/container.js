@@ -52,27 +52,29 @@ $('.create-widget')
 var ADMIN_CONTROLS_COOKIE_NAME = 'p3widgets-admin-controls';
 $('#P3WidgetContainerShowControls A')
     .click(function () {
-        $('.widget-container').toggleClass('admin display', 0);
-        $('i',this).toggleClass('icon-eye-open icon-edit');
-        $(this).toggleClass('edit view');
         if($('i',this).hasClass("icon-edit"))
         {
-            //alert('hide');
-            $.cookie(ADMIN_CONTROLS_COOKIE_NAME, 'hide', {
+            //alert('show');
+            $.cookie(ADMIN_CONTROLS_COOKIE_NAME, 'show', {
                 path: '/',
                 expires: 10
             });
         }
         else
         {
-            //alert('show');
-            $.cookie(ADMIN_CONTROLS_COOKIE_NAME, null, {
+            //alert('hide');
+            $.cookie(ADMIN_CONTROLS_COOKIE_NAME, 'hide', {
                 path: '/',
                 expires: -1
             });
         }
+
+        $('.widget-container').toggleClass('admin display', 0);
+        $('i',this).toggleClass('icon-eye-open icon-edit');
+        $(this).toggleClass('edit view');
+
     });
-if ($.cookie(ADMIN_CONTROLS_COOKIE_NAME)) {
+if ($.cookie(ADMIN_CONTROLS_COOKIE_NAME) == 'show') {
     //alert('cookie');
     $('#P3WidgetContainerShowControls A').click();
 } else {
