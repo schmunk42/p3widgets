@@ -20,6 +20,8 @@ $this->breadcrumbs[] = Yii::t('crud', 'View');
 
 
 <?php $this->renderPartial("_toolbar", array("model"=>$model)); ?>
+
+
 <div class="row">
     <div class="span7">
         <h2>

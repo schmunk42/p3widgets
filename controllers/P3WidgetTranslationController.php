@@ -9,26 +9,47 @@ class P3WidgetTranslationController extends Controller
     public $scenario = "crud";
     public $scope = "crud";
 
+
 public function filters()
 {
-return array(
-'accessControl',
-);
+    return array(
+        'accessControl',
+    );
 }
 
 public function accessRules()
 {
-return array(
-array(
-'allow',
-'actions' => array('create', 'editableSaver', 'update', 'delete', 'admin', 'view'),
-'roles' => array('P3widgets.P3WidgetTranslation.*'),
-),
-array(
-'deny',
-'users' => array('*'),
-),
-);
+     return array(
+        array(
+            'allow',
+            'actions' => array('create', 'admin', 'view', 'update', 'editableSaver', 'delete'),
+            'roles' => array('P3widgets.P3WidgetTranslation.*'),
+        ),
+        array(
+            'allow',
+            'actions' => array('create'),
+            'roles' => array('P3widgets.P3WidgetTranslation.Create'),
+        ),
+        array(
+            'allow',
+            'actions' => array('view', 'admin'), // let the user view the grid
+            'roles' => array('P3widgets.P3WidgetTranslation.View'),
+        ),
+        array(
+            'allow',
+            'actions' => array('update', 'editableSaver'),
+            'roles' => array('P3widgets.P3WidgetTranslation.Update'),
+        ),
+        array(
+            'allow',
+            'actions' => array('delete'),
+            'roles' => array('P3widgets.P3WidgetTranslation.Delete'),
+        ),
+        array(
+            'deny',
+            'users' => array('*'),
+        ),
+    );
 }
 
     public function beforeAction($action)

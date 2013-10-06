@@ -365,5 +365,19 @@
         <?php echo Yii::t('crud','Fields with <span class="required">*</span> are required.');?>
     </p>
 
+    <div class="form-actions" style="display: none">
+        
+        <?php
+            echo CHtml::Button(
+            Yii::t('crud', 'Cancel'), array(
+                'submit' => (isset($_GET['returnUrl']))?$_GET['returnUrl']:array('p3Widget/admin'),
+                'class' => 'btn'
+            ));
+            echo ' '.CHtml::submitButton(Yii::t('crud', 'Save'), array(
+                'class' => 'btn btn-primary'
+            ));
+        ?>
+    </div>
+
     <?php $this->endWidget() ?>
 </div> <!-- form -->
