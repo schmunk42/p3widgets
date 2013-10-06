@@ -1,4 +1,7 @@
-<div class="widget" id="<?php echo P3WidgetContainer::WIDGET_CSS_PREFIX . $model->id ?>">
+<div class="widget"
+     data-toggle="tooltip"
+     title="<?php echo "{$model->alias} #{$model->id} {$model->status}" ?>"
+     id="<?php echo P3WidgetContainer::WIDGET_CSS_PREFIX . $model->id ?>">
 
     <?php $this->render(
         'overlay',

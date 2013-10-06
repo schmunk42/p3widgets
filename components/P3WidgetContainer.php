@@ -36,7 +36,7 @@ class P3WidgetContainer extends CWidget
 
     const CONTAINER_CSS_PREFIX = 'container-';
     const WIDGET_CSS_PREFIX    = 'widget-';
-    const UNIVERSAL_VALUE      = P3MetaDataBehavior::ALL_LANGUAGES;
+    const UNIVERSAL_VALUE      = PhAccessBehavior::ALL_DOMAINS;
     const PLACEHOLDER          = '{WIDGET_CONTENT}';
 
     /**
@@ -89,18 +89,17 @@ class P3WidgetContainer extends CWidget
                 ':controllerId'   => $this->controller->id,
                 ':actionName'     => $this->controller->action->id,
                 ':containerId'    => $this->id,
-                ':language'       => Yii::app()->language,
+                ':domain'       => Yii::app()->language,
             );
-            $criteria->condition = '(p3WidgetMeta.language = :language OR p3WidgetMeta.language = :universalValue) AND ' .
-                '(moduleId = :moduleId OR moduleId = :universalValue) AND ' .
-                '(controllerId = :controllerId OR controllerId = :universalValue) AND ' .
-                '(actionName = :actionName OR actionName = :universalValue) AND ' .
-                'containerId = :containerId';
-            $criteria->with      = array('p3WidgetMeta','p3WidgetTranslations');
+            $criteria->condition = '(access_domain = :domain OR access_domain = :universalValue) AND ' .
+                '(module_id = :moduleId OR module_id = :universalValue) AND ' .
+                '(controller_id = :controllerId OR controller_id = :universalValue) AND ' .
+                '(action_name = :actionName OR action_name = :universalValue) AND ' .
+                'container_id = :containerId';
             if ($this->varyByRequestParam !== null) {
-                $criteria->condition .= ' AND (requestParam = :requestParam OR requestParam = :universalValue)';
+                $criteria->condition .= ' AND (request_param = :requestParam OR request_param = :universalValue)';
                 if (isset($_GET[$this->varyByRequestParam])) {
-                    $widgetAttributes['requestParam'] = $criteria->params[':requestParam'] = $_GET[$this->varyByRequestParam];
+                    $widgetAttributes['request_param'] = $criteria->params[':requestParam'] = $_GET[$this->varyByRequestParam];
                 } else {
                     $criteria->params[':requestParam'] = '';
                 }
@@ -116,29 +115,36 @@ class P3WidgetContainer extends CWidget
         $widgetAttributes = CMap::mergeArray(
             $widgetAttributes,
             array(
-                 'moduleId'     => ($this->controller->module !== null) ?
+                 'module_id'     => ($this->controller->module !== null) ?
                      $this->controller->module->id : '',
-                 'controllerId' => $this->controller->id,
-                 'actionName'   => $this->controller->action->id,
-                 'containerId'  => $this->id,
+                 'controller_id' => $this->controller->id,
+                 'action_name'   => $this->controller->action->id,
+                 'container_id'  => $this->id,
             )
         );
 
         // render widgets
-        $widgets = "";
+        $container = "";
         foreach ($models AS $model) {
-            $properties = (is_array(CJSON::decode($model->t('properties', null, true)))) ?
-                CJSON::decode($model->t('properties', null, true)) : array();
-            $content = $this->prepareWidget($model->alias, $properties, $model->t('content', null, true));
+            $properties = (is_array(CJSON::decode($model->properties_json))) ?
+                CJSON::decode($model->properties_json) : array();
+            $widget = $this->prepareWidget($model->alias, $properties, $model->content_html);
+
+            // admin mode
             if (($this->checkAccess === false) || Yii::app()->user->checkAccess($this->checkAccess)) {
-                if ($model->getTranslationModel() !== null) {
-                    // it's fine...
-                } else {
-                    // no translation
-                    $content = "<div class='alert container-message'>Translation for widget #{$model->id} {$model->alias} not found.</div>" . $content;
+                /*$content = "<div class='container-message'>";
+                $statusClass = 'label-'.$model->statusCssClass;
+                $content .= "<span class='label {$statusClass}'>Widget</span> ";
+                if (!$model->translationModel->isNewRecord) {
+                    $translationStatusClass = 'label-'.$model->statusCssClass;
+                    $content .= "<span class='label {$translationStatusClass}'>Translation</span> ";
                 }
-                // admin mode
-                $widgets .= $this->render(
+                $content .= "</div>";
+*/
+                $content = "";
+                $content .= $widget;
+
+                $container .= $this->render(
                     'P3WidgetContainer.views.widget',
                     array(
                          'headline'         => ((strrchr($model->alias, '.')) ?
@@ -151,10 +157,11 @@ class P3WidgetContainer extends CWidget
                     true
                 );
             } else {
-                $widgets .= $this->render(
+
+                $container .= $this->render(
                     'P3WidgetContainer.views.widgetDisplay',
                     array(
-                         'content' => $content,
+                         'content' => $widget,
                          'model'   => $model
                     ),
                     true
@@ -175,7 +182,7 @@ class P3WidgetContainer extends CWidget
             $this->render(
                 'container',
                 array(
-                     'widgets'          => $widgets,
+                     'widgets'          => $container,
                      'widgetAttributes' => $widgetAttributes,
                 ),
                 false
@@ -184,7 +191,7 @@ class P3WidgetContainer extends CWidget
             $this->render(
                 'containerDisplay',
                 array(
-                     'widgets' => $widgets,
+                     'widgets' => $container,
                      //'widgetAttributes' => $widgetAttributes,
                 ),
                 false
@@ -277,6 +284,7 @@ class P3WidgetContainer extends CWidget
         $cs = Yii::app()->getClientScript();
         $cs->registerCoreScript('jquery');
         $cs->registerCoreScript('cookie'); // for disabled / enabled state
+        $cs->registerCoreScript('jquery.ui');
 
         // include admin CSS and JS
         $cssFile = Yii::app()->assetManager->publish(
@@ -289,6 +297,7 @@ class P3WidgetContainer extends CWidget
             true
         );
         Yii::app()->clientScript->registerScript('P3WidgetContainer', $jsFile, CClientScript::POS_READY);
+
     }
 
     public function handleError($errno, $errstr, $errfile, $errline)

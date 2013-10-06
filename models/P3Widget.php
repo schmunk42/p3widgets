@@ -1,13 +1,23 @@
 <?php
 
-// auto-loading fix
+// auto-loading
 Yii::setPathOfAlias('P3Widget', dirname(__FILE__));
 Yii::import('P3Widget.*');
 
 class P3Widget extends BaseP3Widget
 {
 
-    // Add your model-specific methods here. This file will not be overriden by gtc except you force it.
+    /**
+     * @var string default status
+     */
+    public $status = 'draft';
+
+    private $_statusCssClassMap = array(
+        'draft' => 'default',
+        'published' => 'success',
+        'archived' => 'inverse'
+    );
+
     public static function model($className = __CLASS__)
     {
         return parent::model($className);
@@ -18,48 +28,114 @@ class P3Widget extends BaseP3Widget
         return parent::init();
     }
 
-    public function defaultScope()
+    public function getItemLabel()
     {
-        return array('with' => array('p3WidgetMeta', 'p3WidgetTranslations'));
+        return '#'.$this->id.' '.$this->alias.' '.$this->module_id.'/'.$this->controller_id.'/'.$this->action_name.'/'.$this->container_id.'/'.$this->rank;
     }
 
     public function behaviors()
     {
         return array_merge(
+            parent::behaviors(),
             array(
-                 'MetaData' => array(
-                     'class'            => 'P3MetaDataBehavior',
-                     'metaDataRelation' => 'p3WidgetMeta',
-                     'contentRelation'  => 'id0',
-                     'defaultLanguage'  => (Yii::app()->params['P3Widget.defaultLanguage']) ?
-                         Yii::app()->params['P3Widget.defaultLanguage'] : P3MetaDataBehavior::ALL_LANGUAGES,
-                     'defaultStatus'    => (Yii::app()->params['P3Widget.defaultStatus']) ?
-                         Yii::app()->params['P3Widget.defaultStatus'] : P3MetaDataBehavior::STATUS_ACTIVE,
+                 'Access'           => array(
+                     'class' => '\PhAccessBehavior'
                  ),
-                 'Translation' => array(
-                     'class'             => 'P3TranslationBehavior',
-                     'relation'          => 'p3WidgetTranslations',
-                     'fallbackLanguage'  => (isset(Yii::app()->params['P3Widget.fallbackLanguage'])) ?
-                         Yii::app()->params['P3Widget.fallbackLanguage'] : Yii::app()->sourceLanguage,
-                     'fallbackIndicator' => null,
-                     'fallbackValue'     => (isset(Yii::app()->params['P3Widget.fallbackValue'])) ?
-                         Yii::app()->params['P3Widget.fallbackValue'] : null,
-                 )
-            ),
-            parent::behaviors()
+                 'LoggableBehavior' => array(
+                     'class'   => 'vendor.sammaye.auditrail2.behaviors.LoggableBehavior',
+                     'ignored' => array(
+                         'created_at',
+                         'updated_at',
+                     )
+                 ),
+                 'Status'           => array(
+                     'class'       => 'vendor.yiiext.status-behavior.EStatusBehavior',
+                     'statusField' => 'status'
+                 ),
+                 'Timestamp'        => array(
+                     'class'               => 'zii.behaviors.CTimestampBehavior',
+                     'createAttribute'     => 'created_at',
+                     'updateAttribute'     => 'updated_at',
+                     'setUpdateOnCreate'   => true,
+                     'timestampExpression' => "date_format(date_create(),'Y-m-d H:i:s');",
+                 ),
+                 'Translatable'     => array(
+                     'class'                 => 'vendor.mikehaertl.translatable.Translatable',
+                     'translationRelation'   => 'p3WidgetTranslations',
+                     'translationAttributes' => array(
+                         'properties_json',
+                         'content_html'
+                     ),
+                     'fallbackColumns'       => array(
+                         'properties_json' => 'default_properties_json',
+                         'content_html'    => 'default_content_html',
+                     ),
+                 ),
+            )
         );
     }
 
     public function rules()
     {
         return array_merge(
-        /* array('column1, column2', 'rule'), */
             parent::rules()
+        /* , array(
+          array('column1, column2', 'rule1'),
+          array('column3', 'rule2'),
+          ) */
         );
     }
 
-    public function get_label()
+    public function getStatusCssClass(){
+        return $this->_statusCssClassMap[$this->status];
+    }
+
+    /**
+     * @return array list of options
+     */
+    public static function optsStatus()
     {
-        return '#' . $this->id . " " . $this->alias;
+        $model = P3Page::model();
+        return array_combine($model->Status->statuses, $model->Status->statuses);
+    }
+
+    /**
+     * @return array list of options
+
+    public static function optsAccessOwner()
+    {
+    return self::model()->Access->getAccessOwner();
+    }*/
+
+    /**
+     * @return array list of options
+     */
+    public static function optsAccessDomain()
+    {
+        return self::model()->Access->getAccessDomains();
+    }
+
+    /**
+     * @return array list of options
+     */
+    public static function optsAccessRead()
+    {
+        return self::model()->Access->getAccessRoles();
+    }
+
+    /**
+     * @return array list of options
+     */
+    public static function optsAccessUpdate()
+    {
+        return self::model()->Access->getAccessRoles();
+    }
+
+    /**
+     * @return array list of options
+     */
+    public static function optsAccessDelete()
+    {
+        return self::model()->Access->getAccessRoles();
     }
 }

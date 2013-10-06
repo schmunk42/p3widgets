@@ -1,187 +1,262 @@
-<div class="form">
-    <p class="note">
-        <?php echo Yii::t('P3WidgetsModule.crud', 'Fields with'); ?> <span
-            class="required">*</span> <?php echo Yii::t('P3WidgetsModule.crud', 'are required'); ?>.
+<div class="crud-form">
+
+    
+    <?php
+        Yii::app()->bootstrap->registerAssetCss('../select2/select2.css');
+        Yii::app()->bootstrap->registerAssetJs('../select2/select2.js');
+        Yii::app()->clientScript->registerScript('crud/variant/update','$(".crud-form select").select2();');
+
+        $form=$this->beginWidget('TbActiveForm', array(
+            'id' => 'p3-widget-translation-form',
+            'enableAjaxValidation' => true,
+            'enableClientValidation' => true,
+        ));
+
+        echo $form->errorSummary($model);
+    ?>
+    
+    <div class="row">
+        <div class="span7"> <!-- main inputs -->
+            <h2>
+                <?php echo Yii::t('crud','Data')?>                <small>
+                    <?php echo $model->itemLabel ?>
+                </small>
+
+            </h2>
+
+
+            <div class="form-horizontal">
+
+                
+                    <div class="control-group">
+                        <div class='control-label'>
+                            <?php  ?>
+                        </div>
+                        <div class='controls'>
+                            <?php
+                            $this->renderPartial('columns/id', array('model' => $model, 'form' => $form));
+                            echo $form->error($model,'id')
+                            ?>
+                            <span class="help-block">
+                                <?php echo (($t = Yii::t('p3WidgetsModule.model', 'help.id')) != 'help.id')?$t:'' ?>
+                            </span>
+                        </div>
+                    </div>
+                
+                    <div class="control-group">
+                        <div class='control-label'>
+                            <?php echo $form->labelEx($model, 'p3_widget_id') ?>
+                        </div>
+                        <div class='controls'>
+                            <?php
+                            $this->widget(
+                '\GtcRelation',
+                array(
+                    'model' => $model,
+                    'relation' => 'p3Widget',
+                    'fields' => 'itemLabel',
+                    'allowEmpty' => true,
+                    'style' => 'dropdownlist',
+                    'htmlOptions' => array(
+                        'checkAll' => 'all'
+                    ),
+                )
+                );
+                            echo $form->error($model,'p3_widget_id')
+                            ?>
+                            <span class="help-block">
+                                <?php echo (($t = Yii::t('p3WidgetsModule.model', 'help.p3_widget_id')) != 'help.p3_widget_id')?$t:'' ?>
+                            </span>
+                        </div>
+                    </div>
+                
+                    <div class="control-group">
+                        <div class='control-label'>
+                            <?php echo $form->labelEx($model, 'status') ?>
+                        </div>
+                        <div class='controls'>
+                            <?php
+                            echo $form->dropDownList($model,'status',P3WidgetTranslation::optsstatus(),array('empty'=>'undefined'));;
+                            echo $form->error($model,'status')
+                            ?>
+                            <span class="help-block">
+                                <?php echo (($t = Yii::t('p3WidgetsModule.model', 'help.status')) != 'help.status')?$t:'' ?>
+                            </span>
+                        </div>
+                    </div>
+                
+                    <div class="control-group">
+                        <div class='control-label'>
+                            <?php echo $form->labelEx($model, 'language') ?>
+                        </div>
+                        <div class='controls'>
+                            <?php
+                            echo $form->dropDownList($model,'language',P3WidgetTranslation::optslanguage(),array('empty'=>'undefined'));;
+                            echo $form->error($model,'language')
+                            ?>
+                            <span class="help-block">
+                                <?php echo (($t = Yii::t('p3WidgetsModule.model', 'help.language')) != 'help.language')?$t:'' ?>
+                            </span>
+                        </div>
+                    </div>
+                
+                    <div class="control-group">
+                        <div class='control-label'>
+                            <?php echo $form->labelEx($model, 'properties_json') ?>
+                        </div>
+                        <div class='controls'>
+                            <?php
+                            $this->widget(
+                'jsonEditorView.JuiJSONEditorInput',
+                array(
+                     'model'     => $model,
+                     'attribute' => 'properties_json'
+                )
+            );;
+                            echo $form->error($model,'properties_json')
+                            ?>
+                            <span class="help-block">
+                                <?php echo (($t = Yii::t('p3WidgetsModule.model', 'help.properties_json')) != 'help.properties_json')?$t:'' ?>
+                            </span>
+                        </div>
+                    </div>
+                
+                    <div class="control-group">
+                        <div class='control-label'>
+                            <?php echo $form->labelEx($model, 'content_html') ?>
+                        </div>
+                        <div class='controls'>
+                            <?php
+                            $this->widget('CKEditor', array('model' => $model, 'attribute' => 'content_html', 'options' => Yii::app()->params['ext.ckeditor.options']));;
+                            echo $form->error($model,'content_html')
+                            ?>
+                            <span class="help-block">
+                                <?php echo (($t = Yii::t('p3WidgetsModule.model', 'help.content_html')) != 'help.content_html')?$t:'' ?>
+                            </span>
+                        </div>
+                    </div>
+                
+                    <div class="control-group">
+                        <div class='control-label'>
+                            <?php echo $form->labelEx($model, 'access_owner') ?>
+                        </div>
+                        <div class='controls'>
+                            <?php
+                            echo $form->textField($model,'access_owner',array('disabled'=>'disabled'));
+                            echo $form->error($model,'access_owner')
+                            ?>
+                            <span class="help-block">
+                                <?php echo (($t = Yii::t('p3WidgetsModule.model', 'help.access_owner')) != 'help.access_owner')?$t:'' ?>
+                            </span>
+                        </div>
+                    </div>
+                
+                    <div class="control-group">
+                        <div class='control-label'>
+                            <?php echo $form->labelEx($model, 'access_read') ?>
+                        </div>
+                        <div class='controls'>
+                            <?php
+                            echo $form->dropDownList($model,'access_read',P3WidgetTranslation::optsaccessread(),array('empty'=>'undefined'));;
+                            echo $form->error($model,'access_read')
+                            ?>
+                            <span class="help-block">
+                                <?php echo (($t = Yii::t('p3WidgetsModule.model', 'help.access_read')) != 'help.access_read')?$t:'' ?>
+                            </span>
+                        </div>
+                    </div>
+                
+                    <div class="control-group">
+                        <div class='control-label'>
+                            <?php echo $form->labelEx($model, 'access_update') ?>
+                        </div>
+                        <div class='controls'>
+                            <?php
+                            echo $form->dropDownList($model,'access_update',P3WidgetTranslation::optsaccessupdate(),array('empty'=>'undefined'));;
+                            echo $form->error($model,'access_update')
+                            ?>
+                            <span class="help-block">
+                                <?php echo (($t = Yii::t('p3WidgetsModule.model', 'help.access_update')) != 'help.access_update')?$t:'' ?>
+                            </span>
+                        </div>
+                    </div>
+                
+                    <div class="control-group">
+                        <div class='control-label'>
+                            <?php echo $form->labelEx($model, 'access_delete') ?>
+                        </div>
+                        <div class='controls'>
+                            <?php
+                            echo $form->dropDownList($model,'access_delete',P3WidgetTranslation::optsaccessdelete(),array('empty'=>'undefined'));;
+                            echo $form->error($model,'access_delete')
+                            ?>
+                            <span class="help-block">
+                                <?php echo (($t = Yii::t('p3WidgetsModule.model', 'help.access_delete')) != 'help.access_delete')?$t:'' ?>
+                            </span>
+                        </div>
+                    </div>
+                
+                    <div class="control-group">
+                        <div class='control-label'>
+                            <?php echo $form->labelEx($model, 'copied_from_id') ?>
+                        </div>
+                        <div class='controls'>
+                            <?php
+                            echo $form->textField($model,'copied_from_id',array('disabled'=>'disabled'));
+                            echo $form->error($model,'copied_from_id')
+                            ?>
+                            <span class="help-block">
+                                <?php echo (($t = Yii::t('p3WidgetsModule.model', 'help.copied_from_id')) != 'help.copied_from_id')?$t:'' ?>
+                            </span>
+                        </div>
+                    </div>
+                
+                    <div class="control-group">
+                        <div class='control-label'>
+                            <?php echo $form->labelEx($model, 'created_at') ?>
+                        </div>
+                        <div class='controls'>
+                            <?php
+                            echo $form->textField($model,'created_at',array('disabled'=>'disabled'));
+                            echo $form->error($model,'created_at')
+                            ?>
+                            <span class="help-block">
+                                <?php echo (($t = Yii::t('p3WidgetsModule.model', 'help.created_at')) != 'help.created_at')?$t:'' ?>
+                            </span>
+                        </div>
+                    </div>
+                
+                    <div class="control-group">
+                        <div class='control-label'>
+                            <?php echo $form->labelEx($model, 'updated_at') ?>
+                        </div>
+                        <div class='controls'>
+                            <?php
+                            echo $form->textField($model,'updated_at',array('disabled'=>'disabled'));
+                            echo $form->error($model,'updated_at')
+                            ?>
+                            <span class="help-block">
+                                <?php echo (($t = Yii::t('p3WidgetsModule.model', 'help.updated_at')) != 'help.updated_at')?$t:'' ?>
+                            </span>
+                        </div>
+                    </div>
+                
+            </div>
+        </div>
+        <!-- main inputs -->
+
+        <div class="span5"> <!-- sub inputs -->
+            <h2>
+                <?php echo Yii::t('crud','Relations')?>
+            </h2>
+                            
+        </div>
+        <!-- sub inputs -->
+    </div>
+
+    <p class="alert">
+        <?php echo Yii::t('crud','Fields with <span class="required">*</span> are required.');?>
     </p>
 
-    <?php
-    $form = $this->beginWidget(
-        'CActiveForm',
-        array(
-             'id'                     => 'p3-widget-translation-form',
-             'enableAjaxValidation'   => true,
-             'enableClientValidation' => true,
-        )
-    );
-
-    echo $form->errorSummary($model);
-    ?>
-
-    <div class="row">
-        <div class="span3">
-            <?php echo $form->labelEx($model, 'language'); ?>
-
-            <?php echo $form->textField($model, 'language', array('size' => 8, 'maxlength' => 8)); ?>
-            <?php echo $form->error($model, 'language'); ?>
-            <div class='hint'>
-                <?php if ('help.language' != $hint = Yii::t('P3WidgetsModule.crud', 'help.language')) {
-                    echo $hint;
-                } ?></div>
-        </div>
-        <div class="span6">
-
-            <label>Widget Alias</label>
-
-            <p><?php echo CHtml::value($model, 'p3Widget.alias') ?> </p>
-        </div>
-        <div class="span3 pull-right">
-            <?php echo $form->labelEx($model, 'media'); ?>
-            <?php
-            $this->widget(
-                'bootstrap.widgets.TbButton',
-                array(
-                     'label'       => Yii::t('P3WidgetsModule.crud', 'Upload Files'),
-                     //'url' => array('/p3media/import/uploadPopup'),
-                     'htmlOptions' => array(
-                         'class'   => 'btn-primary',
-                         'onclick' => 'window.open("' . $this->createUrl(
-                             '/p3media/import/uploadPopup'
-                         ) . '", "Upload", "width=800,height=800");',
-                         'target'  => '_blank'
-                     )
-                )
-            );
-            ?>
-
-        </div>
-    </div>
-
-    <hr/>
-
-    <div class="row">
-
-        <?php echo $form->labelEx($model, 'content'); ?>
-
-        <?php
-        $this->widget(
-            'ckeditor.CKEditor',
-            array(
-                 'model'     => $model,
-                 'attribute' => 'content',
-                 'options'   => is_array(Yii::app()->params['ext.ckeditor.options']) ?
-                     Yii::app()->params['ext.ckeditor.options'] : array()
-            )
-        )
-        ?>
-        <?php echo $form->error($model, 'content'); ?>
-    </div>
-
-    <div class="row">
-        <?php echo $form->labelEx($model, 'properties'); ?>
-        <?php echo CHtml::button(
-            Yii::t('P3WidgetsModule.crud', 'Reset'),
-            array(
-                 'onclick' => 'if (confirm("' . Yii::t(
-                     'P3WidgetsModule.crud',
-                     'Reset all Properties?'
-                 ) . '")) {resetProperties();}'
-            )
-        ); ?>
-        <?php
-        $this->widget(
-            'jsonEditorView.JuiJSONEditorInput',
-            array(
-                 'model'     => $model,
-                 // ActiveRecord, or any CModel child class
-                 'attribute' => 'properties'
-                 // Model attribute holding initial JSON data string
-            )
-        );
-        ?>
-        <div class="notice"><?php echo Yii::t(
-                'P3WidgetsModule.crud',
-                'Do not use double quotes (") for keys and/or values!'
-            ); ?></div>
-        <?php echo $form->error($model, 'properties'); ?>
-
-        <div class='hint'><?php if ('help.properties' != $hint = Yii::t('P3WidgetsModule.crud', 'help.properties')) {
-                echo $hint;
-            } ?></div>
-
-    </div>
-
-    <!-- TODO -->
-    <div class="row hide">
-        <label for="p3Widget"><?php echo Yii::t('P3WidgetsModule.crud', 'P3Widget'); ?></label>
-        <?php $this->widget(
-            '\GtcRelation',
-            array(
-                 'model'       => $model,
-                 'relation'    => 'p3Widget',
-                 'fields'      => '_label',
-                 'allowEmpty'  => false,
-                 'style'       => 'dropdownlist',
-                 'htmlOptions' => array(
-                     'checkAll' => 'all'
-                 ),
-            )
-        );
-        ?><br/>
-    </div>
-
-
-    <div class="form-actions">
-
-        <?php
-        echo CHtml::Button(
-            Yii::t('P3WidgetsModule.crud', 'Cancel'),
-            array(
-                 'submit' => (isset($_GET['returnUrl'])) ? $_GET['returnUrl'] :
-                     array('p3WidgetTranslation/admin'),
-                 'class'  => 'btn'
-            )
-        );
-        echo ' ' . CHtml::submitButton(
-                Yii::t('P3WidgetsModule.crud', 'Save'),
-                array(
-                     'class' => 'btn btn-primary'
-                )
-            );
-        ?>
-    </div>
-
-    <?php $this->endWidget(); ?>
-
+    <?php $this->endWidget() ?>
 </div> <!-- form -->
-
-
-<script type="text/javascript">
-    function resetProperties() {
-        $("#P3WidgetTranslation_properties").jsoneditor('input');
-        url = "<?php echo $this->createUrl('/p3widgets/p3Widget/classVars',
-        array('alias' => '__ALIAS__')) ?>";
-        url = url.replace("__ALIAS__", "<?php echo CHtml::value($model,'p3Widget.alias'); ?>");
-
-        $.ajax(
-            url,
-            {
-                success: function (json) {
-                    jQuery("#P3WidgetTranslation_properties").jsoneditor('input');
-                    $("#P3WidgetTranslation_properties textarea").val(json);
-                    $("#P3WidgetTranslation_properties").jsoneditor('init');
-                    //alert(json);
-                }
-            }
-
-        );
-    }
-
-
-    <?php if (!$model->properties || $model->properties == "{}"): // {} == fallback, TODO? ?>
-    <!-- new widget -->
-    $(document).ready(function () {
-        resetProperties();
-    });
-    <?php endif; ?>
-
-</script>

@@ -1,125 +1,352 @@
 <?php
-$this->breadcrumbs[Yii::t('P3WidgetsModule.crud', 'Manage')] = array('admin');
-$this->breadcrumbs[] = $model->id;
+    $this->setPageTitle(
+        Yii::t('p3WidgetsModule.model', 'P3 Widget')
+        . ' - '
+        . Yii::t('crud', 'View')
+        . ': '   
+        . $model->getItemLabel()            
+);    
+$this->breadcrumbs[Yii::t('p3WidgetsModule.model','P3 Widgets')] = array('admin');
+$this->breadcrumbs[$model->{$model->tableSchema->primaryKey}] = array('view','id' => $model->{$model->tableSchema->primaryKey});
+$this->breadcrumbs[] = Yii::t('crud', 'View');
 ?>
-<?php $this->widget("TbBreadcrumbs", array("links" => $this->breadcrumbs)) ?>
+
+<?php $this->widget("TbBreadcrumbs", array("links"=>$this->breadcrumbs)) ?>
 <h1>
-    <?php echo Yii::t('P3WidgetsModule.crud', 'Widgets'); ?>
-    <small> #<?php echo $model->id ?></small>
-</h1>
+    <?php echo Yii::t('p3WidgetsModule.model','P3 Widget')?>
+    <small><?php echo Yii::t('crud','View')?> #<?php echo $model->id ?></small>
+    </h1>
 
 
-<?php $this->renderPartial("_toolbar", array("model" => $model)); ?>
 
-<h2>
-    <?php echo Yii::t('P3WidgetsModule.crud', 'Data'); ?>
-</h2>
+<?php $this->renderPartial("_toolbar", array("model"=>$model)); ?>
+<div class="row">
+    <div class="span7">
+        <h2>
+            <?php echo Yii::t('crud','Data')?>            <small>
+                <?php echo $model->itemLabel?>            </small>
+        </h2>
 
-<p>
-    <?php
-    $this->widget(
-        'TbDetailView',
-        array(
-             'data'       => $model,
-             'attributes' => array(
-                 'id',
-                 'alias',
-                 'rank',
-                 'containerId',
-                 'moduleId',
-                 'controllerId',
-                 'actionName',
-                 'requestParam',
-                 'sessionParam',
-             ),
-        )
-    ); ?></p>
-
-
-<h2>
-    <?php echo Yii::t('P3WidgetsModule.crud', 'Relations'); ?>
-</h2>
-
-<div class='row'>
-    <div class='span3'><?php $this->widget(
-            'bootstrap.widgets.TbButtonGroup',
-            array(
-                 'type'    => '', // '', 'primary', 'info', 'success', 'warning', 'danger' or 'inverse'
-                 'buttons' => array(
-                     array(
-                         'label' => Yii::t('P3WidgetsModule.crud', 'Metadata'),
-                         'icon'  => 'icon-list-alt',
-                         'url'   => array('p3WidgetMeta/admin')
-                     ),
-                     array(
-                         'icon' => 'icon-plus',
-                         'url'  => array(
-                             'p3WidgetMeta/create',
-                             'P3WidgetMeta' => array('id' => $model->{$model->tableSchema->primaryKey})
-                         )
-                     ),
-                 ),
-            )
-        ); ?></div>
-    <div class='span8'>
         <?php
-        echo '<span class=label>CHasOneRelation</span>';
-        $relatedModel = $model->p3WidgetMeta;
-
-        if ($relatedModel !== null) {
-            echo CHtml::openTag('ul');
-            echo '<li>';
-            echo CHtml::link(
-                '#' . $model->p3WidgetMeta->id . ' ' . $model->p3WidgetMeta->status,
-                array('p3WidgetMeta/view', 'id' => $model->p3WidgetMeta->id),
-                array('class' => '')
-            );
-
-            echo '</li>';
-
-            echo CHtml::closeTag('ul');
-        }
-        ?></div>
-</div>
-<div class='row'>
-    <div class='span3'><?php $this->widget(
-            'bootstrap.widgets.TbButtonGroup',
+        $this->widget(
+            'TbDetailView',
             array(
-                 'type'    => '', // '', 'primary', 'info', 'success', 'warning', 'danger' or 'inverse'
-                 'buttons' => array(
-                     array(
-                         'label' => Yii::t('P3WidgetsModule.crud', 'Translations'),
-                         'icon'  => 'icon-list-alt',
-                         'url'   => array('p3WidgetTranslation/admin')
-                     ),
-                     array(
-                         'icon' => 'icon-plus',
-                         'url'  => array(
-                             'p3WidgetTranslation/create',
-                             'P3WidgetTranslation' => array('p3_widget_id' => $model->{$model->tableSchema->primaryKey})
-                         )
-                     ),
-                 ),
-            )
-        ); ?></div>
-    <div class='span8'>
-        <?php
-        echo '<span class=label>CHasManyRelation</span>';
-        if (is_array($model->p3WidgetTranslations)) {
+                'data' => $model,
+                'attributes' => array(
+                array(
+                        'name' => 'id',
+                        'type' => 'raw',
+                        'value' => $this->widget(
+                            'TbEditableField',
+                            array(
+                                'model' => $model,
+                                'attribute' => 'id',
+                                'url' => $this->createUrl('/p3widgets/p3Widget/editableSaver'),
+                            ),
+                            true
+                        )
+                    ),
+array(
+                        'name'=>'status',
+                        'type' => 'raw',
+                        'value' =>$this->widget(
+                            'TbEditableField',
+                            array(
+                                'model'=>$model,
+                                'emptytext' => 'Click to select',
+                                'type' => 'select',
+                                'source' => P3Widget::optsstatus(),
+                                'attribute'=>'status',
+                                'url' => $this->createUrl('/p3widgets/p3Widget/editableSaver'),
+                                'select2' => array(
+                                    'placeholder' => 'Select...',
+                                    'allowClear' => true
+                                )
+                            ),
+                            true
+                        )
+                    ),
+array(
+                        'name' => 'alias',
+                        'type' => 'raw',
+                        'value' => $this->widget(
+                            'TbEditableField',
+                            array(
+                                'model' => $model,
+                                'attribute' => 'alias',
+                                'url' => $this->createUrl('/p3widgets/p3Widget/editableSaver'),
+                            ),
+                            true
+                        )
+                    ),
+array(
+                        'name' => 'default_properties_json',
+                        'type' => 'raw',
+                        'value' => $this->widget(
+                            'TbEditableField',
+                            array(
+                                'model' => $model,
+                                'attribute' => 'default_properties_json',
+                                'url' => $this->createUrl('/p3widgets/p3Widget/editableSaver'),
+                            ),
+                            true
+                        )
+                    ),
+array(
+                        'name' => 'default_content_html',
+                        'type' => 'raw',
+                        'value' => $this->widget(
+                            'TbEditableField',
+                            array(
+                                'model' => $model,
+                                'attribute' => 'default_content_html',
+                                'url' => $this->createUrl('/p3widgets/p3Widget/editableSaver'),
+                            ),
+                            true
+                        )
+                    ),
+array(
+                        'name' => 'name_id',
+                        'type' => 'raw',
+                        'value' => $this->widget(
+                            'TbEditableField',
+                            array(
+                                'model' => $model,
+                                'attribute' => 'name_id',
+                                'url' => $this->createUrl('/p3widgets/p3Widget/editableSaver'),
+                            ),
+                            true
+                        )
+                    ),
+array(
+                        'name' => 'container_id',
+                        'type' => 'raw',
+                        'value' => $this->widget(
+                            'TbEditableField',
+                            array(
+                                'model' => $model,
+                                'attribute' => 'container_id',
+                                'url' => $this->createUrl('/p3widgets/p3Widget/editableSaver'),
+                            ),
+                            true
+                        )
+                    ),
+array(
+                        'name' => 'rank',
+                        'type' => 'raw',
+                        'value' => $this->widget(
+                            'TbEditableField',
+                            array(
+                                'model' => $model,
+                                'attribute' => 'rank',
+                                'url' => $this->createUrl('/p3widgets/p3Widget/editableSaver'),
+                            ),
+                            true
+                        )
+                    ),
+array(
+                        'name' => 'request_param',
+                        'type' => 'raw',
+                        'value' => $this->widget(
+                            'TbEditableField',
+                            array(
+                                'model' => $model,
+                                'attribute' => 'request_param',
+                                'url' => $this->createUrl('/p3widgets/p3Widget/editableSaver'),
+                            ),
+                            true
+                        )
+                    ),
+array(
+                        'name' => 'session_param',
+                        'type' => 'raw',
+                        'value' => $this->widget(
+                            'TbEditableField',
+                            array(
+                                'model' => $model,
+                                'attribute' => 'session_param',
+                                'url' => $this->createUrl('/p3widgets/p3Widget/editableSaver'),
+                            ),
+                            true
+                        )
+                    ),
+array(
+                        'name' => 'action_name',
+                        'type' => 'raw',
+                        'value' => $this->widget(
+                            'TbEditableField',
+                            array(
+                                'model' => $model,
+                                'attribute' => 'action_name',
+                                'url' => $this->createUrl('/p3widgets/p3Widget/editableSaver'),
+                            ),
+                            true
+                        )
+                    ),
+array(
+                        'name' => 'controller_id',
+                        'type' => 'raw',
+                        'value' => $this->widget(
+                            'TbEditableField',
+                            array(
+                                'model' => $model,
+                                'attribute' => 'controller_id',
+                                'url' => $this->createUrl('/p3widgets/p3Widget/editableSaver'),
+                            ),
+                            true
+                        )
+                    ),
+array(
+                        'name' => 'module_id',
+                        'type' => 'raw',
+                        'value' => $this->widget(
+                            'TbEditableField',
+                            array(
+                                'model' => $model,
+                                'attribute' => 'module_id',
+                                'url' => $this->createUrl('/p3widgets/p3Widget/editableSaver'),
+                            ),
+                            true
+                        )
+                    ),
+array(
+                        'name' => 'access_owner',
+                        'type' => 'raw',
+                        'value' => $this->widget(
+                            'TbEditableField',
+                            array(
+                                'model' => $model,
+                                'attribute' => 'access_owner',
+                                'url' => $this->createUrl('/p3widgets/p3Widget/editableSaver'),
+                            ),
+                            true
+                        )
+                    ),
+array(
+                        'name'=>'access_domain',
+                        'type' => 'raw',
+                        'value' =>$this->widget(
+                            'TbEditableField',
+                            array(
+                                'model'=>$model,
+                                'emptytext' => 'Click to select',
+                                'type' => 'select',
+                                'source' => P3Widget::optsaccessdomain(),
+                                'attribute'=>'access_domain',
+                                'url' => $this->createUrl('/p3widgets/p3Widget/editableSaver'),
+                                'select2' => array(
+                                    'placeholder' => 'Select...',
+                                    'allowClear' => true
+                                )
+                            ),
+                            true
+                        )
+                    ),
+array(
+                        'name'=>'access_read',
+                        'type' => 'raw',
+                        'value' =>$this->widget(
+                            'TbEditableField',
+                            array(
+                                'model'=>$model,
+                                'emptytext' => 'Click to select',
+                                'type' => 'select',
+                                'source' => P3Widget::optsaccessread(),
+                                'attribute'=>'access_read',
+                                'url' => $this->createUrl('/p3widgets/p3Widget/editableSaver'),
+                                'select2' => array(
+                                    'placeholder' => 'Select...',
+                                    'allowClear' => true
+                                )
+                            ),
+                            true
+                        )
+                    ),
+array(
+                        'name'=>'access_update',
+                        'type' => 'raw',
+                        'value' =>$this->widget(
+                            'TbEditableField',
+                            array(
+                                'model'=>$model,
+                                'emptytext' => 'Click to select',
+                                'type' => 'select',
+                                'source' => P3Widget::optsaccessupdate(),
+                                'attribute'=>'access_update',
+                                'url' => $this->createUrl('/p3widgets/p3Widget/editableSaver'),
+                                'select2' => array(
+                                    'placeholder' => 'Select...',
+                                    'allowClear' => true
+                                )
+                            ),
+                            true
+                        )
+                    ),
+array(
+                        'name'=>'access_delete',
+                        'type' => 'raw',
+                        'value' =>$this->widget(
+                            'TbEditableField',
+                            array(
+                                'model'=>$model,
+                                'emptytext' => 'Click to select',
+                                'type' => 'select',
+                                'source' => P3Widget::optsaccessdelete(),
+                                'attribute'=>'access_delete',
+                                'url' => $this->createUrl('/p3widgets/p3Widget/editableSaver'),
+                                'select2' => array(
+                                    'placeholder' => 'Select...',
+                                    'allowClear' => true
+                                )
+                            ),
+                            true
+                        )
+                    ),
+array(
+                        'name' => 'copied_from_id',
+                        'type' => 'raw',
+                        'value' => $this->widget(
+                            'TbEditableField',
+                            array(
+                                'model' => $model,
+                                'attribute' => 'copied_from_id',
+                                'url' => $this->createUrl('/p3widgets/p3Widget/editableSaver'),
+                            ),
+                            true
+                        )
+                    ),
+array(
+                        'name' => 'created_at',
+                        'type' => 'raw',
+                        'value' => $this->widget(
+                            'TbEditableField',
+                            array(
+                                'model' => $model,
+                                'attribute' => 'created_at',
+                                'url' => $this->createUrl('/p3widgets/p3Widget/editableSaver'),
+                            ),
+                            true
+                        )
+                    ),
+array(
+                        'name' => 'updated_at',
+                        'type' => 'raw',
+                        'value' => $this->widget(
+                            'TbEditableField',
+                            array(
+                                'model' => $model,
+                                'attribute' => 'updated_at',
+                                'url' => $this->createUrl('/p3widgets/p3Widget/editableSaver'),
+                            ),
+                            true
+                        )
+                    ),
+           ),
+        )); ?>
+    </div>
 
-            echo CHtml::openTag('ul');
-            foreach ($model->p3WidgetTranslations as $relatedModel) {
-
-                echo '<li>';
-                echo CHtml::link(
-                    $relatedModel->language,
-                    array('p3WidgetTranslation/view', 'id' => $relatedModel->id),
-                    array('class' => '')
-                );
-
-                echo '</li>';
-            }
-            echo CHtml::closeTag('ul');
-        }
-        ?></div>
+    <div class="span5">
+        <?php $this->renderPartial('_view-relations',array('model' => $model)); ?>    </div>
 </div>
+
+<?php $this->renderPartial("_toolbar", array("model"=>$model)); ?>

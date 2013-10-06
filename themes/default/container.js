@@ -1,25 +1,27 @@
 // Apply another CSS class if a container and/or a widget is hovered
 $('.widget-container')
-    .mouseover(function () {
+    .mouseenter(function () {
         if ($('#P3WidgetContainerShowControls.view').length > 0 || $('.widget', this).length > 0) {
 
         } else {
+            $('.widget-container').removeClass('over');
             $(this).addClass('over');
         }
     })
-    .mouseout(function () {
+    .mouseleave(function () {
         $(this).removeClass('over');
     });
 
 $('.widget')
-    .mouseover(function () {
+    .mouseenter(function () {
         if ($('#P3WidgetContainerShowControls.view').length > 0) {
 
         } else {
+            $('.widget').removeClass('over');
             $(this).addClass('over');
         }
     })
-    .mouseout(function () {
+    .mouseleave(function () {
         $(this).removeClass('over');
     });
 
@@ -97,7 +99,7 @@ $(function () {
                 var order = $(this).sortable("serialize");
                 $.ajax({
                     type: 'POST',
-                    url: '<?php echo Yii::app()->controller->createUrl("/p3widgets/p3Widget/updateOrder") ?>',
+                    url: '<?php echo Yii::app()->controller->createUrl("/p3widgets/default/updateOrder") ?>',
                     data: order,
                     error: function (data) {
                         alert(data.responseText)
@@ -117,7 +119,7 @@ $(function () {
                     url.replace('_ID_', widgetId),
                     {
                         P3Widget: {
-                            containerId: containerId,
+                            container_id: containerId,
                         }
                     },
                     function (data) {

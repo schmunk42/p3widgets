@@ -1,59 +1,39 @@
 <?php
 
+
 class P3WidgetController extends Controller
 {
     #public $layout='//layouts/column2';
+
     public $defaultAction = "admin";
     public $scenario = "crud";
+    public $scope = "crud";
 
-    public function filters()
-    {
-        return array(
-            'accessControl',
-        );
-    }
+public function filters()
+{
+return array(
+'accessControl',
+);
+}
 
-    public function accessRules()
-    {
-        return array(
-            array(
-                'allow',
-                'actions' => array(
-                    'create',
-                    'ajaxUpdate',
-                    'update',
-                    'delete',
-                    'admin',
-                    'view',
-                    'classVars',
-                    'updateOrder'
-                ),
-                'roles'   => array('P3widgets.P3Widget.*'),
-            ),
-            array(
-                'deny',
-                'users' => array('*'),
-            ),
-        );
-    }
+public function accessRules()
+{
+return array(
+array(
+'allow',
+'actions' => array('create', 'editableSaver', 'update', 'delete', 'admin', 'view'),
+'roles' => array('P3widgets.P3Widget.*'),
+),
+array(
+'deny',
+'users' => array('*'),
+),
+);
+}
 
     public function beforeAction($action)
     {
         parent::beforeAction($action);
-        // map identifcationColumn to id
-        if (!isset($_GET['id']) && isset($_GET['id'])) {
-            $model = P3Widget::model()->find(
-                'id = :id',
-                array(
-                     ':id' => $_GET['id']
-                )
-            );
-            if ($model !== null) {
-                $_GET['id'] = $model->id;
-            } else {
-                throw new CHttpException(400);
-            }
-        }
         if ($this->module !== null) {
             $this->breadcrumbs[$this->module->Id] = array('/' . $this->module->Id);
         }
@@ -68,14 +48,10 @@ class P3WidgetController extends Controller
 
     public function actionCreate()
     {
-        $model           = new P3Widget;
+        $model = new P3Widget;
         $model->scenario = $this->scenario;
 
         $this->performAjaxValidation($model, 'p3-widget-form');
-
-        if (isset($_GET['autoCreate'])) {
-            $_POST['P3Widget'] = $_GET['P3Widget'];
-        }
 
         if (isset($_POST['P3Widget'])) {
             $model->attributes = $_POST['P3Widget'];
@@ -98,10 +74,9 @@ class P3WidgetController extends Controller
         $this->render('create', array('model' => $model));
     }
 
-
     public function actionUpdate($id)
     {
-        $model           = $this->loadModel($id);
+        $model = $this->loadModel($id);
         $model->scenario = $this->scenario;
 
         $this->performAjaxValidation($model, 'p3-widget-form');
@@ -112,9 +87,6 @@ class P3WidgetController extends Controller
 
             try {
                 if ($model->save()) {
-                    if (Yii::app()->request->isAjaxRequest) {
-                        return;
-                    }
                     if (isset($_GET['returnUrl'])) {
                         $this->redirect($_GET['returnUrl']);
                     } else {
@@ -131,8 +103,8 @@ class P3WidgetController extends Controller
 
     public function actionEditableSaver()
     {
-        Yii::import('EditableSaver'); //or you can add import 'ext.editable.*' to config
-        $es = new EditableSaver('P3Widget'); // classname of model to be updated
+        Yii::import('TbEditableSaver');
+        $es = new TbEditableSaver('P3Widget'); // classname of model to be updated
         $es->update();
     }
 
@@ -153,19 +125,17 @@ class P3WidgetController extends Controller
                 }
             }
         } else {
-            throw new CHttpException(400, Yii::t('app', 'Invalid request. Please do not repeat this request again.'));
+            throw new CHttpException(400, Yii::t('crud', 'Invalid request. Please do not repeat this request again.'));
         }
-    }
-
-    public function actionIndex()
-    {
-        $dataProvider = new CActiveDataProvider('P3Widget');
-        $this->render('index', array('dataProvider' => $dataProvider,));
     }
 
     public function actionAdmin()
     {
         $model = new P3Widget('search');
+        $scopes = $model->scopes();
+        if (isset($scopes[$this->scope])) {
+            $model->{$this->scope}();
+        }
         $model->unsetAttributes();
 
         if (isset($_GET['P3Widget'])) {
@@ -177,9 +147,15 @@ class P3WidgetController extends Controller
 
     public function loadModel($id)
     {
-        $model = P3Widget::model()->findByPk($id);
+        $m = P3Widget::model();
+        // apply scope, if available
+        $scopes = $m->scopes();
+        if (isset($scopes[$this->scope])) {
+            $m->{$this->scope}();
+        }
+        $model = $m->findByPk($id);
         if ($model === null) {
-            throw new CHttpException(404, Yii::t('app', 'The requested page does not exist.'));
+            throw new CHttpException(404, Yii::t('crud', 'The requested page does not exist.'));
         }
         return $model;
     }
@@ -192,62 +168,4 @@ class P3WidgetController extends Controller
         }
     }
 
-    /**
-     * returns public class properties as JSON string
-     *
-     * @param type $alias
-     */
-    public function actionClassVars($alias)
-    {
-        $class = $this->createWidget($alias);
-        // collect vars from created widget
-        foreach ($class AS $key => $prop) {
-            $classVars[$key] = $prop;
-        }
-        $return = array_map(array($this, '_replaceJSON'), $classVars);
-        echo CJSON::encode($return);
-    }
-
-    /**
-     * Handles special values like NULL, false and true, so they can be edited with JSON editor (TODO)
-     *
-     * @param type $input
-     *
-     * @return string
-     */
-    private function _replaceJSON($input)
-    {
-        if (is_array($input)) {
-            return array_map(array($this, '_replaceJSON'), $input);
-        } elseif ($input === null) {
-            return "NULL";
-        } elseif ($input === false) {
-            return "0";
-        } elseif ($input === true) {
-            return "1";
-        } else {
-            return $input;
-        }
-    }
-
-    /**
-     * tbd
-     * Thanks & Credits to peili (http://www.yiiframework.com/extension/p3widgets/#c5563)
-     */
-    public function actionUpdateOrder()
-    {
-        if (!isset($_POST['widget'])) {
-            echo "No data.";
-            return;
-        }
-        $updateRecordsArray = $_POST['widget'];
-        $listingCounter     = 10;
-        foreach ($updateRecordsArray as $id) {
-            $model       = $this->loadModel($id);
-            $model->rank = $listingCounter;
-            $model->save(false);
-            $listingCounter = $listingCounter + 10;
-        }
-        echo "Updated widget order successfully.";
-    }
 }

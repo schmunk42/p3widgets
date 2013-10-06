@@ -20,15 +20,15 @@ $this->breadcrumbs = array(
 <p>
     <?php echo Yii::t('P3WidgetsModule.crud', 'This module requires installation.'); ?>
 </p>
-<p>
-<li><?php echo CHtml::link(Yii::t('P3WidgetsModule.crud', 'Widgets'), array('p3Widget/admin')) ?></li>
-<li><?php echo CHtml::link(Yii::t('P3WidgetsModule.crud', 'Widget Metadata'), array('p3WidgetMeta/admin')) ?></li>
-<li><?php echo CHtml::link(
-        Yii::t('P3WidgetsModule.crud', 'Widget Translations'),
-        array('p3WidgetTranslation/admin')
-    ) ?></li>
-</p>
 
-<p>
-    <?php echo CHtml::link(Yii::t('P3WidgetsModule.crud', 'Widget Playground'), array('playground')) ?>
-</p>
+<ul>
+    <li><?php echo CHtml::link(Yii::t('P3WidgetsModule.crud', 'Widgets'), array('p3Widget/admin')) ?></li>
+    <li><?php echo CHtml::link(
+            Yii::t('P3WidgetsModule.crud', 'Translations'),
+            array('p3WidgetTranslation/admin')
+        ) ?></li>
+    <li>
+        <?php echo CHtml::link(Yii::t('P3WidgetsModule.crud', 'Playground'), array('playground')) ?>
+    </li>
+</ul>
+

@@ -37,7 +37,7 @@ class DefaultController extends Controller
         return array(
             array(
                 'allow',
-                'actions'    => array('index', 'playground'),
+                'actions'    => array('index', 'classVars', 'updateOrder', 'playground'),
                 'expression' => 'Yii::app()->user->checkAccess("P3widgets.Default.*")',
             ),
             array(
@@ -57,4 +57,63 @@ class DefaultController extends Controller
         $this->render('playground');
     }
 
+    /**
+     * returns public class properties as JSON string
+     *
+     * @param type $alias
+     */
+    public function actionClassVars($alias)
+    {
+        $class = $this->createWidget($alias);
+        // collect vars from created widget
+        foreach ($class AS $key => $prop) {
+            $classVars[$key] = $prop;
+        }
+        $return = array_map(array($this, '_replaceJSON'), $classVars);
+
+        echo CJSON::encode($return);
+    }
+
+    /**
+     * Handles special values like NULL, false and true, so they can be edited with JSON editor (TODO)
+     *
+     * @param type $input
+     *
+     * @return string
+     */
+    private function _replaceJSON($input)
+    {
+        if (is_array($input)) {
+            return array_map(array($this, '_replaceJSON'), $input);
+        } elseif ($input === null) {
+            return "NULL";
+        } elseif ($input === false) {
+            return "0";
+        } elseif ($input === true) {
+            return "1";
+        } else {
+            return $input;
+        }
+    }
+
+    /**
+     * tbd
+     * Thanks & Credits to peili (http://www.yiiframework.com/extension/p3widgets/#c5563)
+     */
+    public function actionUpdateOrder()
+    {
+        if (!isset($_POST['widget'])) {
+            echo "No data.";
+            return;
+        }
+        $updateRecordsArray = $_POST['widget'];
+        $listingCounter     = 10;
+        foreach ($updateRecordsArray as $id) {
+            $model       = P3Widget::model()->findByPk($id);
+            $model->rank = $listingCounter;
+            $model->save();
+            $listingCounter = $listingCounter + 10;
+        }
+        echo "Updated widget order successfully (".CJSON::encode($updateRecordsArray).").";
+    }
 }

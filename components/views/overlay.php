@@ -3,13 +3,30 @@
         <div class="pull-left">
             <?php
             if (isset($model)) {
-                if (!$model->p3WidgetMeta->checkAccessUpdate || Yii::app()->user->checkAccess(
-                        $model->p3WidgetMeta->checkAccessUpdate
-                    )
-                ) {
-                    if (!$model->t('language')) {
+                if ($model->isUpdateable) {
+                    $this->widget(
+                        'TbButton',
+                        array(
+                             'buttonType'  => 'link',
+                             #'caption' => 'Edit',
+                             'url'         => array(
+                                 '/p3widgets/p3Widget/update',
+                                 'id'        => $model->id,
+                                 'returnUrl' => Yii::app()->request->getUrl()
+                             ),
+                             'icon'        => "pencil",
+                             'type'        => $model->statusCssClass,
+                             #'onclick' => 'js:function(){alert("clicked"); this.blur(); return false;}',
+                             'htmlOptions' => array(
+                                 'name'        => 'btnClick' . uniqid(),
+                                 'data-toggle' => 'tooltip',
+                                 'title'       => "Update Widget #{$model->id}"
+                             )
+                        )
+                    );
+                    if ($model->translationModel->isNewRecord) {
                         $this->widget(
-                            'zii.widgets.jui.CJuiButton',
+                            'TbButton',
                             array(
                                  'buttonType'  => 'link',
                                  #'caption' => 'Translations',
@@ -21,17 +38,20 @@
                                      ),
                                      'returnUrl'           => Yii::app()->request->getUrl()
                                  ),
-                                 'name'        => 'btnClick' . uniqid(),
-                                 'options'     => array('icons' => 'js:{primary:"ui-icon-plusthick"}'),
+                                 'icon'        => 'flag',
+                                 'type'        => $model->translationModel->statusCssClass,
                                  'htmlOptions' => array(
-                                     'title' => 'Create Widget Translation for ' . $model->alias . ' #' . $model->id
+                                     'name'        => 'btnClick' . uniqid(),
+                                     'data-toggle' => 'tooltip',
+                                     'title'       => 'Update Translation #' . $model->id,
+
                                  )
                                  #'onclick' => 'js:function(){alert("clicked"); this.blur(); return false;}',
                             )
                         );
                     } else {
                         $this->widget(
-                            'zii.widgets.jui.CJuiButton',
+                            'TbButton',
                             array(
                                  'buttonType'  => 'link',
                                  #'caption' => 'Translations',
@@ -40,83 +60,54 @@
                                      'id'        => $model->getTranslationModel()->id,
                                      'returnUrl' => Yii::app()->request->getUrl()
                                  ),
-                                 'name'        => 'btnClick' . uniqid(),
-                                 'options'     => array('icons' => 'js:{primary:"ui-icon-pencil"}'),
+                                 'icon'        => 'flag',
+                                 'type'        => $model->translationModel->statusCssClass,
                                  #'onclick' => 'js:function(){alert("clicked"); this.blur(); return false;}',
                                  'htmlOptions' => array(
-                                     'title' => 'Update Translation for ' . $model->alias . ' #' . $model->id
+                                     'name'        => 'btnClick' . uniqid(),
+                                     'data-toggle' => 'tooltip',
+                                     'title'       => 'Update Translation #' . $model->id,
                                  )
                             )
                         );
                     }
+
                     echo '<div class="handle">';
                     $this->widget(
-                        'zii.widgets.jui.CJuiButton',
+                        'TbButton',
                         array(
-                             #'caption' => 'Move',
+                             #'label'       => 'Move',
                              'buttonType'  => 'link',
-                             'name'        => 'btnClick2' . uniqid(),
-                             'options'     => array('icons' => 'js:{primary:"ui-icon-arrow-4"}'),
+                             'icon'        => 'move',
                              #'onclick' => 'js:function(){alert("tbd: drag and drop"); this.blur(); return false;}',
                              'htmlOptions' => array(
+                                 'name'  => 'btnClick2' . uniqid(),
                                  'title' => 'Move Widget'
                              )
                         )
                     );
                     echo '</div> ';
-                    $this->widget(
-                        'zii.widgets.jui.CJuiButton',
-                        array(
-                             'buttonType'  => 'link',
-                             #'caption' => 'Edit',
-                             'url'         => array(
-                                 '/p3widgets/p3Widget/update',
-                                 'id'        => $model->id,
-                                 'returnUrl' => Yii::app()->request->getUrl()
-                             ),
-                             'name'        => 'btnClick' . uniqid(),
-                             'options'     => array('icons' => 'js:{primary:"ui-icon-wrench"}'),
-                             #'onclick' => 'js:function(){alert("clicked"); this.blur(); return false;}',
-                             'htmlOptions' => array(
-                                 'title' => 'Update Widget Details'
-                             )
-                        )
-                    );
-                    $this->widget(
-                        'zii.widgets.jui.CJuiButton',
-                        array(
-                             'buttonType'  => 'link',
-                             #'caption' => 'Meta Data',
-                             'url'         => array(
-                                 '/p3widgets/p3WidgetMeta/update',
-                                 'id'        => $model->id,
-                                 'returnUrl' => Yii::app()->request->getUrl()
-                             ),
-                             'name'        => 'btnClick' . uniqid(),
-                             'options'     => array('icons' => 'js:{primary:"ui-icon-info"}'),
-                             #'onclick' => 'js:function(){alert("clicked"); this.blur(); return false;}',
-                             'htmlOptions' => array(
-                                 'title' => 'Update Widget Meta Data'
-                             )
-                        )
-                    );
+
                 }
-                if (!$model->p3WidgetMeta->checkAccessDelete || Yii::app()->user->checkAccess(
-                        $model->p3WidgetMeta->checkAccessDelete
-                    )
-                ) {
+                if ($model->isDeleteable) {
                     $this->widget(
-                        'zii.widgets.jui.CJuiButton',
+                        'TbButton',
                         array(
                              'id'          => 'delete-' . $model->id,
                              'buttonType'  => 'link',
+                             'type'        => 'danger',
                              #'caption' => 'Delete',
-                             'name'        => 'btnClick3' . uniqid(),
-                             'options'     => array('icons' => 'js:{primary:"ui-icon-close"}'),
+                             'icon'        => 'remove',
                              // onclick' => see container.js,
                              'htmlOptions' => array(
-                                 'title' => 'Delete Widget with all Translations',
-                                 'class' => 'delete'
+                                 'name'        => 'btnClick3' . uniqid(),
+                                 'title'       => 'Delete Widget with all Translations',
+                                 'class'       => 'delete',
+                                 'data-toggle' => 'tooltip',
+                                 'title'       => "Delete Widget #{$model->id} with " . count(
+                                     $model->p3WidgetTranslations
+                                 ) . " Translation(s)"
+
                              )
                         )
                     );
@@ -127,14 +118,41 @@
 
         <div class="pull-right">
             <?php
+            $this->widget(
+                'bootstrap.widgets.TbButtonGroup',
+                array(
+                     'type'    => 'primary',
+                     // '', 'primary', 'info', 'success', 'warning', 'danger' or 'inverse'
+                     'buttons' => array(
+                         array(
+                             'label' => $this->id,
+                             'url'   => array(
+                                 '/p3widgets/p3Widget/create',
+                                 'P3Widget'  => $widgetAttributes,
+                                 'returnUrl' => Yii::app()->request->getUrl()
+                             ),
+                             'icon'  => 'plus',
+                             'htmlOptions' => array(
+                                 'data-toggle' => 'tooltip',
+                                 'title'       => "Create a new Widget in container {$this->id}"
+                             )
+                         ),
+                         array(
+                             'items' => Yii::app()->getModule('p3widgets')->buildWidgetMenuItems($widgetAttributes)
+                         ),
+                     ),
+                )
+            );
+            ?>
+            <!--
+            <?php
             if (isset($widgetAttributes)) {
                 echo CHtml::dropDownList(
                     uniqid('alias'),
                     null,
                     CMap::mergeArray(
-                        array('Add Widget to Container \'' . $this->id . '\' ...'),
-                        Yii::app()
-                        ->getModule('p3widgets')->params['widgets']
+                        array( $this->id ),
+                        Yii::app()->getModule('p3widgets')->params['widgets']
                     ),
                     array(
                          'class'                  => 'create-widget',
@@ -145,7 +163,7 @@
 
                 // TODO: why is this button needed? JavaScript sortable errors when removed ?!
                 $this->widget(
-                    'zii.widgets.jui.CJuiButton',
+                    'TbButton',
                     array(
                          'buttonType'  => 'link',
                          #'caption'=>'Create',
@@ -154,15 +172,19 @@
                              'P3Widget'  => $widgetAttributes,
                              'returnUrl' => Yii::app()->request->getUrl()
                          ),
-                         'name'        => 'btnClick' . uniqid(),
-                         'options'     => array('icons' => 'js:{primary:"ui-icon-plus"}'),
+                         'icon'        => 'plus',
                          'htmlOptions' => array(
-                             'title' => 'Create Widget'
+                             'title' => 'Create Widget',
+                             'name'  => 'btnClick' . uniqid(),
+                             'data-toggle' => 'tooltip',
+                             'title'       => "Create a new Widget in container {$this->id}"
+
                          )
                     )
                 );
             }
             ?>
+-->
         </div>
     </div>
 </div>

@@ -45,6 +45,23 @@ class P3WidgetsModule extends CWebModule
         );
     }
 
+    public function buildWidgetMenuItems($widgetAttributes)
+    {
+        $items = array();
+        foreach (Yii::app()->getModule('p3widgets')->params['widgets'] AS $alias => $name) {
+            $widgetAttributes = CMap::mergeArray($widgetAttributes,array('alias'=>$alias,));
+            $items[$name] = array(
+                'label'       => $name,
+                'url'         => array('/p3widgets/p3Widget/create', 'P3Widget' => $widgetAttributes, 'returnUrl' => Yii::app()->request->getUrl()),
+                'htmlOptions' => array(
+                    'class'                  => 'create-widget',
+                    //'data-widget-attributes' => CJSON::encode($widgetAttributes)
+                )
+            );
+        }
+        return $items;
+    }
+
     public function beforeControllerAction($controller, $action)
     {
         if (parent::beforeControllerAction($controller, $action)) {
