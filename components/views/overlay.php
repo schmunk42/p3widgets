@@ -82,6 +82,7 @@
                              #'onclick' => 'js:function(){alert("tbd: drag and drop"); this.blur(); return false;}',
                              'htmlOptions' => array(
                                  'name'  => 'btnClick2' . uniqid(),
+                                 'data-toggle' => 'tooltip',
                                  'title' => 'Move Widget'
                              )
                         )
