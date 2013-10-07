@@ -13,9 +13,10 @@ class P3Widget extends BaseP3Widget
     public $status = 'draft';
 
     private $_statusCssClassMap = array(
-        'draft' => 'default',
-        'published' => 'success',
-        'archived' => 'inverse'
+        'draft'      => 'default',
+        'published'  => 'success',
+        'overridden' => 'warning',
+        'archived'   => 'inverse'
     );
 
     public static function model($className = __CLASS__)
@@ -30,7 +31,7 @@ class P3Widget extends BaseP3Widget
 
     public function getItemLabel()
     {
-        return '#'.$this->id.' '.$this->alias.' '.$this->module_id.'/'.$this->controller_id.'/'.$this->action_name.'/'.$this->container_id.':'.$this->rank;
+        return '#' . $this->id . ' ' . $this->alias . ' ' . $this->module_id . '/' . $this->controller_id . '/' . $this->action_name . '/' . $this->container_id . ':' . $this->rank;
     }
 
     public function behaviors()
@@ -86,8 +87,14 @@ class P3Widget extends BaseP3Widget
         );
     }
 
-    public function getStatusCssClass(){
-        return $this->_statusCssClassMap[$this->status];
+    public function getStatusCssClass()
+    {
+        if ($this->translationModel->hasStatus('published')) {
+            $status = 'overridden';
+        } else {
+            $status = $this->status;
+        }
+        return $this->_statusCssClassMap[$status];
     }
 
     /**
