@@ -40,7 +40,7 @@ DIV.widget-container DIV.overlay DIV.controls .ui-button-text {
   padding: 13px;
   visibility: hidden;
 }
-DIV.widget.over .overlay,
+DIV.widget-container.admin DIV.widget.over .overlay,
 DIV.widget-container.over .overlay {
   display: block;
 }

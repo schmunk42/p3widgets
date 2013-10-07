@@ -57,6 +57,7 @@ $('#P3WidgetContainerShowControls A')
         if($('i',this).hasClass("icon-edit"))
         {
             //alert('show');
+            $('DIV.widget, DIV.widget-container').tooltip('enable') // Disable tooltips
             $.cookie(ADMIN_CONTROLS_COOKIE_NAME, 'show', {
                 path: '/',
                 expires: 10
@@ -65,6 +66,7 @@ $('#P3WidgetContainerShowControls A')
         else
         {
             //alert('hide');
+            $('DIV.widget, DIV.widget-container').tooltip('disable') // Disable tooltips
             $.cookie(ADMIN_CONTROLS_COOKIE_NAME, 'hide', {
                 path: '/',
                 expires: -1
@@ -80,7 +82,7 @@ if ($.cookie(ADMIN_CONTROLS_COOKIE_NAME) == 'show') {
     //alert('cookie');
     $('#P3WidgetContainerShowControls A').click();
 } else {
-    //$('#yii-debug-toolbar').show();
+    $('DIV.widget, DIV.widget-container').tooltip('disable') // Disable tooltips
 }
 
 

@@ -18,9 +18,10 @@
                              'type'        => $model->statusCssClass,
                              #'onclick' => 'js:function(){alert("clicked"); this.blur(); return false;}',
                              'htmlOptions' => array(
-                                 'name'        => 'btnClick' . uniqid(),
-                                 'data-toggle' => 'tooltip',
-                                 'title'       => "Update Widget #{$model->id}"
+                                 'name'           => 'btnClick' . uniqid(),
+                                 'data-toggle'    => 'tooltip',
+                                 'data-placement' => 'bottom',
+                                 'title'          => "Update Widget #{$model->id} {$model->status}"
                              )
                         )
                     );
@@ -41,9 +42,10 @@
                                  'icon'        => 'flag',
                                  'type'        => $model->translationModel->statusCssClass,
                                  'htmlOptions' => array(
-                                     'name'        => 'btnClick' . uniqid(),
-                                     'data-toggle' => 'tooltip',
-                                     'title'       => 'Update Translation #' . $model->id,
+                                     'name'           => 'btnClick' . uniqid(),
+                                     'data-toggle'    => 'tooltip',
+                                     'data-placement' => 'bottom',
+                                     'title'          => "Update Translation #{$model->translationModel->id} {$model->translationModel->status}"
 
                                  )
                                  #'onclick' => 'js:function(){alert("clicked"); this.blur(); return false;}',
@@ -64,9 +66,10 @@
                                  'type'        => $model->translationModel->statusCssClass,
                                  #'onclick' => 'js:function(){alert("clicked"); this.blur(); return false;}',
                                  'htmlOptions' => array(
-                                     'name'        => 'btnClick' . uniqid(),
-                                     'data-toggle' => 'tooltip',
-                                     'title'       => 'Update Translation #' . $model->id,
+                                     'name'           => 'btnClick' . uniqid(),
+                                     'data-toggle'    => 'tooltip',
+                                     'data-placement' => 'bottom',
+                                     'title'          => "Update Translation #{$model->translationModel->id} {$model->translationModel->status}"
                                  )
                             )
                         );
@@ -81,9 +84,10 @@
                              'icon'        => 'move',
                              #'onclick' => 'js:function(){alert("tbd: drag and drop"); this.blur(); return false;}',
                              'htmlOptions' => array(
-                                 'name'  => 'btnClick2' . uniqid(),
-                                 'data-toggle' => 'tooltip',
-                                 'title' => 'Move Widget'
+                                 'name'           => 'btnClick2' . uniqid(),
+                                 'data-toggle'    => 'tooltip',
+                                 'data-placement' => 'bottom',
+                                 'title'          => 'Move Widget'
                              )
                         )
                     );
@@ -101,11 +105,12 @@
                              'icon'        => 'remove',
                              // onclick' => see container.js,
                              'htmlOptions' => array(
-                                 'name'        => 'btnClick3' . uniqid(),
-                                 'title'       => 'Delete Widget with all Translations',
-                                 'class'       => 'delete',
-                                 'data-toggle' => 'tooltip',
-                                 'title'       => "Delete Widget #{$model->id} with " . count(
+                                 'name'           => 'btnClick3' . uniqid(),
+                                 'title'          => 'Delete Widget with all Translations',
+                                 'class'          => 'delete',
+                                 'data-toggle'    => 'tooltip',
+                                 'data-placement' => 'bottom',
+                                 'title'          => "Delete Widget #{$model->id} with " . count(
                                      $model->p3WidgetTranslations
                                  ) . " Translation(s)"
 
@@ -126,16 +131,17 @@
                      // '', 'primary', 'info', 'success', 'warning', 'danger' or 'inverse'
                      'buttons' => array(
                          array(
-                             'label' => $this->id,
-                             'url'   => array(
+                             'label'       => $this->id,
+                             'url'         => array(
                                  '/p3widgets/p3Widget/create',
                                  'P3Widget'  => $widgetAttributes,
                                  'returnUrl' => Yii::app()->request->getUrl()
                              ),
-                             'icon'  => 'plus',
+                             'icon'        => 'plus',
                              'htmlOptions' => array(
-                                 'data-toggle' => 'tooltip',
-                                 'title'       => "Create a new Widget in container {$this->id}"
+                                 'data-toggle'    => 'tooltip',
+                                 'data-placement' => 'bottom',
+                                 'title'          => "Create a new Widget in container {$this->id}"
                              )
                          ),
                          array(

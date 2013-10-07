@@ -30,7 +30,7 @@ class P3Widget extends BaseP3Widget
 
     public function getItemLabel()
     {
-        return '#'.$this->id.' '.$this->alias.' '.$this->module_id.'/'.$this->controller_id.'/'.$this->action_name.'/'.$this->container_id.'/'.$this->rank;
+        return '#'.$this->id.' '.$this->alias.' '.$this->module_id.'/'.$this->controller_id.'/'.$this->action_name.'/'.$this->container_id.':'.$this->rank;
     }
 
     public function behaviors()

@@ -1,6 +1,6 @@
 <div class="widget"
      data-toggle="tooltip"
-     title="<?php echo "{$model->alias} #{$model->id} {$model->status}" ?>"
+     title="<?php echo "{$model->alias} #{$model->id}" ?>"
      id="<?php echo P3WidgetContainer::WIDGET_CSS_PREFIX . $model->id ?>">
 
     <?php $this->render(

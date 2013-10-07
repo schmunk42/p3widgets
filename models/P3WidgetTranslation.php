@@ -31,7 +31,7 @@ class P3WidgetTranslation extends BaseP3WidgetTranslation
 
     public function getItemLabel()
     {
-        return parent::getItemLabel();
+        return $this->language;
     }
 
     public function behaviors()
@@ -102,7 +102,7 @@ class P3WidgetTranslation extends BaseP3WidgetTranslation
      */
     public static function optsLanguage()
     {
-        return Yii::app()->params['languages'];
+        return (array)Yii::app()->params['languages'];
     }
 
     /**
