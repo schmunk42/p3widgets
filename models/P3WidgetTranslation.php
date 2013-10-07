@@ -13,10 +13,10 @@ class P3WidgetTranslation extends BaseP3WidgetTranslation
     public $status = 'draft';
 
     private $_statusCssClassMap = array(
-        'new' => 'default',
-        'draft' => 'default',
+        'new'       => 'default',
+        'draft'     => 'default',
         'published' => 'success',
-        'archived' => 'inverse'
+        'archived'  => 'inverse'
     );
 
     public static function model($className = __CLASS__)
@@ -75,8 +75,9 @@ class P3WidgetTranslation extends BaseP3WidgetTranslation
         );
     }
 
-    public function getStatusCssClass(){
-        $key = ($this->isNewRecord)?'new':$this->getAttribute('status');
+    public function getStatusCssClass()
+    {
+        $key = ($this->isNewRecord) ? 'new' : $this->getAttribute('status');
         return $this->_statusCssClassMap[$key];
     }
 
