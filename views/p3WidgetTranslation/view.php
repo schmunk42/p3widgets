@@ -12,10 +12,10 @@ $this->breadcrumbs[] = Yii::t('crud', 'View');
 ?>
 
 <?php $this->widget("TbBreadcrumbs", array("links"=>$this->breadcrumbs)) ?>
-<h1>
-    <?php echo Yii::t('p3WidgetsModule.model','P3 Widget Translation')?>
+    <h1>
+        <?php echo Yii::t('p3WidgetsModule.model','P3 Widget Translation')?>
     <small><?php echo Yii::t('crud','View')?> #<?php echo $model->id ?></small>
-    </h1>
+        </h1>
 
 
 
@@ -23,7 +23,7 @@ $this->breadcrumbs[] = Yii::t('crud', 'View');
 
 
 <div class="row">
-    <div class="span7">
+    <div class="span12">
         <h2>
             <?php echo Yii::t('crud','Data')?>            <small>
                 <?php echo $model->itemLabel?>            </small>
@@ -102,28 +102,12 @@ array(
 array(
                         'name' => 'properties_json',
                         'type' => 'raw',
-                        'value' => $this->widget(
-                            'TbEditableField',
-                            array(
-                                'model' => $model,
-                                'attribute' => 'properties_json',
-                                'url' => $this->createUrl('/p3widgets/p3WidgetTranslation/editableSaver'),
-                            ),
-                            true
-                        )
+                        'value' => $model->properties_json
                     ),
 array(
                         'name' => 'content_html',
                         'type' => 'raw',
-                        'value' => $this->widget(
-                            'TbEditableField',
-                            array(
-                                'model' => $model,
-                                'attribute' => 'content_html',
-                                'url' => $this->createUrl('/p3widgets/p3WidgetTranslation/editableSaver'),
-                            ),
-                            true
-                        )
+                        'value' => $model->content_html
                     ),
 array(
                         'name' => 'access_owner',
@@ -241,7 +225,10 @@ array(
         )); ?>
     </div>
 
-    <div class="span5">
+    </div>
+    <div class="row">
+
+    <div class="span12">
         <?php $this->renderPartial('_view-relations',array('model' => $model)); ?>    </div>
 </div>
 

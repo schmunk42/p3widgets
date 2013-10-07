@@ -10,13 +10,16 @@
             'id' => 'p3-widget-form',
             'enableAjaxValidation' => true,
             'enableClientValidation' => true,
+            'htmlOptions' => array(
+                'enctype' => ''
+            )
         ));
 
         echo $form->errorSummary($model);
     ?>
     
     <div class="row">
-        <div class="span7"> <!-- main inputs -->
+        <div class="span12">
             <h2>
                 <?php echo Yii::t('crud','Data')?>                <small>
                     <?php echo $model->itemLabel ?>
@@ -347,7 +350,10 @@
         </div>
         <!-- main inputs -->
 
-        <div class="span5"> <!-- sub inputs -->
+            </div>
+    <div class="row">
+        
+        <div class="span12"><!-- sub inputs -->
             <h2>
                 <?php echo Yii::t('crud','Relations')?>
             </h2>

@@ -28,6 +28,7 @@ foreach ($cruds AS $crud) {
             "model"      => "vendor.phundament.p3Widgets.models." . ucfirst($crud),
             "controller" => 'p3widgets/'.$crud,
             'messageCatalog' => 'p3WidgetsModule.model',
+            'formLayout' => 'one-column',
             'providers' => array(
                 'vendor.phundament.gii-template-collection.fullCrud.providers.GtcPartialViewProvider',
                 'application.components.PhFieldProvider'
