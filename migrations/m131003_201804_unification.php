@@ -38,11 +38,11 @@ class m131003_201804_unification extends EDbMigration
                  "name_id"                 => "VARCHAR(64)",
                  "container_id"            => "varchar(128) NOT NULL",
                  "rank"                    => "integer(11) NOT NULL default 0",
-                 "request_param"           => "varchar(128) NOT NULL DEFAULT '*'",
-                 "session_param"           => "varchar(128) NOT NULL DEFAULT '*'",
+                 "request_param"           => "varchar(128) DEFAULT '*'",
+                 "session_param"           => "varchar(128) DEFAULT '*'",
                  "action_name"             => "varchar(128) NOT NULL DEFAULT '*'",
                  "controller_id"           => "varchar(128) NOT NULL DEFAULT '*'",
-                 "module_id"               => "varchar(128) NOT NULL DEFAULT '*'",
+                 "module_id"               => "varchar(128) DEFAULT '*'",
                  // schmunk42/yii-access
                  "access_owner"            => "varchar(64) NOT NULL",
                  "access_domain"           => "varchar(8) NOT NULL",
@@ -114,6 +114,11 @@ class m131003_201804_unification extends EDbMigration
 
             $owner[$row['id']]  = ($row['owner']) ? $row['owner'] : 1;
             $status[$row['id']] = ($row['status']) ? $statusMap[$row['status']] : 'draft';
+
+            $row['requestParam'] = str_replace("_ALL","*",$row['requestParam']);
+            $row['actionName'] = str_replace("_ALL","*",$row['actionName']);
+            $row['controllerId'] = str_replace("_ALL","*",$row['controllerId']);
+            $row['moduleId'] = str_replace("_ALL","*",$row['moduleId']);
 
             $this->insert(
                 "_p3_widget_v0_17",
