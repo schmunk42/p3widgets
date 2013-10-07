@@ -95,7 +95,7 @@ class m131003_201804_unification extends EDbMigration
         );
 
         // JOIN all three existing tables, use the first translation as default values
-        $sqlStatement = "SELECT p3_widget.*, p3_widget_meta.*,
+        $sqlStatement = "SELECT p3_widget_meta.*, p3_widget.*,
           p3_widget_translation.properties, p3_widget_translation.content
             FROM p3_widget
             LEFT JOIN p3_widget_meta ON p3_widget_meta.id = p3_widget.id
@@ -103,7 +103,8 @@ class m131003_201804_unification extends EDbMigration
               (SELECT
                 MIN(p3_widget_translation.p3_widget_id)
                 FROM p3_widget_translation
-                WHERE p3_widget_translation.p3_widget_id = p3_widget.id)";
+                WHERE p3_widget_translation.p3_widget_id = p3_widget.id)
+            GROUP BY p3_widget.id;";
         $command      = $this->dbConnection->createCommand($sqlStatement);
         $command->execute();
         $reader = $command->query();
@@ -160,12 +161,12 @@ class m131003_201804_unification extends EDbMigration
                 "_p3_widget_translation_v0_17",
                 array(
                      "id"              => $row['id'],
-                     "status"          => $status[$row['id']],
+                     "status"          => $status[$row['p3_widget_id']],
                      "p3_widget_id"    => $row['p3_widget_id'],
                      "language"        => $row['language'],
                      "properties_json" => $row['properties'],
                      "content_html"    => $row['content'],
-                     "access_owner"    => $owner[$row['id']],
+                     "access_owner"    => $owner[$row['p3_widget_id']],
                 )
             );
         }
@@ -182,7 +183,7 @@ class m131003_201804_unification extends EDbMigration
         }
 
         echo "\n\n*** IMPORTANT NOTICE ***";
-        echo "\nThe existing p3_widget... tables were renamed to p3_widget...v0_16.\n\n";
+        echo "\nThe existing p3_widget... tables were renamed to _p3_widget...v0_16.\n\n";
     }
 
     public function down()
