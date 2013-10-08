@@ -91,8 +91,9 @@ class P3WidgetContainer extends CWidget
                 ':containerId'    => $this->id,
                 ':domain'       => Yii::app()->language,
             );
+            $moduleCondition = ($this->controller->module !== null)?"module_id = :moduleId":"module_id IS NULL";
             $criteria->condition = '(access_domain = :domain OR access_domain = :universalValue) AND ' .
-                '(module_id = :moduleId OR module_id = :universalValue) AND ' .
+                '('.$moduleCondition.' OR module_id = :universalValue) AND ' .
                 '(controller_id = :controllerId OR controller_id = :universalValue) AND ' .
                 '(action_name = :actionName OR action_name = :universalValue) AND ' .
                 'container_id = :containerId';
@@ -116,7 +117,7 @@ class P3WidgetContainer extends CWidget
             $widgetAttributes,
             array(
                  'module_id'     => ($this->controller->module !== null) ?
-                     $this->controller->module->id : '',
+                     $this->controller->module->id : null,
                  'controller_id' => $this->controller->id,
                  'action_name'   => $this->controller->action->id,
                  'container_id'  => $this->id,
