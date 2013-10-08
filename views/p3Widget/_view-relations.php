@@ -1,10 +1,10 @@
 <h2>
-    <?php echo Yii::t('crud', 'Relations') ?></h2>
+    <?php echo Yii::t('P3WidgetsModule.crud', 'Relations') ?></h2>
 
 
 <?php 
         echo '<h3>';
-            echo Yii::t('p3WidgetsModule.model','P3WidgetTranslations').' ';
+            echo Yii::t('P3WidgetsModule.model','relation.P3WidgetTranslations').' ';
             $this->widget(
                 'bootstrap.widgets.TbButtonGroup',
                 array(
@@ -13,7 +13,7 @@
                     'buttons' => array(
                         array(
                             'icon' => 'icon-list-alt',
-                            'url' =>  array('//p3widgets/p3WidgetTranslation/admin')
+                            'url' =>  array('//p3widgets/p3WidgetTranslation/admin','P3WidgetTranslation' => array('p3_widget_id' => $model->{$model->tableSchema->primaryKey}))
                         ),
                         array(
                 'icon' => 'icon-plus',

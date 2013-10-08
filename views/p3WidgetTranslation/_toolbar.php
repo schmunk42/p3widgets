@@ -35,35 +35,28 @@
 <div class="clearfix">
     <div class="btn-toolbar pull-right">
         <!-- relations -->
-        <?php if($this->action->id == 'admin' || $this->action->id == 'view'): ?>                    <div class="btn-group">
-                <?php if($this->action->id == 'admin'): ?>                <div class="btn-group">
-                    
-                    <?php
-                        $this->widget(
-                               "bootstrap.widgets.TbButton",
-                               array(
-                                   "label"=>Yii::t("crud","Search"),
-                                   "icon"=>"icon-search",
-                                   "htmlOptions"=>array("class"=>"search-button")
-                           )
-                       );
-                    ?>
-                                    </div>
-                <?php endif; ?>                <?php $this->widget('bootstrap.widgets.TbButtonGroup', array(
+                    <div class="btn-group">
+                <?php $this->widget('bootstrap.widgets.TbButtonGroup', array(
+                       'size'=>'large',
                        'buttons' => array(
-                               array('label'=>Yii::t('crud','Relations'), 'icon'=>'icon-random', 'items'=>array(array('icon' => 'circle-arrow-left','label' => Yii::t('p3WidgetsModule.model','P3Widget'), 'url' =>array('/p3widgets/p3Widget/admin')),
+                               array(
+                                #'label'=>Yii::t('P3WidgetsModule.crud','Relations'),
+                                'icon'=>'icon-random',
+                                'items'=>array(array(
+                    'icon' => 'circle-arrow-left','label' => Yii::t('P3WidgetsModule.model','relation.P3Widget'), 'url' =>array('/p3widgets/p3Widget/admin')),
             )
           ),
         ),
     ));
 ?>            </div>
 
-                <?php endif; ?>
+        
         <div class="btn-group">
             <?php
              $this->widget("bootstrap.widgets.TbButton", array(
-                               "label"=>Yii::t("crud","Manage"),
+                           "label"=>Yii::t("P3WidgetsModule.crud","Manage"),
                            "icon"=>"icon-list-alt",
+                           "size"=>"large",
                            "url"=>array("admin"),
                            "visible"=>$showManageButton && Yii::app()->user->checkAccess("P3widgets.P3WidgetTranslation.View")
                         ));
@@ -74,42 +67,59 @@
         <div class="btn-group">
             <?php
                    $this->widget("bootstrap.widgets.TbButton", array(
-                       "label"=>Yii::t("crud","Cancel"),
+                       #"label"=>Yii::t("P3WidgetsModule.crud","Cancel"),
                        "icon"=>"chevron-left",
+                       "size"=>"large",
                        "url"=>(isset($_GET["returnUrl"]))?$_GET["returnUrl"]:array("{$this->id}/admin"),
-                       "visible"=>$showCancelButton && Yii::app()->user->checkAccess("P3widgets.P3WidgetTranslation.View")
+                       "visible"=>$showCancelButton && Yii::app()->user->checkAccess("P3widgets.P3WidgetTranslation.View"),
+                       "htmlOptions"=>array(
+                                       "class"=>"search-button",
+                                       "data-toggle"=>"tooltip",
+                                       "title"=>Yii::t("P3WidgetsModule.crud","Cancel"),
+                                   )
                     ));
                    $this->widget("bootstrap.widgets.TbButton", array(
-                        "label"=>Yii::t("crud","Create"),
+                        "label"=>Yii::t("P3WidgetsModule.crud","Create"),
                         "icon"=>"icon-plus",
+                        "size"=>"large",
+                        "type"=>"success",
                         "url"=>array("create"),
                         "visible"=>$showCreateButton && Yii::app()->user->checkAccess("P3widgets.P3WidgetTranslation.Create")
                    ));
                     $this->widget("bootstrap.widgets.TbButton", array(
-                        "label"=>Yii::t("crud","Delete"),
+                        "label"=>Yii::t("P3WidgetsModule.crud","Delete"),
                         "type"=>"danger",
-                        "icon"=>"icon-remove icon-white",
+                        "icon"=>"icon-trash icon-white",
+                        "size"=>"large",
                         "htmlOptions"=> array(
                             "submit"=>array("delete","id"=>$model->{$model->tableSchema->primaryKey}, "returnUrl"=>(Yii::app()->request->getParam("returnUrl"))?Yii::app()->request->getParam("returnUrl"):$this->createUrl("admin")),
-                            "confirm"=>Yii::t("crud","Do you want to delete this item?")
+                            "confirm"=>Yii::t("P3WidgetsModule.crud","Do you want to delete this item?")
                         ),
                         "visible"=> $showDeleteButton && Yii::app()->user->checkAccess("P3widgets.P3WidgetTranslation.Delete")
                     ));
                     $this->widget("bootstrap.widgets.TbButton", array(
-                        "label"=>Yii::t("crud","Update"),
+                        #"label"=>Yii::t("P3WidgetsModule.crud","Update"),
                         "icon"=>"icon-edit",
+                        "type"=>"primary",
+                        "size"=>"large",
                         "url"=>array("update","id"=>$model->{$model->tableSchema->primaryKey}),
                         "visible"=> $showUpdateButton && Yii::app()->user->checkAccess("P3widgets.P3WidgetTranslation.Update")
                     ));
                     $this->widget("bootstrap.widgets.TbButton", array(
-                        "label"=>Yii::t("crud","View"),
+                        #"label"=>Yii::t("P3WidgetsModule.crud","View"),
                         "icon"=>"icon-eye-open",
+                        "size"=>"large",
                         "url"=>array("view","id"=>$model->{$model->tableSchema->primaryKey}),
-                        "visible"=>$showViewButton && Yii::app()->user->checkAccess("P3widgets.P3WidgetTranslation.View")
+                        "visible"=>$showViewButton && Yii::app()->user->checkAccess("P3widgets.P3WidgetTranslation.View"),
+                        "htmlOptions"=>array(
+                                      "data-toggle"=>"tooltip",
+                                      "title"=>Yii::t("P3WidgetsModule.crud","View Mode"),
+                        )
                     ));
                     $this->widget("bootstrap.widgets.TbButton", array(
-                           "label"=>Yii::t("crud","Save"),
+                       "label"=>Yii::t("P3WidgetsModule.crud","Save"),
                        "icon"=>"save",
+                       "size"=>"large",
                        "type"=>"primary",
                        "htmlOptions"=> array(
                             "onclick"=>"$('.crud-form form').submit();",
@@ -117,6 +127,40 @@
                        "visible"=>$showSaveButton && Yii::app()->user->checkAccess("P3widgets.P3WidgetTranslation.View")
                     ));
              ?>        </div>
+        <?php if($this->action->id == 'admin'): ?>        <div class="btn-group">
+            
+            <?php
+                $this->widget(
+                       "bootstrap.widgets.TbButton",
+                       array(
+                           #"label"=>Yii::t("P3WidgetsModule.crud","Search"),
+                                   "icon"=>"icon-search",
+                                   "size"=>"large",
+                                   "htmlOptions"=>array(
+                                       "class"=>"search-button",
+                                       "data-toggle"=>"tooltip",
+                                       "title"=>Yii::t("P3WidgetsModule.crud","Advanced Search"),
+                                   )
+                           )
+                       );
+                    ?>
+                    <?php
+                $this->widget(
+                       "bootstrap.widgets.TbButton",
+                       array(
+                           #"label"=>Yii::t("P3WidgetsModule.crud","Clear"),
+                                   "icon"=>"icon-remove-sign",
+                                   "size"=>"large",
+                                   "url"=>Yii::app()->baseURL."/".Yii::app()->request->getPathInfo(),
+                                   "htmlOptions"=>array(
+                                      "data-toggle"=>"tooltip",
+                                      "title"=>Yii::t("P3WidgetsModule.crud","Clear Search"),
+                                   )
+                           )
+                       );
+                    ?>
+                            </div>
+        <?php endif; ?>
     </div>
 
 

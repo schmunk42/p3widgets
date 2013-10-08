@@ -77,19 +77,19 @@ abstract class BaseP3WidgetTranslation extends CActiveRecord
     public function attributeLabels()
     {
         return array(
-            'id' => Yii::t('model', 'ID'),
-            'p3_widget_id' => Yii::t('model', 'P3 Widget'),
-            'status' => Yii::t('model', 'Status'),
-            'language' => Yii::t('model', 'Language'),
-            'properties_json' => Yii::t('model', 'Properties Json'),
-            'content_html' => Yii::t('model', 'Content Html'),
-            'access_owner' => Yii::t('model', 'Access Owner'),
-            'access_read' => Yii::t('model', 'Access Read'),
-            'access_update' => Yii::t('model', 'Access Update'),
-            'access_delete' => Yii::t('model', 'Access Delete'),
-            'copied_from_id' => Yii::t('model', 'Copied From'),
-            'created_at' => Yii::t('model', 'Created At'),
-            'updated_at' => Yii::t('model', 'Updated At'),
+            'id' => Yii::t('P3WidgetsModule.model', 'ID'),
+            'p3_widget_id' => Yii::t('P3WidgetsModule.model', 'P3 Widget'),
+            'status' => Yii::t('P3WidgetsModule.model', 'Status'),
+            'language' => Yii::t('P3WidgetsModule.model', 'Language'),
+            'properties_json' => Yii::t('P3WidgetsModule.model', 'Properties Json'),
+            'content_html' => Yii::t('P3WidgetsModule.model', 'Content Html'),
+            'access_owner' => Yii::t('P3WidgetsModule.model', 'Access Owner'),
+            'access_read' => Yii::t('P3WidgetsModule.model', 'Access Read'),
+            'access_update' => Yii::t('P3WidgetsModule.model', 'Access Update'),
+            'access_delete' => Yii::t('P3WidgetsModule.model', 'Access Delete'),
+            'copied_from_id' => Yii::t('P3WidgetsModule.model', 'Copied From'),
+            'created_at' => Yii::t('P3WidgetsModule.model', 'Created At'),
+            'updated_at' => Yii::t('P3WidgetsModule.model', 'Updated At'),
         );
     }
 

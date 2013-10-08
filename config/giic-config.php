@@ -6,12 +6,12 @@ $appRoot = dirname(__FILE__) . '/../../../..';
 
 // define table list (eg. you don't need MANY_MANY tables)
 $tables = array(
-    'p3_widget' => 'p3Widget',
+    'p3_widget'             => 'p3Widget',
     'p3_widget_translation' => 'p3WidgetTranslation'
 );
 
 // define CRUDs
-$cruds  = $tables;
+$cruds = $tables;
 
 // init actions
 $actions = array();
@@ -20,20 +20,21 @@ $actions = array();
 foreach ($cruds AS $crud) {
     $actions[] = array(
         "codeModel" => "FullCrudCode",
-        "generator"=> 'vendor.phundament.gii-template-collection.fullCrud.FullCrudGenerator',
-        "templates"=> array(
-            'slim' => $appRoot.'/vendor/phundament/gii-template-collection/fullCrud/templates/slim',
+        "generator" => 'vendor.phundament.gii-template-collection.fullCrud.FullCrudGenerator',
+        "templates" => array(
+            'slim' => $appRoot . '/vendor/phundament/gii-template-collection/fullCrud/templates/slim',
         ),
-        "model"    => array(
-            "model"      => "vendor.phundament.p3Widgets.models." . ucfirst($crud),
-            "controller" => 'p3widgets/'.$crud,
-            'messageCatalog' => 'p3WidgetsModule.model',
-            'formLayout' => 'one-column',
-            'providers' => array(
+        "model"     => array(
+            "model"                  => "vendor.phundament.p3Widgets.models." . ucfirst($crud),
+            "controller"             => 'p3widgets/' . $crud,
+            'messageCatalog'         => 'P3WidgetsModule.model',
+            'messageCatalogStandard' => 'P3WidgetsModule.crud',
+            'formLayout'             => 'one-column',
+            'providers'              => array(
                 'vendor.phundament.gii-template-collection.fullCrud.providers.GtcPartialViewProvider',
                 'application.components.PhFieldProvider'
             ),
-            "template"   => "slim"
+            "template"               => "slim"
         )
     );
 }

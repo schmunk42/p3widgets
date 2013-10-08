@@ -51,11 +51,6 @@
     </div>
 
     <div class="row">
-        <?php echo $form->label($model, 'session_param'); ?>
-        <?php echo $form->textField($model, 'session_param', array('size' => 60, 'maxlength' => 128)); ?>
-    </div>
-
-    <div class="row">
         <?php echo $form->label($model, 'action_name'); ?>
         <?php echo $form->textField($model, 'action_name', array('size' => 60, 'maxlength' => 128)); ?>
     </div>
@@ -68,6 +63,11 @@
     <div class="row">
         <?php echo $form->label($model, 'module_id'); ?>
         <?php echo $form->textField($model, 'module_id', array('size' => 60, 'maxlength' => 128)); ?>
+    </div>
+
+    <div class="row">
+        <?php echo $form->label($model, 'session_param'); ?>
+        <?php echo $form->textField($model, 'session_param', array('size' => 60, 'maxlength' => 128)); ?>
     </div>
 
     <div class="row">
@@ -112,7 +112,7 @@
 
 
     <div class="row buttons">
-        <?php echo CHtml::submitButton(Yii::t('crud', 'Search')); ?>
+        <?php echo CHtml::submitButton(Yii::t('P3WidgetsModule.crud', 'Search')); ?>
     </div>
 
     <?php $this->endWidget(); ?>

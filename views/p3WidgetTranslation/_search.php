@@ -78,7 +78,7 @@
 
 
     <div class="row buttons">
-        <?php echo CHtml::submitButton(Yii::t('crud', 'Search')); ?>
+        <?php echo CHtml::submitButton(Yii::t('P3WidgetsModule.crud', 'Search')); ?>
     </div>
 
     <?php $this->endWidget(); ?>

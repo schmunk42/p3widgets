@@ -1,11 +1,11 @@
 <?php
 $this->setPageTitle(
-    Yii::t('p3WidgetsModule.model', 'P3 Widgets')
+    Yii::t('P3WidgetsModule.model', 'P3 Widgets')
     . ' - '
-    . Yii::t('crud', 'Manage')
+    . Yii::t('P3WidgetsModule.crud', 'Manage')
 );
 
-$this->breadcrumbs[] = Yii::t('p3WidgetsModule.model', 'P3 Widgets');
+$this->breadcrumbs[] = Yii::t('P3WidgetsModule.model', 'P3 Widgets');
 Yii::app()->clientScript->registerScript('search', "
     $('.search-button').click(function(){
         $('.search-form').toggle();
@@ -24,8 +24,8 @@ Yii::app()->clientScript->registerScript('search', "
 <?php $this->widget("TbBreadcrumbs", array("links" => $this->breadcrumbs)) ?>
     <h1>
 
-        <?php echo Yii::t('p3WidgetsModule.model', 'P3 Widgets'); ?>
-        <small><?php echo Yii::t('crud', 'Manage'); ?></small>
+        <?php echo Yii::t('P3WidgetsModule.model', 'P3 Widgets'); ?>
+        <small><?php echo Yii::t('P3WidgetsModule.crud', 'Manage'); ?></small>
 
     </h1>
 
@@ -111,21 +111,13 @@ $this->widget('TbGridView',
             ),
             array(
                 'class' => 'TbEditableColumn',
-                'name' => 'session_param',
-                'editable' => array(
-                    'url' => $this->createUrl('/p3widgets/p3Widget/editableSaver'),
-                    //'placement' => 'right',
-                )
-            ),
-            /*
-            array(
-                'class' => 'TbEditableColumn',
                 'name' => 'action_name',
                 'editable' => array(
                     'url' => $this->createUrl('/p3widgets/p3Widget/editableSaver'),
                     //'placement' => 'right',
                 )
             ),
+            /*
             array(
                 'class' => 'TbEditableColumn',
                 'name' => 'controller_id',
@@ -137,6 +129,14 @@ $this->widget('TbGridView',
             array(
                 'class' => 'TbEditableColumn',
                 'name' => 'module_id',
+                'editable' => array(
+                    'url' => $this->createUrl('/p3widgets/p3Widget/editableSaver'),
+                    //'placement' => 'right',
+                )
+            ),
+            array(
+                'class' => 'TbEditableColumn',
+                'name' => 'session_param',
                 'editable' => array(
                     'url' => $this->createUrl('/p3widgets/p3Widget/editableSaver'),
                     //'placement' => 'right',

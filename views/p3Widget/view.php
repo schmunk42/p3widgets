@@ -1,20 +1,20 @@
 <?php
     $this->setPageTitle(
-        Yii::t('p3WidgetsModule.model', 'P3 Widget')
+        Yii::t('P3WidgetsModule.model', 'P3 Widget')
         . ' - '
-        . Yii::t('crud', 'View')
+        . Yii::t('P3WidgetsModule.crud', 'View')
         . ': '   
         . $model->getItemLabel()            
 );    
-$this->breadcrumbs[Yii::t('p3WidgetsModule.model','P3 Widgets')] = array('admin');
+$this->breadcrumbs[Yii::t('P3WidgetsModule.model','P3 Widgets')] = array('admin');
 $this->breadcrumbs[$model->{$model->tableSchema->primaryKey}] = array('view','id' => $model->{$model->tableSchema->primaryKey});
-$this->breadcrumbs[] = Yii::t('crud', 'View');
+$this->breadcrumbs[] = Yii::t('P3WidgetsModule.crud', 'View');
 ?>
 
 <?php $this->widget("TbBreadcrumbs", array("links"=>$this->breadcrumbs)) ?>
     <h1>
-        <?php echo Yii::t('p3WidgetsModule.model','P3 Widget')?>
-    <small><?php echo Yii::t('crud','View')?> #<?php echo $model->id ?></small>
+        <?php echo Yii::t('P3WidgetsModule.model','P3 Widget')?>
+    <small><?php echo Yii::t('P3WidgetsModule.crud','View')?> #<?php echo $model->id ?></small>
         </h1>
 
 
@@ -25,7 +25,7 @@ $this->breadcrumbs[] = Yii::t('crud', 'View');
 <div class="row">
     <div class="span12">
         <h2>
-            <?php echo Yii::t('crud','Data')?>            <small>
+            <?php echo Yii::t('P3WidgetsModule.crud','Data')?>            <small>
                 <?php echo $model->itemLabel?>            </small>
         </h2>
 
@@ -144,19 +144,6 @@ array(
                         )
                     ),
 array(
-                        'name' => 'session_param',
-                        'type' => 'raw',
-                        'value' => $this->widget(
-                            'TbEditableField',
-                            array(
-                                'model' => $model,
-                                'attribute' => 'session_param',
-                                'url' => $this->createUrl('/p3widgets/p3Widget/editableSaver'),
-                            ),
-                            true
-                        )
-                    ),
-array(
                         'name' => 'action_name',
                         'type' => 'raw',
                         'value' => $this->widget(
@@ -196,17 +183,22 @@ array(
                         )
                     ),
 array(
-                        'name' => 'access_owner',
+                        'name' => 'session_param',
                         'type' => 'raw',
                         'value' => $this->widget(
                             'TbEditableField',
                             array(
                                 'model' => $model,
-                                'attribute' => 'access_owner',
+                                'attribute' => 'session_param',
                                 'url' => $this->createUrl('/p3widgets/p3Widget/editableSaver'),
                             ),
                             true
                         )
+                    ),
+array(
+                        'name' => 'access_owner',
+                        'type' => 'raw',
+                        'value' => $model->access_owner
                     ),
 array(
                         'name'=>'access_domain',
@@ -291,41 +283,17 @@ array(
 array(
                         'name' => 'copied_from_id',
                         'type' => 'raw',
-                        'value' => $this->widget(
-                            'TbEditableField',
-                            array(
-                                'model' => $model,
-                                'attribute' => 'copied_from_id',
-                                'url' => $this->createUrl('/p3widgets/p3Widget/editableSaver'),
-                            ),
-                            true
-                        )
+                        'value' => $model->copied_from_id
                     ),
 array(
                         'name' => 'created_at',
                         'type' => 'raw',
-                        'value' => $this->widget(
-                            'TbEditableField',
-                            array(
-                                'model' => $model,
-                                'attribute' => 'created_at',
-                                'url' => $this->createUrl('/p3widgets/p3Widget/editableSaver'),
-                            ),
-                            true
-                        )
+                        'value' => $model->created_at
                     ),
 array(
                         'name' => 'updated_at',
                         'type' => 'raw',
-                        'value' => $this->widget(
-                            'TbEditableField',
-                            array(
-                                'model' => $model,
-                                'attribute' => 'updated_at',
-                                'url' => $this->createUrl('/p3widgets/p3Widget/editableSaver'),
-                            ),
-                            true
-                        )
+                        'value' => $model->updated_at
                     ),
            ),
         )); ?>
@@ -335,7 +303,9 @@ array(
     <div class="row">
 
     <div class="span12">
-        <?php $this->renderPartial('_view-relations',array('model' => $model)); ?>    </div>
+        <div class="well">
+            <?php $this->renderPartial('_view-relations',array('model' => $model)); ?>        </div>
+    </div>
 </div>
 
 <?php $this->renderPartial("_toolbar", array("model"=>$model)); ?>

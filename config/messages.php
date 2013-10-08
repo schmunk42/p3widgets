@@ -6,7 +6,7 @@
 return array(
     'sourcePath'  => dirname(__FILE__) . DIRECTORY_SEPARATOR . '..',
     'messagePath' => dirname(__FILE__) . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'messages',
-    'languages'   => array('en', 'de', 'fr', 'ru', 'es', 'zh'),
+    'languages'   => array('en', 'de'),
     'fileTypes'   => array('php'),
     'overwrite'   => true,
     'exclude'     => array(
@@ -15,7 +15,9 @@ return array(
         'yiilite.php',
         'yiit.php',
         '/i18n/data',
+        '/config',
         '/messages',
+        '/migrations',
         '/extensions',
         '/tests',
     ),
