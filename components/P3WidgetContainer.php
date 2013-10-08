@@ -158,7 +158,7 @@ class P3WidgetContainer extends CWidget
                     true
                 );
             } else {
-
+                if (!$model->hasStatus('published')) continue;
                 $container .= $this->render(
                     'P3WidgetContainer.views.widgetDisplay',
                     array(
