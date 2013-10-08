@@ -39,10 +39,10 @@ class m131003_201804_unification extends EDbMigration
                  "container_id"            => "varchar(128) NOT NULL",
                  "rank"                    => "integer(11) NOT NULL default 0",
                  "request_param"           => "varchar(128) DEFAULT '*'",
-                 "session_param"           => "varchar(128) DEFAULT '*'",
                  "action_name"             => "varchar(128) NOT NULL DEFAULT '*'",
                  "controller_id"           => "varchar(128) NOT NULL DEFAULT '*'",
                  "module_id"               => "varchar(128) DEFAULT '*'",
+                 "session_param"           => "varchar(128) DEFAULT '*'",
                  // schmunk42/yii-access
                  "access_owner"            => "varchar(64) NOT NULL",
                  "access_domain"           => "varchar(8) NOT NULL",
@@ -96,7 +96,7 @@ class m131003_201804_unification extends EDbMigration
 
         // JOIN all three existing tables, use the first translation as default values
         $sqlStatement = "SELECT p3_widget_meta.*, p3_widget.*,
-          p3_widget_translation.properties, p3_widget_translation.content
+          p3_widget_translation.properties, p3_widget_translation.content, p3_widget_translation.language as t_lang
             FROM p3_widget
             LEFT JOIN p3_widget_meta ON p3_widget_meta.id = p3_widget.id
             LEFT JOIN p3_widget_translation ON p3_widget_translation.p3_widget_id =
@@ -120,6 +120,9 @@ class m131003_201804_unification extends EDbMigration
             $row['controllerId'] = str_replace("_ALL","*",$row['controllerId']);
             $row['moduleId'] = str_replace("_ALL","*",$row['moduleId']);
 
+            // use language from meta-data, unless the only joined record is not in the application language
+            $language = ($row['t_lang'] && ($row['t_lang'] != Yii::app()->language))?$row['t_lang']:$row['language'];
+
             $this->insert(
                 "_p3_widget_v0_17",
                 array(
@@ -141,7 +144,7 @@ class m131003_201804_unification extends EDbMigration
                      "status"                  => $status[$row['id']],
                      // schmunk42/yii-access
                      "access_owner"            => $owner[$row['id']],
-                     "access_domain"           => $row['language'],
+                     "access_domain"           => $language,
                      "access_read"             => $row['checkAccessRead'],
                      "access_update"           => $row['checkAccessUpdate'],
                      "access_delete"           => $row['checkAccessDelete'],
