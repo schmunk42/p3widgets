@@ -332,12 +332,22 @@ class P3WidgetContainer extends CWidget
         }
     }
 
-    private function getCacheDependency(){
+    private function getCacheDependency()
+    {
         $depFile = new CFileCacheDependency(__FILE__);
-        $depUpdate = new CDbCacheDependency("SELECT MAX(p3_widget_meta.modifiedAt) FROM p3_widget_meta");
-        $depUpdateTranslation = new CDbCacheDependency("SELECT MAX(p3_widget_translation.modifiedAt) FROM p3_widget_translation");
-        $depDelete = New CGlobalStateCacheDependency('p3extensions.behaviors.P3MetaDataBehavior:lastDelete:p3_widget');
-        $dependency = new CChainedCacheDependency(array($depFile, $depUpdate, $depUpdateTranslation, $depDelete));
+        $depUpdate            = new CDbCacheDependency("SELECT MAX(p3_widget.updated_at) FROM p3_widget");
+        $depUpdateTranslation = new CDbCacheDependency("SELECT MAX(p3_widget_translation.updated_at) FROM p3_widget_translation");
+        // TODO:
+        $depDelete            = new CGlobalStateCacheDependency('p3widgets.models.P3Widget:last_delete');
+        $depDeleteTranslation = new CGlobalStateCacheDependency('p3widgets.models.P3WidgetTranslation:last_delete');
+        // end TODO
+        $dependency = new CChainedCacheDependency(array(
+                                                       $depFile,
+                                                       $depUpdate,
+                                                       $depUpdateTranslation,
+                                                       $depDelete,
+                                                       $depDeleteTranslation
+                                                  ));
         return $dependency;
     }
 
