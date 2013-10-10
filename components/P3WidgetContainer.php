@@ -46,9 +46,14 @@ class P3WidgetContainer extends CWidget
     public $varyByRequestParam = null;
 
     /**
+     * Defines $_SESSION parameter for widget queries
+     * @var string
+     */
+    public $varyBySessionParam = null;
+
+    /**
      * Parameter for User checkAccess() to enable frontend editing,
      * set to 'false' if you want to disable this feature.
-     *
      * Note: You can only restrict access to a certain container **in the frontend** with this option!
      * @var string
      */
@@ -108,6 +113,14 @@ class P3WidgetContainer extends CWidget
             }
 
             $criteria->order = "rank ASC";
+            if ($this->varyBySessionParam !== null) {
+                $criteria->condition .= ' AND (session_param = :sessionParam OR session_param = :universalValue)';
+                if (isset($_GET[$this->varyBySessionParam])) {
+                    $widgetAttributes['session_param'] = $criteria->params[':sessionParam'] = $_GET[$this->varyBySessionParam];
+                } else {
+                    $criteria->params[':sessionParam'] = '';
+                }
+            }
 
             $models = P3Widget::model()->findAll($criteria);
             Yii::app()->cache->set($cacheId, $models, 0, $this->getCacheDependency());
