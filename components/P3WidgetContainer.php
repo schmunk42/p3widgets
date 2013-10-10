@@ -82,27 +82,31 @@ class P3WidgetContainer extends CWidget
         parent::run();
 
         // query widgets from database
-        $widgetAttributes    = array();
-        $cacheId = $this->getCacheId();
-        $cachedItems = Yii::app()->cache->get($cacheId);
+        $widgetAttributes = array();
+        $cacheId          = $this->getCacheId();
+        $cachedItems      = Yii::app()->cache->get($cacheId);
         if ($cachedItems !== false) {
             $models = $cachedItems;
         } else {
-            $criteria            = new CDbCriteria();
-            $criteria->params    = array(
+            $criteria         = new CDbCriteria();
+            $criteria->order  = "rank ASC";
+            $criteria->params = array(
                 ':universalValue' => self::UNIVERSAL_VALUE,
                 ':moduleId'       => ($this->controller->module !== null) ? $this->controller->module->id : '',
                 ':controllerId'   => $this->controller->id,
                 ':actionName'     => $this->controller->action->id,
                 ':containerId'    => $this->id,
-                ':domain'       => Yii::app()->language,
+                ':domain'         => Yii::app()->language,
             );
-            $moduleCondition = ($this->controller->module !== null)?"module_id = :moduleId":"module_id IS NULL";
+
+            // build condition
+            $moduleCondition     = ($this->controller->module !== null) ? "module_id = :moduleId" : "module_id IS NULL";
             $criteria->condition = '(access_domain = :domain OR access_domain = :universalValue) AND ' .
-                '('.$moduleCondition.' OR module_id = :universalValue) AND ' .
+                '(' . $moduleCondition . ' OR module_id = :universalValue) AND ' .
                 '(controller_id = :controllerId OR controller_id = :universalValue) AND ' .
                 '(action_name = :actionName OR action_name = :universalValue) AND ' .
                 'container_id = :containerId';
+
             if ($this->varyByRequestParam !== null) {
                 $criteria->condition .= ' AND (request_param = :requestParam OR request_param = :universalValue)';
                 if (isset($_GET[$this->varyByRequestParam])) {
@@ -111,8 +115,6 @@ class P3WidgetContainer extends CWidget
                     $criteria->params[':requestParam'] = '';
                 }
             }
-
-            $criteria->order = "rank ASC";
             if ($this->varyBySessionParam !== null) {
                 $criteria->condition .= ' AND (session_param = :sessionParam OR session_param = :universalValue)';
                 if (isset($_GET[$this->varyBySessionParam])) {
@@ -123,10 +125,15 @@ class P3WidgetContainer extends CWidget
             }
 
             $models = P3Widget::model()->findAll($criteria);
+            // update cache
             Yii::app()->cache->set($cacheId, $models, 0, $this->getCacheDependency());
         }
 
-        Yii::trace("Container '{$this->id}' has " . count($models) . " widget(s).", "p3widgets.components.P3WidgetContainer");
+
+        Yii::trace(
+            "Container '{$this->id}' has " . count($models) . " widget(s).",
+            "p3widgets.components.P3WidgetContainer"
+        );
         $widgetAttributes = CMap::mergeArray(
             $widgetAttributes,
             array(
@@ -141,9 +148,9 @@ class P3WidgetContainer extends CWidget
         // render widgets
         $container = "";
         foreach ($models AS $model) {
+            $token = 'Render Widget #'.$model->id.' '.$model->alias.' in '.$this->id;
             $properties = (is_array(CJSON::decode($model->properties_json))) ?
                 CJSON::decode($model->properties_json) : array();
-            $widget = $this->prepareWidget($model->alias, $properties, $model->content_html);
 
             // admin mode
             if (($this->checkAccess === false) || Yii::app()->user->checkAccess($this->checkAccess)) {
@@ -192,14 +199,10 @@ class P3WidgetContainer extends CWidget
 
 
 
-
         // render container (+widgets)
         if (($this->checkAccess === false) || Yii::app()->user->checkAccess($this->checkAccess)) {
-            // prepare Widget model attributes for add button
-
-
+            // js and css only needed for admin containers
             $this->registerClientScripts();
-
             $this->render(
                 'container',
                 array(
@@ -258,7 +261,11 @@ class P3WidgetContainer extends CWidget
             } catch (Exception $e) {
                 ob_end_clean();
                 restore_error_handler();
-                Yii::log("Error in widget '".$class."': ".$e->getMessage(), CLogger::LEVEL_ERROR, "p3widgets.components.P3WidgetContainer");
+                Yii::log(
+                    "Error in widget '" . $class . "': " . $e->getMessage(),
+                    CLogger::LEVEL_ERROR,
+                    "p3widgets.components.P3WidgetContainer"
+                );
                 $markup = "<div class='flash-warning'>Exception on beginWidget(): " . $e->getMessage() . "</div>";
                 if (Yii::app()->user->checkAccess($this->checkAccess)) {
                     return $markup;
@@ -280,7 +287,11 @@ class P3WidgetContainer extends CWidget
             } catch (Exception $e) {
                 ob_end_clean();
                 restore_error_handler();
-                Yii::log("Error in widget '".$class."': ".$e->getMessage(), CLogger::LEVEL_ERROR, "p3widgets.components.P3WidgetContainer");
+                Yii::log(
+                    "Error in widget '" . $class . "': " . $e->getMessage(),
+                    CLogger::LEVEL_ERROR,
+                    "p3widgets.components.P3WidgetContainer"
+                );
                 $markup = "<div class='flash-warning'>Exception on endWidget(): " . $e->getMessage() . "</div>";
                 if (Yii::app()->user->checkAccess($this->checkAccess)) {
                     return $markup;
@@ -305,28 +316,26 @@ class P3WidgetContainer extends CWidget
     {
         $cs = Yii::app()->getClientScript();
         $cs->registerCoreScript('jquery');
-        $cs->registerCoreScript('cookie'); // for disabled / enabled state
         $cs->registerCoreScript('jquery.ui');
+        $cs->registerCoreScript('cookie');
 
         // include admin CSS and JS
         $cssFile = Yii::app()->assetManager->publish(
             Yii::getPathOfAlias('p3widgets.themes.default') . DIRECTORY_SEPARATOR . 'container.css'
         );
         Yii::app()->clientScript->registerCssFile($cssFile);
+
         $jsFile = $this->renderInternal(
             Yii::getPathOfAlias('p3widgets.themes.default') . DIRECTORY_SEPARATOR . 'container.js',
             null,
             true
         );
         Yii::app()->clientScript->registerScript('P3WidgetContainer', $jsFile, CClientScript::POS_READY);
-
     }
 
     public function handleError($errno, $errstr, $errfile, $errline)
     {
         if (Yii::app()->user->checkAccess($this->checkAccess)) {
-
-
             if (!(error_reporting() & $errno)) {
                 // This error code is not included in error_reporting
                 return;
@@ -337,12 +346,10 @@ class P3WidgetContainer extends CWidget
                 case E_NOTICE:
                 case E_USER_NOTICE:
                     echo "<div class='flash-warning'> [$errno] $errstr</div>\n";
-
                     return true;
                     break;
                 default:
                     echo "<div class='flash-error'> [$errno] $errstr</div>\n";
-
                     return false;
                     break;
             }
@@ -355,7 +362,7 @@ class P3WidgetContainer extends CWidget
 
     private function getCacheDependency()
     {
-        $depFile = new CFileCacheDependency(__FILE__);
+        $depFile              = new CFileCacheDependency(__FILE__);
         $depUpdate            = new CDbCacheDependency("SELECT MAX(p3_widget.updated_at) FROM p3_widget");
         $depUpdateTranslation = new CDbCacheDependency("SELECT MAX(p3_widget_translation.updated_at) FROM p3_widget_translation");
         // TODO:
@@ -374,12 +381,16 @@ class P3WidgetContainer extends CWidget
 
     private function getCacheId()
     {
-        $id = Yii::app()->language.':';
+        $id = Yii::app()->language . ':';
         $id .= ($this->controller->module !== null) ? $this->controller->module->id : '*';
-        $id .= ':'.$this->controller->id .':'. $this->controller->action->id .':'. $this->id;
-        $id .= ':'.(($this->varyByRequestParam !== null) ? Yii::app()->request->getParam($this->varyByRequestParam) : '*');
-        $id .= ':'.(($this->checkAccess === false) || Yii::app()->user->checkAccess($this->checkAccess)?'admin':'display');
-        return 'p3widgets.components.P3WidgetContainer:'.$id;
+        $id .= ':' . $this->controller->id . ':' . $this->controller->action->id . ':' . $this->id;
+        $id .= ':' . (($this->varyByRequestParam !== null) ?
+                Yii::app()->request->getParam($this->varyByRequestParam) : '*');
+        $id .= ':' . (($this->varyBySessionParam !== null) ?
+                Yii::app()->request->getParam($this->varyBySessionParam) : '*');
+        $id .= ':' . (($this->checkAccess === false) || Yii::app()->user->checkAccess($this->checkAccess) ?
+                'admin' : 'display');
+        return 'p3widgets.components.P3WidgetContainer:' . $id;
     }
 }
 
