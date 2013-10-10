@@ -162,6 +162,9 @@ value to `NULL` with a skin file, to avoid conflicts with changing values in dev
 > Note: If you're using themes, define the skin file in the theme which is active for `p3widgets/p3Widget/...`.
 
 
+Error: `include(LoggableBehavior.php): failed to open stream: No such file or directory
+Fix: import class in config `vendor.sammaye.auditrail2.behaviors.LoggableBehavior`
+
 ##Screenshots
 ![Backend](http://demo.phundament.com/pub/p3widgets/p3widgets-0.1-01.png "Backend")
 ![Frontend](http://demo.phundament.com/pub/p3widgets/p3widgets-0.1-02.png "Frontend")
