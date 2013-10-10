@@ -78,11 +78,13 @@ $('#P3WidgetContainerShowControls A')
         $(this).toggleClass('edit view');
 
     });
+
+$('DIV.widget, DIV.widget-container').tooltip();
 if ($.cookie(ADMIN_CONTROLS_COOKIE_NAME) == 'show') {
     //alert('cookie');
     $('#P3WidgetContainerShowControls A').click();
 } else {
-    $('DIV.widget, DIV.widget-container').tooltip('disable') // Disable tooltips
+    $('DIV.widget, DIV.widget-container').tooltip('disable'); // Disable tooltips
 }
 
 
