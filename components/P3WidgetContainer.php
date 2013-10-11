@@ -92,7 +92,6 @@ class P3WidgetContainer extends CWidget
             $criteria->order  = "rank ASC";
             $criteria->params = array(
                 ':universalValue' => self::UNIVERSAL_VALUE,
-                ':moduleId'       => ($this->controller->module !== null) ? $this->controller->module->id : '',
                 ':controllerId'   => $this->controller->id,
                 ':actionName'     => $this->controller->action->id,
                 ':containerId'    => $this->id,
@@ -100,7 +99,13 @@ class P3WidgetContainer extends CWidget
             );
 
             // build condition
-            $moduleCondition     = ($this->controller->module !== null) ? "module_id = :moduleId" : "module_id IS NULL";
+            if ($this->controller->module !== null) {
+                $moduleCondition               = "module_id = :moduleId";
+                $criteria->params[':moduleId'] = $this->controller->module->id;
+            } else {
+                $moduleCondition = "module_id IS NULL";
+            }
+
             $criteria->condition = '(access_domain = :domain OR access_domain = :universalValue) AND ' .
                 '(' . $moduleCondition . ' OR module_id = :universalValue) AND ' .
                 '(controller_id = :controllerId OR controller_id = :universalValue) AND ' .
