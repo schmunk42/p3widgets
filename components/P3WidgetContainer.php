@@ -78,7 +78,7 @@ class P3WidgetContainer extends CWidget
      */
     function run()
     {
-        Yii::beginProfile('P3WidgetContainer::run()','p3pages.components');
+        Yii::beginProfile('P3WidgetContainer::run()', 'p3pages.components');
         parent::run();
 
         // query widgets from database
@@ -129,7 +129,9 @@ class P3WidgetContainer extends CWidget
                 }
             }
 
+            // get data
             $models = P3Widget::model()->findAll($criteria);
+
             // update cache
             Yii::app()->cache->set($cacheId, $models, 0, $this->getCacheDependency());
         }
@@ -153,13 +155,13 @@ class P3WidgetContainer extends CWidget
         // render widgets
         $container = "";
         foreach ($models AS $model) {
-            $token = 'Render Widget #'.$model->id.' '.$model->alias.' in '.$this->id;
+            $token      = 'Render Widget #' . $model->id . ' ' . $model->alias . ' in ' . $this->id;
             $properties = (is_array(CJSON::decode($model->properties_json))) ?
                 CJSON::decode($model->properties_json) : array();
 
             // admin mode
             if (($this->checkAccess === false) || Yii::app()->user->checkAccess($this->checkAccess)) {
-                Yii::beginProfile($token,'p3pages.components');
+                Yii::beginProfile($token, 'p3pages.components');
                 /*$content = "<div class='container-message'>";
                 $statusClass = 'label-'.$model->statusCssClass;
                 $content .= "<span class='label {$statusClass}'>Widget</span> ";
@@ -168,7 +170,7 @@ class P3WidgetContainer extends CWidget
                     $content .= "<span class='label {$translationStatusClass}'>Translation</span> ";
                 }
                 $content .= "</div>";*/
-                $widget     = $this->prepareWidget($model->alias, $properties, $model->content_html); // performance
+                $widget  = $this->prepareWidget($model->alias, $properties, $model->content_html); // performance
                 $content = "";
                 $content .= $widget;
 
@@ -188,8 +190,12 @@ class P3WidgetContainer extends CWidget
                 if (!$model->hasStatus('published')) {
                     continue;
                 }
-                Yii::beginProfile($token,'p3pages.components');
-                $widget     = $this->prepareWidget($model->alias, $properties, $model->content_html); // performance, don't even render for non-admins
+                Yii::beginProfile($token, 'p3pages.components');
+                $widget = $this->prepareWidget(
+                    $model->alias,
+                    $properties,
+                    $model->content_html
+                ); // performance, don't even render for non-admins
                 $container .= $this->render(
                     'P3WidgetContainer.views.widgetDisplay',
                     array(
@@ -199,9 +205,8 @@ class P3WidgetContainer extends CWidget
                     true
                 );
             }
-            Yii::endProfile($token,'p3pages.components');
+            Yii::endProfile($token, 'p3pages.components');
         }
-
 
 
         // render container (+widgets)
@@ -226,7 +231,7 @@ class P3WidgetContainer extends CWidget
                 false
             );
         }
-        Yii::endProfile('P3WidgetContainer::run()','p3pages.components');
+        Yii::endProfile('P3WidgetContainer::run()', 'p3pages.components');
     }
 
     /**
