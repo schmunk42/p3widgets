@@ -42,6 +42,9 @@ class P3Widget extends BaseP3Widget
                  'Access'           => array(
                      'class' => '\PhAccessBehavior'
                  ),
+                 'EventBridge' => array(
+                     'class'  => 'EventBridgeBehavior',
+                 ),
                  'LoggableBehavior' => array(
                      'class'   => 'vendor.sammaye.auditrail2.behaviors.LoggableBehavior',
                      'ignored' => array(
