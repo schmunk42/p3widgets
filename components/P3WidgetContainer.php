@@ -84,7 +84,7 @@ class P3WidgetContainer extends CWidget
         // query widgets from database
         $widgetAttributes = array();
         $cacheId          = $this->getCacheId();
-        $cachedItems      = Yii::app()->cache->get($cacheId);
+        $cachedItems      = false; //TODO: fix EventBrindge -- Yii::app()->cache->get($cacheId);
         if ($cachedItems !== false) {
             $models = $cachedItems;
         } else {
@@ -133,9 +133,8 @@ class P3WidgetContainer extends CWidget
             $models = P3Widget::model()->findAll($criteria);
 
             // update cache
-            Yii::app()->cache->set($cacheId, $models, 0, $this->getCacheDependency());
+            #TODO: fix unserializeable closure in Event-Bridge or do not cache whole models --- Yii::app()->cache->set($cacheId, $models, 0, $this->getCacheDependency());
         }
-
 
         Yii::trace(
             "Container '{$this->id}' has " . count($models) . " widget(s).",
@@ -162,6 +161,7 @@ class P3WidgetContainer extends CWidget
             // admin mode
             if (($this->checkAccess === false) || Yii::app()->user->checkAccess($this->checkAccess)) {
                 Yii::beginProfile($token, 'p3pages.components');
+                // status labels
                 /*$content = "<div class='container-message'>";
                 $statusClass = 'label-'.$model->statusCssClass;
                 $content .= "<span class='label {$statusClass}'>Widget</span> ";
