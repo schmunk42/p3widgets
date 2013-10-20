@@ -1,25 +1,25 @@
 // Apply another CSS class if a container and/or a widget is hovered
 $('.widget-container')
-    .mouseover(function () {
+    .mouseenter(function () {
         if ($('#P3WidgetContainerShowControls.view').length > 0 || $('.widget', this).length > 0) {
 
         } else {
             $(this).addClass('over');
         }
     })
-    .mouseout(function () {
+    .mouseleave(function () {
         $(this).removeClass('over');
     });
 
 $('.widget')
-    .mouseover(function () {
+    .mouseenter(function () {
         if ($('#P3WidgetContainerShowControls.view').length > 0) {
 
         } else {
             $(this).addClass('over');
         }
     })
-    .mouseout(function () {
+    .mouseleave(function () {
         $(this).removeClass('over');
     });
 
