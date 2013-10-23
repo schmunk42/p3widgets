@@ -132,7 +132,9 @@ class m131009_201804_unification extends EDbMigration
                      "module_id"               => ($row['moduleId'])?$row['moduleId']:'*',
                      "controller_id"           => ($row['controllerId'])?$row['controllerId']:'*',
                      "action_name"             => ($row['actionName'])?$row['actionName']:'*',
-                     "request_param"           => ($row['requestParam'])?$row['requestParam']:'*',
+
+                     "request_param"           => $row['requestParam'], // empty values are converted to NULL
+
                      "session_param"           => ($row['sessionParam'])?$row['sessionParam']:'*',
                      "container_id"            => $row['containerId'],
                      "rank"                    => $row['rank'],
