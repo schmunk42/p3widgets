@@ -23,7 +23,7 @@
                               'items' => array(
                                   array(
                                       'buttonType'  => 'link',
-                                      'label'       => 'Edit Widget <span class="label '.$model->statusCssClass.'">' . $model->status . '</span>',
+                                      'label'       => 'Edit Widget <span class="label label-'.$model->statusCssClass.'">' . $model->status . '</span>',
                                       'visible'     => $model->isUpdateable,
                                       'url'         => array(
                                           '/p3widgets/p3Widget/update',
@@ -61,7 +61,7 @@
                                   ),
                                   array(
                                       'buttonType'  => 'link',
-                                      'label' => 'Edit Translation <span class="label">' . $model->translationModel->status . '</span>',
+                                      'label' => 'Edit Translation <span class="label label-'.$model->translationModel->statusCssClass.'">' . $model->translationModel->status . '</span>',
                                       'visible'     => ($model->translationModel->isUpdateable && !$model->translationModel->isNewRecord),
                                       'url'         => array(
                                           '/p3widgets/p3WidgetTranslation/update',
@@ -83,7 +83,7 @@
 
 
         if ($model->isUpdateable) {
-            echo '<div class="handle">';
+            echo ' <div class="handle">';
             $this->widget(
                  'TbButton',
                      array(
@@ -147,13 +147,6 @@
                               'returnUrl' => Yii::app()->request->getUrl()
                           ),
                           'icon'        => 'plus',
-                          'htmlOptions' => array(
-                              'data-toggle'    => 'tooltip',
-                              'data-placement' => 'bottom',
-                              'title'          => "Create a new Widget in container {$this->id}"
-                          )
-                      ),
-                      array(
                           'items' => Yii::app()->getModule('p3widgets')->buildWidgetMenuItems($widgetAttributes)
                       ),
                   ),

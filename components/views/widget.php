@@ -1,6 +1,10 @@
 <div class="widget"
      data-toggle="tooltip"
-     title="<?php echo "{$model->alias} #{$model->id}" ?>"
+     data-html="true"
+     title="<?php echo "{$model->alias}
+        <span class='label label-{$model->statusCssClass}'><i class='icon icon-pencil'></i></span>
+        <span class='label label-{$model->translationModel->statusCssClass}'><i class='icon icon-flag'></i></span>
+        " ?>"
      id="<?php echo P3WidgetContainer::WIDGET_CSS_PREFIX . $model->id ?>">
 
     <?php $this->render(
