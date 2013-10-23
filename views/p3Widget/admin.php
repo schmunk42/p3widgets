@@ -29,8 +29,9 @@ Yii::app()->clientScript->registerScript('search', "
 
     </h1>
 
-<?php $this->renderPartial("_toolbar", array("model" => $model)); ?>
 
+<?php $this->renderPartial("_toolbar", array("model" => $model)); ?>
+<?php Yii::beginProfile('P3Widget.view.grid'); ?>
 
 
 <?php
@@ -39,7 +40,8 @@ $this->widget('TbGridView',
         'id' => 'p3-widget-grid',
         'dataProvider' => $model->search(),
         'filter' => $model,
-        'template' => '{pager}{summary}{items}{pager}',
+        #'responsiveTable' => true,
+        'template' => '{summary}{pager}{items}{pager}',
         'pager' => array(
             'class' => 'TbPager',
             'displayFirstAndLast' => true,
@@ -209,3 +211,4 @@ $this->widget('TbGridView',
     )
 );
 ?>
+<?php Yii::endProfile('P3Widget.view.grid'); ?>

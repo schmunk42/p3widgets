@@ -14,7 +14,11 @@ $this->breadcrumbs[] = Yii::t('P3WidgetsModule.crud', 'View');
 <?php $this->widget("TbBreadcrumbs", array("links"=>$this->breadcrumbs)) ?>
     <h1>
         <?php echo Yii::t('P3WidgetsModule.model','P3 Widget')?>
-    <small><?php echo Yii::t('P3WidgetsModule.crud','View')?> #<?php echo $model->id ?></small>
+        <small>
+            <?php echo $model->itemLabel ?>
+
+        </small>
+
         </h1>
 
 
@@ -26,7 +30,7 @@ $this->breadcrumbs[] = Yii::t('P3WidgetsModule.crud', 'View');
     <div class="span12">
         <h2>
             <?php echo Yii::t('P3WidgetsModule.crud','Data')?>            <small>
-                <?php echo $model->itemLabel?>            </small>
+                #<?php echo $model->id ?>            </small>
         </h2>
 
         <?php

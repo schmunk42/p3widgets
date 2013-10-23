@@ -16,8 +16,10 @@ $this->breadcrumbs[] = Yii::t('P3WidgetsModule.crud', 'Update');
         
         <?php echo Yii::t('P3WidgetsModule.model','P3 Widget'); ?>
         <small>
-            <?php echo Yii::t('P3WidgetsModule.crud','Update')?> #<?php echo $model->id ?>
+            <?php echo $model->itemLabel ?>
+
         </small>
+
         
     </h1>
 

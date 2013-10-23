@@ -1,3 +1,4 @@
+<?php Yii::beginProfile('P3WidgetTranslation.view.toolbar'); ?>
 
 <?php
     $showDeleteButton = (Yii::app()->request->getParam("id"))?true:false;
@@ -168,6 +169,7 @@
 
 
 <?php if($this->action->id == 'admin'): ?><div class="search-form" style="display:none">
-    <?php $this->renderPartial('_search',array('model' => $model,)); ?>
-</div>
+    <?php Yii::beginProfile('P3WidgetTranslation.view.toolbar.search'); ?>    <?php $this->renderPartial('_search',array('model' => $model,)); ?>
+    <?php Yii::endProfile('P3WidgetTranslation.view.toolbar.search'); ?></div>
 <?php endif; ?>
+<?php Yii::endProfile('P3WidgetTranslation.view.toolbar'); ?>
