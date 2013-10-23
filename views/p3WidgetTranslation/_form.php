@@ -53,19 +53,7 @@
                             <span class="tooltip-wrapper" data-toggle='tooltip' data-placement="right"
                                  title='<?php echo (($t = Yii::t('P3WidgetsModule.model', 'tooltip.p3_widget_id')) != 'tooltip.p3_widget_id')?$t:'' ?>'>
                                 <?php
-                            $this->widget(
-                '\GtcRelation',
-                array(
-                    'model' => $model,
-                    'relation' => 'p3Widget',
-                    'fields' => 'itemLabel',
-                    'allowEmpty' => true,
-                    'style' => 'dropdownlist',
-                    'htmlOptions' => array(
-                        'checkAll' => 'all'
-                    ),
-                )
-                );
+                            echo $form->textField($model,'p3_widget_id',array('disabled'=>'disabled'));
                             echo $form->error($model,'p3_widget_id')
                             ?>                            </span>
                         </div>

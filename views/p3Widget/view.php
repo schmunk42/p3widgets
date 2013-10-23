@@ -225,64 +225,19 @@ array(
                         )
                     ),
 array(
-                        'name'=>'access_read',
+                        'name' => 'access_read',
                         'type' => 'raw',
-                        'value' =>$this->widget(
-                            'TbEditableField',
-                            array(
-                                'model'=>$model,
-                                'emptytext' => 'Click to select',
-                                'type' => 'select',
-                                'source' => P3Widget::optsaccessread(),
-                                'attribute'=>'access_read',
-                                'url' => $this->createUrl('/p3widgets/p3Widget/editableSaver'),
-                                'select2' => array(
-                                    'placeholder' => 'Select...',
-                                    'allowClear' => true
-                                )
-                            ),
-                            true
-                        )
+                        'value' => $model->access_read
                     ),
 array(
-                        'name'=>'access_update',
+                        'name' => 'access_update',
                         'type' => 'raw',
-                        'value' =>$this->widget(
-                            'TbEditableField',
-                            array(
-                                'model'=>$model,
-                                'emptytext' => 'Click to select',
-                                'type' => 'select',
-                                'source' => P3Widget::optsaccessupdate(),
-                                'attribute'=>'access_update',
-                                'url' => $this->createUrl('/p3widgets/p3Widget/editableSaver'),
-                                'select2' => array(
-                                    'placeholder' => 'Select...',
-                                    'allowClear' => true
-                                )
-                            ),
-                            true
-                        )
+                        'value' => $model->access_update
                     ),
 array(
-                        'name'=>'access_delete',
+                        'name' => 'access_delete',
                         'type' => 'raw',
-                        'value' =>$this->widget(
-                            'TbEditableField',
-                            array(
-                                'model'=>$model,
-                                'emptytext' => 'Click to select',
-                                'type' => 'select',
-                                'source' => P3Widget::optsaccessdelete(),
-                                'attribute'=>'access_delete',
-                                'url' => $this->createUrl('/p3widgets/p3Widget/editableSaver'),
-                                'select2' => array(
-                                    'placeholder' => 'Select...',
-                                    'allowClear' => true
-                                )
-                            ),
-                            true
-                        )
+                        'value' => $model->access_delete
                     ),
 array(
                         'name' => 'copied_from_id',

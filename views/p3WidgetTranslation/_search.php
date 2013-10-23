@@ -12,7 +12,7 @@
 
     <div class="row">
         <?php echo $form->label($model, 'p3_widget_id'); ?>
-        <?php echo $form->textField($model, 'p3_widget_id'); ?>
+        <?php echo $form->textField($model,'p3_widget_id',array('disabled'=>'disabled')); ?>
     </div>
 
     <div class="row">
