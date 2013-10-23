@@ -43,6 +43,9 @@ class P3WidgetTranslation extends BaseP3WidgetTranslation
                  'Access'           => array(
                      'class' => '\PhAccessBehavior'
                  ),
+                 'EventBridge' => array(
+                     'class'  => 'EventBridgeBehavior',
+                 ),
                  'LoggableBehavior' => array(
                      'class'   => 'vendor.sammaye.auditrail2.behaviors.LoggableBehavior',
                      'ignored' => array(
@@ -109,7 +112,11 @@ class P3WidgetTranslation extends BaseP3WidgetTranslation
      */
     public static function optsLanguage()
     {
-        return (array)Yii::app()->params['languages'];
+        $langs = Yii::app()->params['languages'];
+        if (!is_array($langs)) {
+            $langs = array(Yii::app()->language => Yii::app()->language);
+        }
+        return $langs;
     }
 
     /**
