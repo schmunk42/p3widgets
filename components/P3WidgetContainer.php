@@ -169,7 +169,7 @@ class P3WidgetContainer extends CWidget
                     $translationStatusClass = 'label-'.$model->statusCssClass;
                     $content .= "<span class='label {$translationStatusClass}'>Translation</span> ";
                 }
-                $content .= "</div>";*/
+                $content .= "</div>"; */
                 $widget  = $this->prepareWidget($model->alias, $properties, $model->content_html); // performance
                 $content = "";
                 $content .= $widget;
@@ -191,7 +191,7 @@ class P3WidgetContainer extends CWidget
                     continue;
                 }
                 if (!$model->translationModel->hasStatus('published')) {
-                    $model->muted = true;
+                    $model->disableTranslationModel = true;
                 }
                 Yii::beginProfile($token, 'p3pages.components');
                 $widget = $this->prepareWidget(
@@ -376,6 +376,7 @@ class P3WidgetContainer extends CWidget
     private function getCacheDependency()
     {
         $depFile              = new CFileCacheDependency(__FILE__);
+
         $depUpdate            = new CDbCacheDependency("SELECT MAX(p3_widget.updated_at) FROM p3_widget");
         $depUpdateTranslation = new CDbCacheDependency("SELECT MAX(p3_widget_translation.updated_at) FROM p3_widget_translation");
         // TODO:
