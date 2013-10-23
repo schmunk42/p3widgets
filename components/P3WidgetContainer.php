@@ -190,6 +190,9 @@ class P3WidgetContainer extends CWidget
                 if (!$model->hasStatus('published')) {
                     continue;
                 }
+                if (!$model->translationModel->hasStatus('published')) {
+                    $model->muted = true;
+                }
                 Yii::beginProfile($token, 'p3pages.components');
                 $widget = $this->prepareWidget(
                     $model->alias,
