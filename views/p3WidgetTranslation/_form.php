@@ -48,6 +48,7 @@
                     <div class="control-group">
                         <div class='control-label'>
                             <?php echo $form->labelEx($model, 'p3_widget_id') ?>
+                            <?php echo $form->hiddenfield($model, 'p3_widget_id'); ?>
                         </div>
                         <div class='controls'>
                             <?php
