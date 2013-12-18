@@ -1,6 +1,6 @@
 <div class="crud-form">
 
-    
+
     <?php
         Yii::app()->bootstrap->registerAssetCss('../select2/select2.css');
         Yii::app()->bootstrap->registerAssetJs('../select2/select2.js');
@@ -17,7 +17,7 @@
 
         echo $form->errorSummary($model);
     ?>
-    
+
     <div class="row">
         <div class="span12">
             <h2>
@@ -50,12 +50,21 @@
                             <?php echo $form->labelEx($model, 'p3_widget_id') ?>
                         </div>
                         <div class='controls'>
-                            <span class="tooltip-wrapper" data-toggle='tooltip' data-placement="right"
-                                 title='<?php echo (($t = Yii::t('P3WidgetsModule.model', 'tooltip.p3_widget_id')) != 'tooltip.p3_widget_id')?$t:'' ?>'>
-                                <?php
-                            echo $form->textField($model,'p3_widget_id',array('disabled'=>'disabled'));
-                            echo $form->error($model,'p3_widget_id')
-                            ?>                            </span>
+                            <?php
+                            if ($model->p3Widget !== NULL) {
+                                echo CHtml::link(
+                                        '<i class="icon icon-circle-arrow-left"></i> ' . $model->p3Widget->itemLabel,
+                                        array('/p3widgets/p3Widget/view', 'id' => $model->p3Widget->id),
+                                        array('class' => '')) . ' ' . CHtml::link(
+                                        '<i class="icon icon-pencil"></i> ',
+                                        array('/p3widgets/p3Widget/update', 'id' => $model->p3Widget->id),
+                                        array('class' => ''));
+                            } else {
+                                echo 'n/a';
+                            }
+                            echo $form->error($model, 'p3_widget_id')
+                            ?>
+                            </span>
                         </div>
                     </div>
                     <?php  ?>
@@ -230,14 +239,14 @@
                         </div>
                     </div>
                     <?php  ?>
-                
+
             </div>
         </div>
         <!-- main inputs -->
 
             </div>
     <div class="row">
-        
+
         <div class="span12"><!-- sub inputs -->
             <div class="well">
             <!--<h2>
@@ -253,7 +262,7 @@
 
     <!-- TODO: We need the buttons inside the form, when a user hits <enter> -->
     <div class="form-actions" style="visibility: hidden; height: 1px">
-        
+
         <?php
             echo CHtml::Button(
             Yii::t('P3WidgetsModule.crud', 'Cancel'), array(
