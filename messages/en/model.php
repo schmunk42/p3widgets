@@ -73,6 +73,4 @@ return array (
   'tooltip.session_param' => '',
   'tooltip.status' => '',
   'tooltip.updated_at' => '',
-  'P3Widget' => '@@@@',
-  'P3WidgetTranslations' => '@@@@',
 );
