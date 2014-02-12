@@ -48,24 +48,14 @@
                     <div class="control-group">
                         <div class='control-label'>
                             <?php echo $form->labelEx($model, 'p3_widget_id') ?>
-                            <?php echo $form->hiddenfield($model, 'p3_widget_id'); ?>
                         </div>
                         <div class='controls'>
+                            <span class="tooltip-wrapper" data-toggle='tooltip' data-placement="right"
+                                 title='<?php echo (($t = Yii::t('P3WidgetsModule.model', 'tooltip.p3_widget_id')) != 'tooltip.p3_widget_id')?$t:'' ?>'>
                             <?php
-                            if ($model->p3Widget !== NULL) {
-                                echo CHtml::link(
-                                        '<i class="icon icon-circle-arrow-left"></i> ' . $model->p3Widget->itemLabel,
-                                        array('/p3widgets/p3Widget/view', 'id' => $model->p3Widget->id),
-                                        array('class' => '')) . ' ' . CHtml::link(
-                                        '<i class="icon icon-pencil"></i> ',
-                                        array('/p3widgets/p3Widget/update', 'id' => $model->p3Widget->id),
-                                        array('class' => ''));
-                            } else {
-                                echo 'n/a';
-                            }
+                            echo $form->textField($model,'p3_widget_id',array('disabled'=>'disabled'));
                             echo $form->error($model, 'p3_widget_id')
-                            ?>
-                            </span>
+                            ?>                            </span>
                         </div>
                     </div>
                     <?php  ?>
