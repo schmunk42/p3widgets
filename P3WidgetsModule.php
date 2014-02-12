@@ -48,7 +48,17 @@ class P3WidgetsModule extends CWebModule
     public function buildWidgetMenuItems($widgetAttributes)
     {
         $items = array();
-        foreach (Yii::app()->getModule('p3widgets')->params['widgets'] AS $alias => $name) {
+        foreach (Yii::app()->getModule('p3widgets')->params['widgets'] AS $alias => $config) {
+
+            if (is_array($config)) {
+                if (isset($config['checkAccess']) && !Yii::app()->user->checkAccess($config['checkAccess'])) {
+                    continue;
+                }
+                $name = $config['name'];
+            } else {
+                $name = $config;
+            }
+
             $widgetAttributes = CMap::mergeArray($widgetAttributes,array('alias'=>$alias,));
             $items[$name] = array(
                 'label'       => $name,

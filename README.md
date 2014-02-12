@@ -75,19 +75,25 @@ Available widgets from Yii, zii and yiiext:
 		'p3widgets' => array(
 			'params' => array(
 				'widgets' => array(
-					'zii.widgets.CMenu' => 'Menu',
-					'zii.widgets.CPortlet' => 'Portlet',
-					'ext.yiiext.widgets.fancybox.EFancyboxWidget' => 'Fancy Box',
-					'ext.yiiext.widgets.cycle.ECycleWidget' => 'Cycle',
-					'CFlexWidget' => 'Flex Widget',
+					'zii.widgets.CMenu'                             => 'Menu',
+					'zii.widgets.CPortlet'                          => 'Portlet',
+					'ext.yiiext.widgets.fancybox.EFancyboxWidget'   => 'Fancy Box',
+					'ext.yiiext.widgets.cycle.ECycleWidget'         => array(
+																			'name' => 'Cycle',
+																			'checkAccess' => 'Admin'
+																		),
+					'CFlexWidget'                                   => 'Flex Widget',
 					'ext.yiiext.widgets.swfobject.ESwfobjectWidget' => 'SWF Object',
-					'ext.yiiext.widgets.lipsum.ELipsum' => 'Lorem Ipsum Text',
+					'ext.yiiext.widgets.lipsum.ELipsum'             => 'Lorem Ipsum Text',
 				)
 			)
 		)
 	),
 ~~~
 
+If you want to add 'checkAccess' to a widget, just use the array notation. Use array key 'name' for the widget name,
+that appears in the widget dropdown. The array key 'checkAccess' to only allow specific users or groups access to
+a widget.
 
 5)
 Open /p3widgets/default/test or add a P3WidgetContainer to a view.
