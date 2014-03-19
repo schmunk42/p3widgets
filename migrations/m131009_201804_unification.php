@@ -45,7 +45,7 @@ class m131009_201804_unification extends EDbMigration
                       "session_param"           => "varchar(128) DEFAULT '*'",
                       // schmunk42/yii-access
                       "access_owner"            => "varchar(64) NOT NULL",
-                      "access_domain"           => "varchar(8)",
+                      "access_domain"           => "varchar(8) NOT NULL DEFAULT '*'",
                       "access_read"             => "varchar(256)",
                       "access_update"           => "varchar(256)",
                       "access_delete"           => "varchar(256)",
