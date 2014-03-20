@@ -146,7 +146,7 @@ class m131009_201804_unification extends EDbMigration
                           "status"                  => $status[$row['id']],
                           // schmunk42/yii-access
                           "access_owner"            => $owner[$row['id']],
-                          "access_domain"           => $language,
+                          "access_domain"           => ($language) ? $language : '*',
                           "access_read"             => $row['checkAccessRead'],
                           "access_update"           => $row['checkAccessUpdate'],
                           "access_delete"           => $row['checkAccessDelete'],
