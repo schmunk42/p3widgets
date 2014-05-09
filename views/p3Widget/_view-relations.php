@@ -33,7 +33,7 @@
 <ul>
 
     <?php
-    $records = $model->p3WidgetTranslations(array('limit' => 250, 'scopes' => ''));
+    $records = $model->p3WidgetTranslations(array('scopes' => ''));
     if (is_array($records)) {
         foreach ($records as $i => $relatedModel) {
             echo '<li>';

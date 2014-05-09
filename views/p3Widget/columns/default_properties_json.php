@@ -19,6 +19,20 @@ $script = <<<EOS
             }
         );
     }
+
+    function updateForm(){
+        $("#P3Widget_default_properties_json").jsoneditor('input');
+
+        url = "{$this->createUrl('/p3widgets/default/inputForm', array('alias' => '__ALIAS__'))}";
+        url = url.replace("__ALIAS__", $("#P3Widget_alias").val());
+        var promise = $.ajax(
+            url
+        );
+        $(form).serialize();
+        promise.done(function(data){
+            console.debug('data',data);
+        })
+    }
 EOS;
 
 Yii::app()->clientScript->registerScript(

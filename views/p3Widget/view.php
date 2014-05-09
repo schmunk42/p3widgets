@@ -86,13 +86,13 @@ array(
                         )
                     ),
 array(
-                        'name' => 'default_properties_json',
-                        'type' => 'raw',
+                        'name'  => 'default_properties_json',
+                        'type'  => 'raw',
                         'value' => $model->default_properties_json
                     ),
 array(
-                        'name' => 'default_content_html',
-                        'type' => 'raw',
+                        'name'  => 'default_content_html',
+                        'type'  => 'raw',
                         'value' => $model->default_content_html
                     ),
 array(
