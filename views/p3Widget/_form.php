@@ -1,10 +1,9 @@
 <div class="crud-form">
-
-    
+    <?php  ?>    
     <?php
-        Yii::app()->bootstrap->registerAssetCss('../select2/select2.css');
-        Yii::app()->bootstrap->registerAssetJs('../select2/select2.js');
-        Yii::app()->clientScript->registerScript('crud/variant/update','$(".crud-form select").select2();');
+        Yii::app()->bootstrap->registerPackage('select2');
+        Yii::app()->clientScript->registerScript('crud/variant/update','$("#p3-widget-form select").select2();');
+
 
         $form=$this->beginWidget('TbActiveForm', array(
             'id' => 'p3-widget-form',
@@ -29,7 +28,8 @@
 
             <div class="form-horizontal">
 
-                                    <?php  ?>
+                                    
+                    <?php  ?>
                     <div class="control-group">
                         <div class='control-label'>
                             <?php  ?>
@@ -44,7 +44,16 @@
                         </div>
                     </div>
                     <?php  ?>
-                                    <?php  ?>
+                                    
+                    <?php echo '
+  <div class="accordion-group">
+    <div class="accordion-heading">
+      <a class="accordion-toggle" data-toggle="collapse" data-parent="#widget_collapse" href="#collapseOne">
+        Daten
+      </a>
+    </div>
+    <div id="collapseOne" class="accordion-body collapse in">
+      <div class="accordion-inner">'; ?>
                     <div class="control-group">
                         <div class='control-label'>
                             <?php echo $form->labelEx($model, 'status') ?>
@@ -59,7 +68,8 @@
                         </div>
                     </div>
                     <?php  ?>
-                                    <?php  ?>
+                                    
+                    <?php  ?>
                     <div class="control-group">
                         <div class='control-label'>
                             <?php echo $form->labelEx($model, 'alias') ?>
@@ -74,7 +84,8 @@
                         </div>
                     </div>
                     <?php  ?>
-                                    <?php  ?>
+                                    
+                    <?php  ?>
                     <div class="control-group">
                         <div class='control-label'>
                             <?php echo $form->labelEx($model, 'default_properties_json') ?>
@@ -89,7 +100,8 @@
                         </div>
                     </div>
                     <?php  ?>
-                                    <?php  ?>
+                                    
+                    <?php  ?>
                     <div class="control-group">
                         <div class='control-label'>
                             <?php echo $form->labelEx($model, 'default_content_html') ?>
@@ -104,7 +116,8 @@
                         </div>
                     </div>
                     <?php  ?>
-                                    <?php  ?>
+                                    
+                    <?php  ?>
                     <div class="control-group">
                         <div class='control-label'>
                             <?php echo $form->labelEx($model, 'name_id') ?>
@@ -118,8 +131,17 @@
                             ?>                            </span>
                         </div>
                     </div>
-                    <?php  ?>
-                                    <?php echo '<h3>Position</h3>' ?>
+                    <?php echo '</div></div></div>' ?>
+                                    
+                    <?php echo '
+  <div class="accordion-group">
+    <div class="accordion-heading">
+      <a class="accordion-toggle" data-toggle="collapse" data-parent="#widget_collapse" href="#collapseTwo">
+        Position
+      </a>
+    </div>
+    <div id="collapseTwo" class="accordion-body collapse ">
+      <div class="accordion-inner">'; ?>
                     <div class="control-group">
                         <div class='control-label'>
                             <?php echo $form->labelEx($model, 'container_id') ?>
@@ -134,7 +156,8 @@
                         </div>
                     </div>
                     <?php  ?>
-                                    <?php  ?>
+                                    
+                    <?php  ?>
                     <div class="control-group">
                         <div class='control-label'>
                             <?php echo $form->labelEx($model, 'rank') ?>
@@ -149,7 +172,8 @@
                         </div>
                     </div>
                     <?php  ?>
-                                    <?php  ?>
+                                    
+                    <?php  ?>
                     <div class="control-group">
                         <div class='control-label'>
                             <?php echo $form->labelEx($model, 'request_param') ?>
@@ -164,7 +188,8 @@
                         </div>
                     </div>
                     <?php  ?>
-                                    <?php  ?>
+                                    
+                    <?php  ?>
                     <div class="control-group">
                         <div class='control-label'>
                             <?php echo $form->labelEx($model, 'action_name') ?>
@@ -179,7 +204,8 @@
                         </div>
                     </div>
                     <?php  ?>
-                                    <?php  ?>
+                                    
+                    <?php  ?>
                     <div class="control-group">
                         <div class='control-label'>
                             <?php echo $form->labelEx($model, 'controller_id') ?>
@@ -194,7 +220,8 @@
                         </div>
                     </div>
                     <?php  ?>
-                                    <?php  ?>
+                                    
+                    <?php  ?>
                     <div class="control-group">
                         <div class='control-label'>
                             <?php echo $form->labelEx($model, 'module_id') ?>
@@ -209,7 +236,8 @@
                         </div>
                     </div>
                     <?php  ?>
-                                    <?php  ?>
+                                    
+                    <?php  ?>
                     <div class="control-group">
                         <div class='control-label'>
                             <?php echo $form->labelEx($model, 'session_param') ?>
@@ -223,8 +251,17 @@
                             ?>                            </span>
                         </div>
                     </div>
-                    <?php  ?>
-                                    <?php echo '<h3>Access</h3>' ?>
+                    <?php echo '</div></div></div>' ?>
+                                    
+                    <?php echo '
+  <div class="accordion-group">
+    <div class="accordion-heading">
+      <a class="accordion-toggle" data-toggle="collapse" data-parent="#widget_collapse" href="#collapseThree">
+        Access
+      </a>
+    </div>
+    <div id="collapseThree" class="accordion-body collapse ">
+      <div class="accordion-inner">'; ?>
                     <div class="control-group">
                         <div class='control-label'>
                             <?php echo $form->labelEx($model, 'access_owner') ?>
@@ -239,7 +276,8 @@
                         </div>
                     </div>
                     <?php  ?>
-                                    <?php  ?>
+                                    
+                    <?php  ?>
                     <div class="control-group">
                         <div class='control-label'>
                             <?php echo $form->labelEx($model, 'access_domain') ?>
@@ -254,7 +292,8 @@
                         </div>
                     </div>
                     <?php  ?>
-                                    <?php  ?>
+                                    
+                    <?php  ?>
                     <div class="control-group">
                         <div class='control-label'>
                             <?php echo $form->labelEx($model, 'access_read') ?>
@@ -269,7 +308,8 @@
                         </div>
                     </div>
                     <?php  ?>
-                                    <?php  ?>
+                                    
+                    <?php  ?>
                     <div class="control-group">
                         <div class='control-label'>
                             <?php echo $form->labelEx($model, 'access_update') ?>
@@ -284,7 +324,8 @@
                         </div>
                     </div>
                     <?php  ?>
-                                    <?php  ?>
+                                    
+                    <?php  ?>
                     <div class="control-group">
                         <div class='control-label'>
                             <?php echo $form->labelEx($model, 'access_delete') ?>
@@ -299,7 +340,8 @@
                         </div>
                     </div>
                     <?php  ?>
-                                    <?php  ?>
+                                    
+                    <?php  ?>
                     <div class="control-group">
                         <div class='control-label'>
                             <?php echo $form->labelEx($model, 'copied_from_id') ?>
@@ -314,7 +356,8 @@
                         </div>
                     </div>
                     <?php  ?>
-                                    <?php  ?>
+                                    
+                    <?php  ?>
                     <div class="control-group">
                         <div class='control-label'>
                             <?php echo $form->labelEx($model, 'created_at') ?>
@@ -329,7 +372,8 @@
                         </div>
                     </div>
                     <?php  ?>
-                                    <?php  ?>
+                                    
+                    <?php  ?>
                     <div class="control-group">
                         <div class='control-label'>
                             <?php echo $form->labelEx($model, 'updated_at') ?>
@@ -343,7 +387,7 @@
                             ?>                            </span>
                         </div>
                     </div>
-                    <?php  ?>
+                    <?php echo '</div></div></div>' ?>
                 
             </div>
         </div>
@@ -385,5 +429,4 @@
         ?>
     </div>
 
-    <?php $this->endWidget() ?>
-</div> <!-- form -->
+    <?php $this->endWidget() ?>    <?php  ?></div> <!-- form -->

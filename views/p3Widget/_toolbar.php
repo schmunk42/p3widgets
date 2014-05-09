@@ -36,7 +36,8 @@
     <div class="btn-toolbar pull-right">
         <!-- relations -->
                     <div class="btn-group">
-                <?php $this->widget('bootstrap.widgets.TbButtonGroup', array(
+                <?php  if (!Yii::app()->user->checkAccess('P3widgets.P3Widget.SimpleUi') || Yii::app()->user->checkAccess('Admin')) {
+                        $this->widget('bootstrap.widgets.TbButtonGroup', array(
                        'size'=>'large',
                        'buttons' => array(
                                array(
@@ -48,6 +49,7 @@
           ),
         ),
     ));
+}
 ?>            </div>
 
         
@@ -58,7 +60,7 @@
                            "icon"=>"icon-list-alt",
                            "size"=>"large",
                            "url"=>array("admin"),
-                           "visible"=>$showManageButton && (Yii::app()->user->checkAccess("P3widgets.P3Widget.*") || Yii::app()->user->checkAccess("P3widgets.P3Widget.View"))
+                           "visible"=>$showManageButton && (Yii::app()->user->checkAccess("P3widgets.P3Widget.*") || Yii::app()->user->checkAccess("P3widgets.P3Widget.View")) && (!Yii::app()->user->checkAccess("P3widgets.P3Widget.SimpleUi") || Yii::app()->user->checkAccess("Admin"))
                         ));
          ?>        </div>
     </div>
@@ -99,7 +101,7 @@
                     ));
                     $this->widget("bootstrap.widgets.TbButton", array(
                         #"label"=>Yii::t("P3WidgetsModule.crud","Update"),
-                        "icon"=>"icon-edit",
+                        "icon"=>"icon-edit icon-white",
                         "type"=>"primary",
                         "size"=>"large",
                         "url"=>array("update","id"=>$model->{$model->tableSchema->primaryKey}),
@@ -118,7 +120,7 @@
                     ));
                     $this->widget("bootstrap.widgets.TbButton", array(
                        "label"=>Yii::t("P3WidgetsModule.crud","Save"),
-                       "icon"=>"save",
+                       "icon"=>"icon-thumbs-up icon-white",
                        "size"=>"large",
                        "type"=>"primary",
                        "htmlOptions"=> array(
