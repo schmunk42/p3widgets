@@ -37,7 +37,7 @@ class DefaultController extends Controller
         return array(
             array(
                 'allow',
-                'actions'    => array('index', 'classVars', 'updateOrder', 'playground', 'inputForm'),
+                'actions'    => array('index', 'classVars', 'updateOrder', 'playground'),
                 'expression' => 'Yii::app()->user->checkAccess("P3widgets.Default.*")',
             ),
             array(
@@ -65,8 +65,6 @@ class DefaultController extends Controller
     public function actionClassVars($alias)
     {
         $class = $this->createWidget($alias);
-//        CVarDumper::dump($class,10,true);
-//        exit;
         // collect vars from created widget
         foreach ($class AS $key => $prop) {
             $classVars[$key] = $prop;
@@ -75,13 +73,6 @@ class DefaultController extends Controller
 
         echo CJSON::encode($return);
     }
-
-//    public function actionInputForm($alias){
-//        $class = $this->createWidget($alias);
-//        echo $class->getForm();
-//        Yii::app()->end();
-//    }
-
 
     /**
      * Handles special values like NULL, false and true, so they can be edited with JSON editor (TODO)
