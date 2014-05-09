@@ -104,13 +104,13 @@ array(
                         )
                     ),
 array(
-                        'name' => 'properties_json',
-                        'type' => 'raw',
+                        'name'  => 'properties_json',
+                        'type'  => 'raw',
                         'value' => $model->properties_json
                     ),
 array(
-                        'name' => 'content_html',
-                        'type' => 'raw',
+                        'name'  => 'content_html',
+                        'type'  => 'raw',
                         'value' => $model->content_html
                     ),
 array(

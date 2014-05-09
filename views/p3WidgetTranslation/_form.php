@@ -1,10 +1,9 @@
 <div class="crud-form">
-
-
+    <?php  ?>    
     <?php
-        Yii::app()->bootstrap->registerAssetCss('../select2/select2.css');
-        Yii::app()->bootstrap->registerAssetJs('../select2/select2.js');
-        Yii::app()->clientScript->registerScript('crud/variant/update','$(".crud-form select").select2();');
+        Yii::app()->bootstrap->registerPackage('select2');
+        Yii::app()->clientScript->registerScript('crud/variant/update','$("#p3-widget-translation-form select").select2();');
+
 
         $form=$this->beginWidget('TbActiveForm', array(
             'id' => 'p3-widget-translation-form',
@@ -17,7 +16,7 @@
 
         echo $form->errorSummary($model);
     ?>
-
+    
     <div class="row">
         <div class="span12">
             <h2>
@@ -29,7 +28,8 @@
 
             <div class="form-horizontal">
 
-                                    <?php  ?>
+                                    
+                    <?php  ?>
                     <div class="control-group">
                         <div class='control-label'>
                             <?php  ?>
@@ -44,7 +44,8 @@
                         </div>
                     </div>
                     <?php  ?>
-                                    <?php  ?>
+                                    
+                    <?php  ?>
                     <div class="control-group">
                         <div class='control-label'>
                             <?php echo $form->labelEx($model, 'p3_widget_id') ?>
@@ -52,14 +53,23 @@
                         <div class='controls'>
                             <span class="tooltip-wrapper" data-toggle='tooltip' data-placement="right"
                                  title='<?php echo (($t = Yii::t('P3WidgetsModule.model', 'tooltip.p3_widget_id')) != 'tooltip.p3_widget_id')?$t:'' ?>'>
-                            <?php
+                                <?php
                             echo $form->textField($model,'p3_widget_id',array('disabled'=>'disabled'));
-                            echo $form->error($model, 'p3_widget_id')
+                            echo $form->error($model,'p3_widget_id')
                             ?>                            </span>
                         </div>
                     </div>
                     <?php  ?>
-                                    <?php  ?>
+                                    
+                    <?php echo '
+  <div class="accordion-group">
+    <div class="accordion-heading">
+      <a class="accordion-toggle" data-toggle="collapse" data-parent="#widget_collapse" href="#collapseOne">
+        Daten
+      </a>
+    </div>
+    <div id="collapseOne" class="accordion-body collapse in">
+      <div class="accordion-inner">'; ?>
                     <div class="control-group">
                         <div class='control-label'>
                             <?php echo $form->labelEx($model, 'status') ?>
@@ -74,7 +84,8 @@
                         </div>
                     </div>
                     <?php  ?>
-                                    <?php  ?>
+                                    
+                    <?php  ?>
                     <div class="control-group">
                         <div class='control-label'>
                             <?php echo $form->labelEx($model, 'language') ?>
@@ -89,7 +100,8 @@
                         </div>
                     </div>
                     <?php  ?>
-                                    <?php  ?>
+                                    
+                    <?php  ?>
                     <div class="control-group">
                         <div class='control-label'>
                             <?php echo $form->labelEx($model, 'properties_json') ?>
@@ -110,7 +122,8 @@
                         </div>
                     </div>
                     <?php  ?>
-                                    <?php  ?>
+                                    
+                    <?php  ?>
                     <div class="control-group">
                         <div class='control-label'>
                             <?php echo $form->labelEx($model, 'content_html') ?>
@@ -125,7 +138,16 @@
                         </div>
                     </div>
                     <?php  ?>
-                                    <?php echo '<h3>Access</h3>' ?>
+                                    
+                    <?php echo '
+  <div class="accordion-group">
+    <div class="accordion-heading">
+      <a class="accordion-toggle" data-toggle="collapse" data-parent="#widget_collapse" href="#collapseThree">
+        Access
+      </a>
+    </div>
+    <div id="collapseThree" class="accordion-body collapse ">
+      <div class="accordion-inner">'; ?>
                     <div class="control-group">
                         <div class='control-label'>
                             <?php echo $form->labelEx($model, 'access_owner') ?>
@@ -140,7 +162,8 @@
                         </div>
                     </div>
                     <?php  ?>
-                                    <?php  ?>
+                                    
+                    <?php  ?>
                     <div class="control-group">
                         <div class='control-label'>
                             <?php echo $form->labelEx($model, 'access_read') ?>
@@ -155,7 +178,8 @@
                         </div>
                     </div>
                     <?php  ?>
-                                    <?php  ?>
+                                    
+                    <?php  ?>
                     <div class="control-group">
                         <div class='control-label'>
                             <?php echo $form->labelEx($model, 'access_update') ?>
@@ -170,7 +194,8 @@
                         </div>
                     </div>
                     <?php  ?>
-                                    <?php  ?>
+                                    
+                    <?php  ?>
                     <div class="control-group">
                         <div class='control-label'>
                             <?php echo $form->labelEx($model, 'access_delete') ?>
@@ -185,7 +210,8 @@
                         </div>
                     </div>
                     <?php  ?>
-                                    <?php  ?>
+                                    
+                    <?php  ?>
                     <div class="control-group">
                         <div class='control-label'>
                             <?php echo $form->labelEx($model, 'copied_from_id') ?>
@@ -200,7 +226,8 @@
                         </div>
                     </div>
                     <?php  ?>
-                                    <?php  ?>
+                                    
+                    <?php  ?>
                     <div class="control-group">
                         <div class='control-label'>
                             <?php echo $form->labelEx($model, 'created_at') ?>
@@ -215,7 +242,8 @@
                         </div>
                     </div>
                     <?php  ?>
-                                    <?php  ?>
+                                    
+                    <?php  ?>
                     <div class="control-group">
                         <div class='control-label'>
                             <?php echo $form->labelEx($model, 'updated_at') ?>
@@ -229,15 +257,15 @@
                             ?>                            </span>
                         </div>
                     </div>
-                    <?php  ?>
-
+                    <?php echo '</div></div></div>' ?>
+                
             </div>
         </div>
         <!-- main inputs -->
 
             </div>
     <div class="row">
-
+        
         <div class="span12"><!-- sub inputs -->
             <div class="well">
             <!--<h2>
@@ -253,7 +281,7 @@
 
     <!-- TODO: We need the buttons inside the form, when a user hits <enter> -->
     <div class="form-actions" style="visibility: hidden; height: 1px">
-
+        
         <?php
             echo CHtml::Button(
             Yii::t('P3WidgetsModule.crud', 'Cancel'), array(
@@ -266,5 +294,4 @@
         ?>
     </div>
 
-    <?php $this->endWidget() ?>
-</div> <!-- form -->
+    <?php $this->endWidget() ?>    <?php  ?></div> <!-- form -->
